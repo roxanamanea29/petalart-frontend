@@ -1,0 +1,225 @@
+
+body{
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: #ffffff
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+    background-color: #f8f6f6;
+    padding: 40px;
+    border-radius: 20px;
+    position: relative;
+    margin-left: 450px;
+
+}
+
+/* Estilo para el título */
+h2 {
+    font-size: 28px;
+    color: royalblue;
+    font-weight: 800;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+h2::before,
+h2::after {
+    left: -5px; /* Mueve el punto más a la izquierda */
+    top: 5%; /* Lo centra verticalmente */
+    transform: translateY(-50%);
+}
+
+ Animación pulse,
+h2::before {
+    width: 18px;
+    height: 18px;
+
+
+}
+
+h2::after {
+    width: 18px;
+    height: 18px;
+    animation: pulse 1s linear infinite;
+
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.7);
+        opacity: 0.5;
+    }
+    to {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+
+/* Formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilos para los inputs */
+form label {
+    position: relative;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+form label input {
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px 10px 20px 10px;
+    outline: 0;
+}
+
+form label input + span {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: grey;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+}
+/*.lab{
+    color: rgb(105, 102, 102);
+    font-size: 14px;
+
+}
+.input{
+    background-color: #fbfbfd;
+    color: #242424;
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px 10px 20px 10px;
+    outline: 0;
+    margin-right: 20px;
+}*/
+/* input:not(.input)Estilo para los labels */
+.lab {
+    color: rgb(105, 102, 102); /* Color gris para el texto */
+    font-size: 14px;
+}
+.lab:not(.lab) {
+    color: rgb(105, 102, 102); /* Color gris para el texto */
+    font-size: 14px;
+}
+
+
+/* Estilo para los inputs de tipo email y password */
+.input {
+    background-color: #fbfbfd;
+    color: #242424; /* Color del texto dentro del input */
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+    width: 80%;
+    padding: 10px 10px 20px 10px;
+    outline: 0;
+    margin-right: 20px;
+}
+
+form label span {
+    color: #242424; /* Asegura que el texto del label sea visible */
+}
+
+/* Estilo general para los inputs sin la clase 'input' */
+input {
+    background-color: #fbfbfd;
+    color: #242424; /* Color del texto dentro del input */
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+    width: 80%;
+    padding: 10px 10px 20px 10px;
+    outline: 0;
+    margin-right: 20px;
+}
+
+/* Estilo para los inputs sin la clase 'input' */
+input:not(.input) {
+    background-color: #fbfbfd;  /* Fondo diferente */
+    color: #333;  /* Color del texto en inputs sin la clase 'input' */
+}
+
+/* Estilo para cuando el input tiene el foco */
+input:not(.input):focus {
+    border-color: royalblue;  /* Cambia el borde al enfocar */
+}
+
+form label input:placeholder-shown + span {
+    top: 15px;
+    font-size: 0.9em;
+}
+
+form label input:focus + span,
+form label input:valid + span {
+    top: 30px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+form label input:valid + span {
+    color: green;
+}
+
+/* Botón */
+button, .submit {
+    border: none;
+    outline: none;
+    background-color: royalblue;
+    padding: 10px;
+    border-radius: 10px;
+    color: #f6f4f4;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+button:hover, .submit:hover {
+    transform: scale(1.1);
+}
+
+/* Estilo para mensajes de error */
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* Estilo para enlaces */
+.signin {
+    color: rgba(88, 87, 87, 0.822);
+    font-size: 14px;
+    text-align: center;
+}
+
+.signin a {
+    color: royalblue;
+}
+
+.signin a:hover {
+    text-decoration: underline royalblue;
+
+}
+.register_link{
+    color: royalblue;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+

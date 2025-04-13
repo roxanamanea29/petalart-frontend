@@ -1,0 +1,87 @@
+.navbar {
+    display: flex;
+    justify-content: center; /* Centrar el contenido horizontalmente */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.menu-button {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;  /* Cambiar a "absolute" para dejarlo en la esquina */
+    left: 20px;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;  /* Hacer que el logo y los iconos estén en columna */
+    align-items: center;  /* Centrar el contenido dentro de la columna */
+    gap: 10px;  /* Espacio entre el logo y los iconos */
+    flex-grow: 1;  /* Esto ayuda a que el logo y los iconos ocupen el espacio restante */
+}
+
+.logo {
+    width: 120px;  /* Hacer el logo un poco más grande */
+    height: auto;
+}
+
+.icons-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.icon {
+    color: black;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.icon:hover {
+    color: gray;
+}
+
+.right-space {
+    width: 30px;
+}
+
+/* Estilos del menú */
+.bm-menu-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.bm-menu {
+    background-color: #fff;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+    max-width: 300px;
+    z-index: 10000;
+}
+
+.bm-item-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.bm-item {
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+    color: black;
+}
+
+.bm-item:hover {
+    background-color: #ddd;
+}

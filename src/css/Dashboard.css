@@ -1,0 +1,53 @@
+.dashboard {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.section-title {
+    margin-bottom: 20px;
+}
+h22{
+    font-size: 28px;
+    color: royalblue;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+.cards {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    padding: 5%;
+    margin: 0 auto;
+}
+
+.card {
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+.card-text {
+    padding: 15px;
+}
+
+.card-text h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.card-text p {
+    margin: 5px 0 0;
+    color: gray;
+}
