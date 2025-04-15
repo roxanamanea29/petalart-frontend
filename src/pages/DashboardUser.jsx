@@ -1,47 +1,24 @@
-import React from "react";// Importo React
-import "../css/Dashboard.css";
-import Footer from "../components/Footer.jsx";
 import NavbarH from "../components/NavbarH.jsx";
-import { useProfile } from "../hooks/useProfile"; // Importamos el hook
+import Footer from "../components/Footer.jsx";
 
-const Dashboard = () => {
-    const { profile, loading } = useProfile(); // Obtenemos los datos del usuario
 
+const DashboardUser = () => {
     return (
-        <div className="dashboard">
-            <NavbarH />
-            <div className="section-title">
-                <h2 className="h22">PetalArt</h2>
-                <p>VENTA DE FLORES Y PLANTAS - EVENTOS</p>
+        <>
 
-                {loading ? (
-                    <p>Cargando usuario...</p>
-                ) : profile ? (
-                    <p>Bienvenido, <strong>{profile.name}</strong>!</p>
-                ) : (
-                    <p>No se pudo cargar el perfil.</p>
-                )}
-            </div>
-
-            <div className="cards">
-                <div className="card">
-                    <img src="https://source.unsplash.com/400x250/?flowers" alt="Flores Naturales"/>
-                    <div className="card-text">
-                        <h3>FLORES NATURALES</h3>
-                        <p>Ramos y centros de flores naturales</p>
-                    </div>
-                </div>
-                <div className="card">
-                    <img src="https://source.unsplash.com/400x250/?wedding-bouquet" alt="Ramos Novia"/>
-                    <div className="card-text">
-                        <h3>RAMOS NOVIA</h3>
-                        <p>Ramos novia y damas de honor</p>
-                    </div>
-                </div>
-            </div>
-            <Footer/>
+        <NavbarH />
+        <div>
+            <h1>Dashboard de usuario</h1>
+            <p>Bienvenido a tu cuenta de usuario.</p>
+            <h2>Opciones disponibles:</h2>
+            <ul>
+                <li>Ver pedidos</li>
+                <li>Editar perfil</li>
+                <li>Cambiar contraseña</li>
+            </ul>
         </div>
+            <Footer />
+        </>
     );
-};
-
-export default Dashboard;
+}
+export default DashboardUser;

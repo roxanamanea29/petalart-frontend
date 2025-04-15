@@ -1,40 +1,27 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
-// Crear el contexto
 const AuthContext = createContext();
 
-// Crear un proveedor de contexto
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState({ isAuthenticated: false, role: '' });
+    const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        // Intenta recuperar el token y el rol del localStorage (o cualquier otra forma)
-        const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
-
-        if (token && role) {
-            setAuth({ isAuthenticated: true, role });
-        }
-    }, []);
-
-    const login = (token, role) => {
-        localStorage.setItem('token', token);
-        localStorage.setItem('role', role);
-        setAuth({ isAuthenticated: true, role });
+    const login = (token, roles) => {
+        setUser({ token, roles });
+        localStorage.setItem("token", token);
+        localStorage.setItem("roles", JSON.stringify(roles));
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('role');
-        setAuth({ isAuthenticated: false, role: '' });
+        setUser(null);
+        localStorage.removeItem("token");
+        localStorage.removeItem("roles");
     };
 
     return (
-        <AuthContext.Provider value={{ auth, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
 
-// Hook para acceder al contexto
 export const useAuth = () => useContext(AuthContext);

@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { slide as Menu } from "react-burger-menu";
 import { FiMenu } from "react-icons/fi";
 import { FaUser, FaShoppingBag, FaSearch } from "react-icons/fa";
-import logo from "../assets/q.png";
-import "../css/NavbarH.css";
-import { useNavigate } from 'react-router-dom';
+import logo from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 
 const NavbarH = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -12,54 +11,86 @@ const NavbarH = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem("authToken");
         setIsAuthenticated(!!token);
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('authToken');
+        localStorage.removeItem("authToken");
         setIsAuthenticated(false);
-        navigate('/');
+        navigate("/");
     };
 
     return (
-        <nav className="navbar">
-            <div className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
-                <FiMenu size={30} color="black" />
-            </div>
+        <div className="w-screen bg-white shadow-md z-50 relative">
+            {/* Navbar contenido principal */}
+            <nav className="flex items-center justify-between px-6 py-4 w-screen bg-white shadow-md">
+                {/* Botón hamburguesa */}
+                <button
+                    onClick={() => setMenuOpen(true)}
+                    className="text-black text-2xl  bg-transparent border-none shadow-none outline-none focus:outline-none active:outline-none"
+                >
+                    <FiMenu />
+                </button>
 
-            <div className="logo-container">
-                <img src={logo} alt="Logo" className="logo" />
-
-                <div className="icons-container">
-                    <FaUser className="icon" />
-                    <FaShoppingBag className="icon" />
-                    <FaSearch className="icon" />
+                {/* Logo */}
+                <div className="flex justify-center flex-grow md:flex-none">
+                    <img src={logo} alt="Logo" className="h-12 w-auto" />
                 </div>
-            </div>
 
-            <div className="right-space"></div>
+                {/* Iconos */}
+                <div className="hidden md:flex items-center gap-6 text-gray-700 text-lg">
+                    <FaUser className="cursor-pointer hover:text-black" />
+                    <FaShoppingBag className="cursor-pointer hover:text-black" />
+                    <FaSearch className="cursor-pointer hover:text-black" />
+                </div>
+            </nav>
 
+            {/* Menú lateral (react-burger-menu) */}
             <Menu
+                left
                 isOpen={menuOpen}
                 onStateChange={({ isOpen }) => setMenuOpen(isOpen)}
-                right={false}  // Menú a la izquierda
                 width={270}
-                onMouseLeave={() => setMenuOpen(false)} // Al salir del menú se cierra
+               /* overlayClassName="bm-overlay !bg-black/40 !z-40"*/
+                className="!bg-white text-lg p-6"
             >
-                <a className="menu-item" href="/" onClick={() => setMenuOpen(false)}>Inicio</a>
-                <a className="menu-item" href="/categories" onClick={() => setMenuOpen(false)}>Productos</a>
-                <a className="menu-item" href="/contacto" onClick={() => setMenuOpen(false)}>Contacto</a>
+                <a className="block py-2" href="/" onClick={() => setMenuOpen(false)}>
+                    Inicio
+                </a>
+                <a
+                    className="block py-2"
+                    href="/categories"
+                    onClick={() => setMenuOpen(false)}
+                >
+                    Categorías
+                </a>
+                <a
+                    className="block py-2"
+                    href="/contact"
+                    onClick={() => setMenuOpen(false)}
+                >
+                    Contacto
+                </a>
 
-                {!isAuthenticated && (
-                    <a href="/login" onClick={() => setMenuOpen(false)}>Login</a>
-                )}
-
-                {isAuthenticated && (
-                    <button onClick={handleLogout}>Cerrar sesión</button>
+                {!isAuthenticated ? (
+                    <a
+                        className="block py-2"
+                        href="/login"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Login
+                    </a>
+                ) : (
+                    <button
+                        onClick={handleLogout}
+                        className="block py-2 text-left w-full text-red-600 hover:underline"
+                    >
+                        Cerrar sesión
+                    </button>
                 )}
             </Menu>
-        </nav>
+        </div>
     );
 };
 

@@ -1,35 +1,50 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./AuthContext"; // Asegúrate de importar AuthProvider
-import ProtectedRoute from "./components/ProtectedRoute"; // Ruta protegida
-import LoginForm from "./pages/auth/LoginForm.jsx";
-import Dashboard_admin from "./pages/admin/Dashboard_admin.jsx";
-import Dashboard from "./pages/Dashboard.jsx"; // Dashboard de usuario
-import ErrorBoundary from "./components/ErrorBoundary.jsx";
+import {BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter} from "react-router-dom";
+import { AuthProvider } from "./AuthContext";
+import ProtectedRoute from "./routes/ProtectedRoute";
+
+// Vistas
+import LoginForm from "./pages/LoginForm";
+import PublicHome from "./pages/PublicHome";
+import DashboardUser from "./pages/DashboardUser";
+import DashboardAdmin from "./pages/admin/DashboardAdmin";
+import CategoryProducts from "@/components/CategoryProducts.jsx";
+
+/*import ProductosCrud from "./pages/admin/ProductosCrud";
+import CategoriasCrud from "./pages/admin/CategoriasCrud";*/
 
 function App() {
     return (
+        <>
+
         <AuthProvider>
+
             <Router>
-                    <Routes>
-                        <Route path="/login" element={<LoginForm />} />
+                <Routes>
 
-                        {/* Ruta protegida para Admin */}
-                        <Route path="/dashboard_admin" element={<ProtectedRoute />}>
-                            <Route path="" element={<Dashboard_admin />} />
-                        </Route>
+                    {/* Públicas */}
+                    <Route path="/" element={<PublicHome />} />
+                    <Route path="/categorias/:id" element={<CategoryProducts />} />
+                    <Route path="/login" element={<LoginForm />} />
 
-                        {/* Ruta para la página principal (raíz) */}
-                        <Route path="/" element={<Dashboard />} />
+                    {/* Rutas para usuarios logueados con rol USER */}
+                    <Route element={<ProtectedRoute allowedRoles={["ROLE_USER"]} />}>
+                        <Route path="/dashboard" element={<DashboardUser />} />
+                    </Route>
 
-                        {/* Ruta protegida para User */}
-                        <Route path="/dashboard" element={<ProtectedRoute />}>
-                            <Route path="" element={<Dashboard />} />
-                        </Route>
+                    {/* Rutas para usuarios logueados con rol ADMIN */}
+                    <Route element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]} />}>
+                        <Route path="/admin" element={<DashboardAdmin />} />
+                  {/*      <Route path="/admin/productos" element={<ProductosCrud />} />
+                        <Route path="/admin/categorias" element={<CategoriasCrud />} />*/}
+                    </Route>
 
-                        {/* Otras rutas */}
-                    </Routes>
+                    {/* Fallback */}
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
             </Router>
+
         </AuthProvider>
+        </>
     );
 }
 

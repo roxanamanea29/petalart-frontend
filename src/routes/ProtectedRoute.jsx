@@ -1,20 +1,16 @@
-import React from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 
 const ProtectedRoute = ({ allowedRoles }) => {
     const { user } = useAuth();
-    const location = useLocation();
 
     if (!user || !user.roles) {
-        // Usuario no autenticado
-        return <Navigate to="/auth/login" state={{ from: location }} replace />;
+        return <Navigate to="/login" />;
     }
 
-    // ¿Tiene al menos uno de los roles requeridos?
-    const hasPermission = user.roles.some(role => allowedRoles.includes(role));
-
-    return hasPermission ? <Outlet /> : <Navigate to="/dashboard" replace />;
+    const hasAccess = user.roles.some((r) => allowedRoles.includes(r));
+    return hasAccess ? <Outlet /> : <Navigate to="/unauthorized" />;
 };
 
 export default ProtectedRoute;

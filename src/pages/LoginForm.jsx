@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../css/login_styles.css";
+import "../css/login_styles.css";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
