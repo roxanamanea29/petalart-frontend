@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -8,6 +8,7 @@ import PublicHome from "./pages/PublicHome";
 import DashboardUser from "./pages/DashboardUser";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import CategoryProducts from "@/components/CategoryProducts.jsx";
+import Contact from "./pages/Contact.jsx";
 
 /*import ProductosCrud from "./pages/admin/ProductosCrud";
 import CategoriasCrud from "./pages/admin/CategoriasCrud";*/
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/" element={<PublicHome />} />
                     <Route path="/categorias/:id" element={<CategoryProducts />} />
                     <Route path="/login" element={<LoginForm />} />
+                    <Route path="/contacto" element={<Contact />} />
 
                     {/* Rutas para usuarios logueados con rol USER */}
                     <Route element={<ProtectedRoute allowedRoles={["ROLE_USER"]} />}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
 import { FiMenu } from "react-icons/fi";
 import { FaUser, FaShoppingBag, FaSearch } from "react-icons/fa";
@@ -9,10 +10,20 @@ const NavbarH = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate();
+    const [categorias, setCategorias] = useState([]);
 
     useEffect(() => {
         const token = localStorage.getItem("authToken");
         setIsAuthenticated(!!token);
+        // Cargar las categorías con los productos
+        fetch("http://localhost:8080/categories/with-products")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("📦 Categorías recibidas:", data); // <--- AGREGA ESTO
+                setCategorias(data);
+            })
+            .catch((err) => console.error("Error cargando menú:", err));
+
     }, []);
 
     const handleLogout = () => {
@@ -24,7 +35,7 @@ const NavbarH = () => {
     return (
         <div className="w-screen bg-white shadow-md z-50 relative">
             {/* Navbar contenido principal */}
-            <nav className="flex items-center justify-between px-6 py-4 w-screen bg-white shadow-md">
+            <nav className="flex items-center justify-between h-16 px-6  w-screen bg-white shadow-md">
                 {/* Botón hamburguesa */}
                 <button
                     onClick={() => setMenuOpen(true)}
@@ -56,18 +67,39 @@ const NavbarH = () => {
                 className="!bg-white text-lg p-6"
             >
                 <a className="block py-2" href="/" onClick={() => setMenuOpen(false)}>
-                    Inicio
+                    Home
                 </a>
+                {/* Categorías y productos */}
+                {categorias.map(cat => (
+                    <div key={cat.categoryName} className="mb-4">
+                        <Link
+                            to={`/categorias/${cat.categoryId}`}
+                            className="sub-heading"
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            {cat.categoryName}
+                        </Link>
+                        <ul className="ml-5 text-sm">
+                            {cat.products.map(prod => (
+                                <li key={prod.id}>
+                                    <Link
+                                        to={`/producto/${prod.id}`}
+                                        className="sub-heading"
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        {prod.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+
+
+
                 <a
                     className="block py-2"
-                    href="/categories"
-                    onClick={() => setMenuOpen(false)}
-                >
-                    Categorías
-                </a>
-                <a
-                    className="block py-2"
-                    href="/contact"
+                    href="/contacto"
                     onClick={() => setMenuOpen(false)}
                 >
                     Contacto

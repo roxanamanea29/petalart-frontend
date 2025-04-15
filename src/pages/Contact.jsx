@@ -1,16 +1,36 @@
 import React from "react";
-
+import "../css/Contact.css";
+import NavbarH from "@/components/NavbarH.jsx";
+import Footer from "@/components/Footer.jsx";
 
 export default function Contact() {
     return (
-        <div className="contact">
+        <>
+        <NavbarH />
+        <div className="contact-container">
             <h1 className="contact-title">Contáctanos</h1>
+            <p className="contact-subtitle">¿Tienes alguna pregunta o quieres hacernos una sugerencia? ¡Estamos encantados de escucharte!</p>
+
             <form className="contact-form">
-                <input type="text" placeholder="Nombre" required />
-                <input type="email" placeholder="Correo electrónico" required />
-                <textarea placeholder="Mensaje" required></textarea>
-                <button type="submit">Enviar</button>
+                <div className="form-group">
+                    <label htmlFor="name">Nombre</label>
+                    <input type="text" id="name" name="name" placeholder="Tu nombre" required />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="message">Mensaje</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Escribe tu mensaje aquí..." required />
+                </div>
+
+                <button type="submit" className="submit-btn">Enviar mensaje</button>
             </form>
         </div>
+            <Footer />
+        </>
     );
 }

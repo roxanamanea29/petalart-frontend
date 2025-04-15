@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";//se utiliza para obtener el id de la categoría de la URL
-import { useEffect, useState } from "react";//se utiliza para manejar el estado en el componente de productos y categorías
+import React, { useEffect, useState } from "react";//se utiliza para manejar el estado en el componente de productos y categorías
 import axios from "axios";//se utiliza para realizar solicitudes HTTP
 import CategoryCard from "../components/CategoryCard";//se utiliza para mostrar la tarjeta de categoría
-import NavbarH from "@/components/NavbarH.jsx"; // se utiliza para mostrar la barra de navegación
-
+import NavbarH from "@/components/NavbarH.jsx";
+import Footer from "@/components/Footer.jsx"; // se utiliza para mostrar la barra de navegación
+import { Link } from "react-router-dom";
 
 const CategoryProducts = () => {//se define el componente CategoryProducts que se renderiza cuando visitas /categorias/:id.
 
@@ -25,19 +26,37 @@ const CategoryProducts = () => {//se define el componente CategoryProducts que s
         <>
         <NavbarH />
         <section className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Productos de {categoryName}</h1>
+            <header className="public-home-header">
+                <p className="sub-heading">
+                    <Link to="/categorias" className="hover:underline text-blue-600">FLORISTERÍA</Link> / {categoryName}
+                </p>
+                <h1 className="h-auto">{categoryName}</h1>
+            </header>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {products.map((prod) => (
-                    <CategoryCard
-                        key={prod.id}
-                        title={prod.name}
-                        description={prod.description}
-                        imageSrc={prod.imageUrl || "/placeholder.svg"}
-                        href={`/producto/${prod.id}`} // o "#" si aún no hay página de producto
-                    />
-                ))}
+                {products.map((prod) => {
+                    console.log("iamgen", prod.imageUrl);
+                    return (
+                        <CategoryCard
+                            key={prod.id}
+                            title={prod.name}
+                            description={prod.description}
+                            imageSrc={prod.imageUrl || "/placeholder.svg"}
+
+                            href={`/producto/${prod.id}`} // o "#" si aún no hay página de producto
+                        />
+                    )
+                }
+
+                )}
             </div>
         </section>
+            <header className="public-home-header">
+                <p className="sub-heading">EVENTOS/ {categoryName}</p>
+                <h1 className="h-auto">{categoryName}</h1>
+            </header>
+
+
+            <Footer />
         </>
     );
 };

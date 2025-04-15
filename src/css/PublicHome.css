@@ -54,3 +54,11 @@
     gap: 20px;
     padding: 40px;
 }
+.sub-heading a {
+    color: black;
+    text-decoration: none;
+}
+
+.sub-heading a:hover {
+    text-decoration: underline;
+}
