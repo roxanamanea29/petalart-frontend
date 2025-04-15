@@ -36,7 +36,7 @@
     background: rgba(0, 0, 0, 0.3) !important;
     z-index: 90 !important;
 }
-.sub-heading a {
+.sub-heading  {
     color: black;
     text-decoration: none;
 }

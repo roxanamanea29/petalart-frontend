@@ -33,7 +33,7 @@ const PublicHome = () => {
                 <p className="sub-heading">VENTA ONLINE DE FLORES - EVENTOS</p>
             </header>
 
-            <main className="category-section">
+            <main className="category-section" style={{ paddingBottom: "200px" }}>
                 {loading && <p>Cargando categorías...</p>}
                 {error && <p className="error">{error}</p>}
 
@@ -48,7 +48,7 @@ const PublicHome = () => {
                         />
                     ))}
                 </div>
-            </main>
+            </main >
 
             <Footer />
         </div>

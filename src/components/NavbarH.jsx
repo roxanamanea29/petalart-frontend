@@ -66,10 +66,7 @@ const NavbarH = () => {
                /* overlayClassName="bm-overlay !bg-black/40 !z-40"*/
                 className="!bg-white text-lg p-6"
             >
-                <a className="block py-2" href="/" onClick={() => setMenuOpen(false)}>
-                    Home
-                </a>
-                {/* Categorías y productos */}
+                {/* Categorías y productos con link  */}
                 {categorias.map(cat => (
                     <div key={cat.categoryName} className="mb-4">
                         <Link
@@ -98,7 +95,7 @@ const NavbarH = () => {
 
 
                 <a
-                    className="block py-2"
+                    className="sub-heading"
                     href="/contacto"
                     onClick={() => setMenuOpen(false)}
                 >
@@ -107,7 +104,7 @@ const NavbarH = () => {
 
                 {!isAuthenticated ? (
                     <a
-                        className="block py-2"
+                        className="sub-heading"
                         href="/login"
                         onClick={() => setMenuOpen(false)}
                     >
