@@ -41,10 +41,11 @@ const PublicHome = () => {
                     {categories.map((cat) => (
                         <CategoryCard
                             key={cat.id}
+                            id={cat.id}
                             title={cat.categoryName}
                             description={cat.description}
                             imageSrc={cat.imageUrl || "/placeholder.svg"}
-                            href={`/categorias/${cat.id}`}
+
                         />
                     ))}
                 </div>

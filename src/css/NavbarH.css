@@ -3,8 +3,8 @@
     background-color: white;
     padding: 1rem 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    position: relative;
-    z-index: 100; /* por encima del menú */
+    position: relative;/
+  z-index: 50;
 }
 
 .navbar-content {
@@ -32,10 +32,6 @@
     align-items: center;
 }
 
-.bm-overlay.burger-overlay {
-    background: rgba(0, 0, 0, 0.3) !important;
-    z-index: 90 !important;
-}
 .sub-heading  {
     color: black;
     text-decoration: none;

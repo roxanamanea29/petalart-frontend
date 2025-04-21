@@ -3,8 +3,10 @@ import "../css/Contact.css"; // Reutilizamos los estilos del contacto
 import NavbarH from "@/components/NavbarH.jsx";
 import Footer from "@/components/Footer.jsx";
 import {Link, useNavigate} from "react-router-dom";
+import { useAuth } from "@/AuthContext";
 
 const Login = () => {
+    const { login } = useAuth();
     const [isLoginForm, setIsLoginForm] = useState(true);
     const [formData, setFormData] = useState({
         email: "",
@@ -48,8 +50,11 @@ const Login = () => {
             const data = await res.json();
 
             if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
+            console.log("🧪 JWT recibido:", data.accessToken);
+            console.log("🧪 Roles recibidos:", data.roles);
 
-            localStorage.setItem("token", data.accessToken);
+            login(data.accessToken, data.roles); // Guardar el token y el userId en el contexto
+
             navigate("/");
         } catch (error) {
             setErrorMessage(error.message);

@@ -3,13 +3,14 @@ import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 // Vistas
-import LoginForm from "./pages/LoginForm";
 import PublicHome from "./pages/PublicHome";
-import DashboardUser from "./pages/DashboardUser";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
-import CategoryProducts from "@/components/CategoryProducts.jsx";
+import CategoryProducts from "@/pages/CategoryProducts.jsx";
 import Contact from "./pages/Contact.jsx";
 import Login from "./pages/Login.jsx";
+import ProductDetail from "./pages/ProductDetail.jsx";
+import CartView from "@/pages/CartView.jsx";
+import ErrorBoundary from "@/components/ErrorBoundary.jsx";
 
 /*import ProductosCrud from "./pages/admin/ProductosCrud";
 import CategoriasCrud from "./pages/admin/CategoriasCrud";*/
@@ -28,13 +29,17 @@ function App() {
                     <Route path="/categorias/:id" element={<CategoryProducts />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/contacto" element={<Contact />} />
-                   {/* <Route path="/login" element={<Login />} />*/}
-                    {/* <Route path="/productos/:id" element={<ProductDetail />} /> */}
+                    <Route path="/productos/:id" element={<ProductDetail />} />
+                    <Route path="/cart" element={<ErrorBoundary>
+                        <CartView />
+                    </ErrorBoundary>} />
+                    {/* Rutas para usuarios logueados con rol USER y ADMIN */}
+
 
 
                     {/* Rutas para usuarios logueados con rol USER */}
                     <Route element={<ProtectedRoute allowedRoles={["ROLE_USER"]} />}>
-                        <Route path="/dashboard" element={<DashboardUser />} />
+
                     </Route>
 
                     {/* Rutas para usuarios logueados con rol ADMIN */}
