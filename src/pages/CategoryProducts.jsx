@@ -69,9 +69,23 @@ const CategoryProducts = () => {
                     </div>
                 )}
             </section>
+
+            <div className="mt-12 text-center text-gray-600 ">
+                Regalar flores es regalar emoción.
+                Cultivar flores es cuidar del alma.
+            </div>
+            <a href="/categorias" className="flex justify-center items-center h-screen">
+                <img src="/public/images/banner.png" alt="Banner flores" />
+            </a>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm text-gray-600">
+                <div>🌱 Flores frescas de temporada</div>
+                <div>🎁 Entrega en 24h en tu ciudad</div>
+                <div>🖐️ Diseños artesanales y únicos</div>
+                <div>💬 Atención personalizada</div>
+
+            </div>
             <Footer />
         </>
     );
 };
-
 export default CategoryProducts;

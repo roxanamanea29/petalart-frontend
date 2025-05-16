@@ -5,8 +5,7 @@
     padding: 20px;
     box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
     color: white;
-    z-index: 1000;
-    margin-top: 50px; /* ✅ Empuja el contenido final hacia arriba */
+    margin-top: 16px;
 }
 
 .footer-links {

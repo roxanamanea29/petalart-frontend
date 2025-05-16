@@ -49,7 +49,17 @@ const ProductDetail = () => {
             <NavbarH/>
             <header className="public-home-header">
                 <p className="sub-heading">
-                    <Link to="/categorias" className="hover:underline text-blue-600">FLORISTERÍA</Link> / {product.name}
+                    <Link to="/categorias" className="hover:underline text-blue-600">FLORISTERÍA</Link>{" / "}
+                    {product.categoryId ? (
+                        <Link
+                            to={`/categorias/${product.categoryId}`}
+                            className="hover:underline text-blue-600"
+                        >
+                            {product.categoryName}
+                        </Link>
+                    ) : (
+                        product.categoryName
+                    )} / {product.name}
                 </p>
             </header>
              <main className="p-6 max-w-4xl mx-auto">
@@ -74,7 +84,7 @@ const ProductDetail = () => {
                 <button
 
                     onClick={handleAddToCart}
-                    className="bg-transparent border-2 color-black text-black px-6 py-2 rounded hover:bg-gray-800"
+                    className="bg-transparent border-2 color-black text-grey px-6 py-2 rounded hover:bg-gray-200"
                 >
                     Añadir al carrito
                 </button>

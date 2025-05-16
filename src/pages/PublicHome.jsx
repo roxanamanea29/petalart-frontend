@@ -4,6 +4,9 @@ import CategoryCard from "../components/CategoryCard";
 import Footer from "../components/Footer";
 import "../css/PublicHome.css";
 import NavbarH from "../components/NavbarH.jsx";
+import BlogFeed from "@/components/Blog.jsx";
+import Banner_gallery from "@/components/Banner_gallery.jsx";
+
 
 const PublicHome = () => {
     const [categories, setCategories] = useState([]);
@@ -28,7 +31,7 @@ const PublicHome = () => {
         <NavbarH />
         <div className="main-content">
             <header className="public-home-header">
-                <p className="sub-heading">FLORISTERÍA</p>
+                <p className=" text-5xl con font-semibold uppercase">FLORISTERÍA</p>
                 <h1 className="h-auto">Arte en cada petalo</h1>
                 <p className="sub-heading">VENTA ONLINE DE FLORES - EVENTOS</p>
             </header>
@@ -49,6 +52,40 @@ const PublicHome = () => {
                         />
                     ))}
                 </div>
+
+                <div className="mt-10 px-4 text-center text-gray-900 max-w-3xl mx-auto">
+                    <h3>
+                        En PetalArt te ofrecemos una cuidada selección de <strong>plantas naturales</strong>, <strong>ramos de novia</strong>,
+                        <strong>centros florales</strong> y <strong>decoración verde</strong> para cada ocasión.
+                    </h3>
+                    <p>Cada categoría está pensada para
+                        aportar belleza, frescura y elegancia a tus espacios o celebraciones.</p>
+                </div>
+
+                <Banner_gallery />
+                <BlogFeed />
+                <div className="m-12 text-center text-gray-900">
+                    <h2 className="mt-10 text-2xl font-bold text-gray-900">
+                        “Donde florecen las flores, también lo hace la esperanza.”
+                    </h2><p> – Lady Bird Johnson</p>
+                </div>
+
+               {/* <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1 text-center text-sm text-gray-600">
+                    <img src="/public/images/frescas.png" alt="🌱 Flores frescas de temporada"  className="h-100 mx-auto"/>
+                    <img src="/public/images/entrega.png" alt="🎁 Entrega en 24h en tu ciudad"  className="h-100 mx-auto"/>
+                    <img src="/public/images/diseño.png" alt="🖐️ Diseños artesanales y únicos"  className="h-100 mx-auto"/>
+                    <img src="/public/images/atencion.png" alt="💬 Atención personalizada"  className="h-100 mx-auto"/>
+                </div>*/}
+                <a
+                    href="/categorias/52"
+                    className="my-16 flex justify-center items-center w-full max-w-[1350px] h-auto mx-auto px-4"
+                >
+                    <img
+                        src="/images/banner_1350.png"
+                        alt="Banner flores"
+                        className="w-full h-auto"
+                    />
+                </a>
             </main >
 
             <Footer />

@@ -6,13 +6,14 @@ import { HiMenu } from "react-icons/hi";
 import logo from "@/assets/logo.png";
 import { useAuth } from "@/AuthContext"; // ✅ correcto
 
+
 const NavbarH = () => {
     const [menuOpen, setMenuOpen] = useState(false);
   /*  const [categorias, setCategorias] = useState([]);*/
     const navigate = useNavigate();
 
-    const { user, logout } = useAuth(); // ✅ correcto uso del AuthContext
-    const isAuthenticated = !!user; // ✅ ahora sí puedes usarlo
+    const { user, logout } = useAuth();
+    const isAuthenticated = !!user;
 
    /* useEffect(() => {
         fetch("http://localhost:8080/categories/with-products")
@@ -25,6 +26,7 @@ const NavbarH = () => {
     }, []);
 */
     const handleLogout = () => {
+        localStorage.removeItem("cart");
         logout(); // ✅ llama a la función desde el contexto
         navigate("/");
     };
@@ -43,14 +45,15 @@ const NavbarH = () => {
                     <img src={logo} alt="Logo" className="h-12 w-auto" />
                 </div>
 
-                <div className="hidden md:flex items-center gap-6 text-black-700 text-lg">
+                <div className="flex items-center gap-6 text-black-700 text-lg">
                     <FaUser className="cursor-pointer hover:text-black" />
                     <FaShoppingBag
-                        onClick={() => {
-                            console.log("🛍 Icono clicado");
-                            navigate("/cart");
+                        onClick={(e) => {
+                            e.stopPropagation(); // para que no abra el menú hamburguesa
+                            navigate("/cart");   // navegación al carrito
                         }}
                         className="cursor-pointer text-xl hover:text-black"
+                        title="Ir al carrito"
                     />
                     <FaSearch className="cursor-pointer hover:text-black" />
                 </div>
@@ -64,30 +67,7 @@ const NavbarH = () => {
                 className="!bg-white text-lg p-6"
                 overlayClassName="!z-40" // ✅ más bajo que el navbar
             >
-              {/*  {categorias.map((cat) => (
-                    <div key={cat.categoryId} className="mb-4">
-                        <Link
-                            to={`/categorias/${cat.categoryId}`}
-                            className="sub-heading"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            {cat.categoryName}
-                        </Link>
-                        <ul className="ml-5 text-sm">
-                            {cat.products.map((prod) => (
-                                <li key={prod.id}>
-                                    <Link
-                                        to={`/productos/${prod.id}`}
-                                        className="sub-heading"
-                                        onClick={() => setMenuOpen(false)}
-                                    >
-                                        {prod.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}*/}
+
                 <Link className="sub-heading" to="/categories" onClick={() => setMenuOpen(false)}>
                     Categorías
                 </Link>
@@ -103,12 +83,15 @@ const NavbarH = () => {
                         Login
                     </Link>
                 ) : (
+                    <div className="flex items-center gap-4">
+                        <span className="sub-heading"> 👤 {user.name}</span>
                     <button
                     onClick={handleLogout}
-                className="block py-2 text-left w-full text-red-600 hover:underline"
+                className="sub-heading"
             >
                 Cerrar sesión
             </button>
+                    </div>
                 )}
             </Menu>
         </div>

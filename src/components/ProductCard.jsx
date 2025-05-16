@@ -3,6 +3,7 @@ import React from "react";
 
 export default function ProductCard({ id, title, imageSrc }) {
     return (
+        <>
         <div className="w-full h-[650px] relative overflow-hidden group shadow-lg">
             <img
                 src={imageSrc}
@@ -13,11 +14,14 @@ export default function ProductCard({ id, title, imageSrc }) {
                 <h2 className="text-xl font-bold mb-2">{title}</h2>
                 <Link
                     to={`/productos/${id}`}
-                    className="bg-transparent border-2 color-white text-white  px-4 py-2 rounded shadow hover:bg-gray-100 transition"
+                    className="bg-transparent border-2 color-white text-white  px-4 py-2 rounded shadow hover:bg-grey transition"
                 >
                     Lo quiero
                 </Link>
             </div>
+
         </div>
+
+    </>
     );
 }

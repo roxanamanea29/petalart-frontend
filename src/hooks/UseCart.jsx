@@ -86,8 +86,9 @@ export const useCart = () => {
     // Actualizar cantidad de un producto
     const updateQuantity = async (productId, quantity) => {
         try {
+            {/* Carrito en localStorage - usuario invitado - actualiza el localstorage*/}
             if(!userId) {
-                {/* Carrito en localStorage - usuario invitado - actualiza el localstorage*/}
+
                 const stored = JSON.parse(localStorage.getItem("cart")) || [];
                 const existing = stored.find((item) => item.productId === productId);
 

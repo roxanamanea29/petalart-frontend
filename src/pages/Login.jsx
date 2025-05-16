@@ -50,12 +50,20 @@ const Login = () => {
             const data = await res.json();
 
             if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
-            console.log("🧪 JWT recibido:", data.accessToken);
-            console.log("🧪 Roles recibidos:", data.roles);
 
-            login(data.accessToken, data.roles); // Guardar el token y el userId en el contexto
+            // Guarda en el contexto
+            login(data.token, data.roles, data.userId, data.name, data.email);
 
-            navigate("/");
+            // Redirección inteligente
+            const redirect = localStorage.getItem("redirectAfterLogin");
+            if (redirect) {
+                localStorage.removeItem("redirectAfterLogin");
+                navigate(redirect);
+            } else if (data.roles.includes("ROLE_ADMIN")) {
+                navigate("/admin");
+            } else {
+                navigate("/checkout/${data.userId}");
+            }
         } catch (error) {
             setErrorMessage(error.message);
         }
@@ -142,7 +150,7 @@ const Login = () => {
 
                     {errorMessage && <p className="error">{errorMessage}</p>}
 
-                    <button type="submit" className="submit-btn">
+                    <button type="submit" className="bg-transparent border-2 color-black text-black px-6 py-2 rounded hover:bg-gray-100">
                         {isLoginForm ? "Iniciar sesión" : "Registrarse"}
                     </button>
 
@@ -150,8 +158,7 @@ const Login = () => {
                         {isLoginForm ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
                         <span
                             onClick={() => setIsLoginForm(!isLoginForm)}
-                            className="register-link"
-                        >
+                            className="register-link  bg-transparent border-2 color-black text-black px-6 py-2 rounded hover:bg-gray-100">
                             {isLoginForm ? "Regístrate aquí" : "Inicia sesión"}
                         </span>
                     </p>

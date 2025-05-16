@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="footer-links">
                 <a href="#" className="sub-heading">Pedidos telefónicos</a>
                 <a href="#" className="sub-heading" >Ubicación</a>
-                <a href="#" className="sub-heading">Blog</a>
+                <a href="https://petalart-blog.blogspot.com" className="sub-heading">Blog</a>
             </div>
             <p className="sub-heading">© 2025 PetalArt - Todos los derechos reservados</p>
         </div>
