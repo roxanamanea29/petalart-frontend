@@ -14,6 +14,7 @@ import Dashboard from "@/pages/admin/Dashboard.jsx";
 import Checkout from "./pages/Checkout.jsx";
 /*import ProductosCrud from "./pages/admin/ProductosCrud";
 import CategoriasCrud from "./pages/admin/CategoriasCrud";*/
+import CheckoutConfirmation from "./pages/CheckoutConfirmation.jsx";
 
 function App() {
     return (
@@ -36,7 +37,8 @@ function App() {
                     </ErrorBoundary>} />
                     {/* Rutas para usuarios logueados con rol USER y ADMIN */}
 
-                    <Route path="/checkout/:id" element={<Checkout />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/checkout/confirmation" element={<CheckoutConfirmation />} />
                     {/* Rutas para usuarios logueados con rol USER */}
                     <Route element={<ProtectedRoute allowedRoles={["ROLE_USER"]} />}>
 

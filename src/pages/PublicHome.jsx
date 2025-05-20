@@ -70,12 +70,6 @@ const PublicHome = () => {
                     </h2><p> – Lady Bird Johnson</p>
                 </div>
 
-               {/* <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1 text-center text-sm text-gray-600">
-                    <img src="/public/images/frescas.png" alt="🌱 Flores frescas de temporada"  className="h-100 mx-auto"/>
-                    <img src="/public/images/entrega.png" alt="🎁 Entrega en 24h en tu ciudad"  className="h-100 mx-auto"/>
-                    <img src="/public/images/diseño.png" alt="🖐️ Diseños artesanales y únicos"  className="h-100 mx-auto"/>
-                    <img src="/public/images/atencion.png" alt="💬 Atención personalizada"  className="h-100 mx-auto"/>
-                </div>*/}
                 <a
                     href="/categorias/52"
                     className="my-16 flex justify-center items-center w-full max-w-[1350px] h-auto mx-auto px-4"

@@ -34,7 +34,7 @@ function BlogFeed() {
                 {posts.slice(0, 2).map((post, index) => (
                     <div
                         key={index}
-                        className="w-[665px] h-[350px] bg-green-50  overflow-hidden shadow hover:shadow-md transition duration-200 flex flex-col"
+                        className="w-[665px] h-[350px] bg-yellow-50 overflow-hidden shadow hover:shadow-md transition duration-200 flex flex-col"
                     >
                         <img
                             src={post.image}

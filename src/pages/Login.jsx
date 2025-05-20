@@ -52,17 +52,30 @@ const Login = () => {
             if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
 
             // Guarda en el contexto
-            login(data.token, data.roles, data.userId, data.name, data.email);
+            login(
+                data.accessToken,
+                data.roles,
+                data.userId,
+                data.name,
+                data.email
+            );
+            console.log(data.accessToken);
+            console.log("Usuario autenticado: ", data.roles);
 
-            // Redirección inteligente
+            console.log("Usuario autenticado: datos recibidos", data);
+            // Redirect
             const redirect = localStorage.getItem("redirectAfterLogin");
+            console.log("que tiene redirect ",redirect);
             if (redirect) {
                 localStorage.removeItem("redirectAfterLogin");
+                console.log("Redirigido al: ",redirect);
                 navigate(redirect);
             } else if (data.roles.includes("ROLE_ADMIN")) {
                 navigate("/admin");
             } else {
-                navigate("/checkout/${data.userId}");
+                // Si el usuario no tiene rol de admin, redirige a la página de checkout
+                console.log(data + "Usuario autenticado redirige a pagina principal");
+                navigate("/");
             }
         } catch (error) {
             setErrorMessage(error.message);

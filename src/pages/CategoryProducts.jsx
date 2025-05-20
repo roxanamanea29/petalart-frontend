@@ -7,7 +7,7 @@ import ProductCard from "@/components/ProductCard.jsx";
 
 const CategoryProducts = () => {
     const { id } = useParams();
-    console.log("🧪 useParams():", id);
+/*    console.log("🧪 useParams():", id);*/
     const [products, setProducts] = useState([]);
     const [categoryName, setCategoryName] = useState("");
     const [loading, setLoading] = useState(true);
