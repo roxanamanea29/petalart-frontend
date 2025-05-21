@@ -193,7 +193,7 @@ const Checkout = () => {
                                     className="col-span-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300 transition"
                                     required>
                                 <option value="">Selecciona método de envío</option>
-                                <option value=" STANDARD">Standard</option>
+                                <option value="STANDARD">Standard</option>
                                 <option value="EXPRESS">Express</option>
                                 <option value="PICKUP">Recoger en tienda</option>
                             </select>

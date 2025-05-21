@@ -15,16 +15,6 @@ const NavbarH = () => {
     const { user, logout } = useAuth();
     const isAuthenticated = !!user;
 
-   /* useEffect(() => {
-        fetch("http://localhost:8080/categories/with-products")
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("📦 Categorías recibidas:", data);
-                setCategorias(data);
-            })
-            .catch((err) => console.error("Error cargando menú:", err));
-    }, []);
-*/
     const handleLogout = () => {
         localStorage.removeItem("cart");
         logout(); // ✅ llama a la función desde el contexto
@@ -33,28 +23,34 @@ const NavbarH = () => {
 
     return (
         <div className="w-screen bg-white shadow-md z-50 relative">
-            <nav className="flex items-center justify-between h-16 px-6  w-screen bg-white shadow-md">
+            {/* Navbar */}
+            <nav className="flex items-center justify-between h-25 px-6  w-screen bg-white shadow-md">
+                <div className="flex items-center gap-4 flex-grow">
+                    {/* icono hamburguesa */}
                 <button
                     onClick={() => setMenuOpen(true)}
                     className="text-black text-7xl bg-transparent border-none shadow-none outline-none"
                 >
-                    <HiMenu className="text-3xl" />
+                    <HiMenu className="text-5xl" />
                 </button>
 
-                <div className="flex justify-center flex-grow md:flex-none">
-                    <img src={logo} alt="Logo" className="h-12 w-auto" />
+                    <img src={logo} alt="Logo" className="h-20 w-auto" />
                 </div>
 
                 <div className="flex items-center gap-6 text-black-700 text-lg">
+                    {/* usuario */}
                     <FaUser className="cursor-pointer hover:text-black" />
+
+                    {/* carrito*/}
                     <FaShoppingBag
                         onClick={(e) => {
-                            e.stopPropagation(); // para que no abra el menú hamburguesa
+                            e.stopPropagation(); // para que no abra el menú
                             navigate("/cart");   // navegación al carrito
                         }}
                         className="cursor-pointer text-xl hover:text-black"
                         title="Ir al carrito"
                     />
+                    {/* búsqueda */}
                     <FaSearch className="cursor-pointer hover:text-black" />
                 </div>
             </nav>

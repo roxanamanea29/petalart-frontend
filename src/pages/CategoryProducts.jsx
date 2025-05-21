@@ -4,6 +4,8 @@ import axios from "axios";
 import NavbarH from "@/components/NavbarH.jsx";
 import Footer from "@/components/Footer.jsx";
 import ProductCard from "@/components/ProductCard.jsx";
+import WorkGallery from "@/components/WorkGallery.jsx";
+import Banner_gallery from "@/components/Banner_gallery.jsx";
 
 const CategoryProducts = () => {
     const { id } = useParams();
@@ -40,6 +42,13 @@ const CategoryProducts = () => {
                     </p>
                 </header>
 
+                <h2 className="text-3xl font-semibold text-center mt-8 text-gray-800">
+                    Productos en {categoryName}
+                </h2>
+                <p className="text-center text-gray-600 mt-2 mb-6 max-w-2xl mx-auto">
+                    Descubre nuestras mejores creaciones florales diseñadas para esta categoría. Ramos, arreglos y detalles que enamoran.
+                </p>
+
                 {loading && (
                     <p className="text-center text-gray-500">Cargando productos...</p>
                 )}
@@ -74,6 +83,9 @@ const CategoryProducts = () => {
                 Regalar flores es regalar emoción.
                 Cultivar flores es cuidar del alma.
             </div>
+
+            <Banner_gallery />
+
             <a href="/categorias" className="flex justify-center items-center h-screen">
                 <img src="/public/images/banner.png" alt="Banner flores" />
             </a>

@@ -53,3 +53,19 @@
   color: #888;
 }
 */
+/* Flechas de navegación */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white; /* Cambia el color de las flechas */
+}
+
+/* Puntos de paginación (bullets) */
+.swiper-pagination-bullet {
+  background: white;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  background: white;
+  opacity: 1;
+}
