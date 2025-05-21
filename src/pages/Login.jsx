@@ -59,13 +59,25 @@ const Login = () => {
                 data.name,
                 data.email
             );
-            console.log(data.accessToken);
+            localStorage.setItem("user", JSON.stringify({
+                accessToken: data.accessToken,
+                roles: data.roles,
+                userId: data.userId,
+                name: data.name,
+                email: data.email,
+            }
+            ));
+            console.log();
             console.log("Usuario autenticado: ", data.roles);
 
             console.log("Usuario autenticado: datos recibidos", data);
+
+
+
             // Redirect
             const redirect = localStorage.getItem("redirectAfterLogin");
             console.log("que tiene redirect ",redirect);
+
             if (redirect) {
                 localStorage.removeItem("redirectAfterLogin");
                 console.log("Redirigido al: ",redirect);

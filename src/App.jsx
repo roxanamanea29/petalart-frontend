@@ -12,9 +12,11 @@ import CartView from "@/pages/CartView.jsx";
 import ErrorBoundary from "@/components/ErrorBoundary.jsx";
 import Dashboard from "@/pages/admin/Dashboard.jsx";
 import Checkout from "./pages/Checkout.jsx";
-/*import ProductosCrud from "./pages/admin/ProductosCrud";
-import CategoriasCrud from "./pages/admin/CategoriasCrud";*/
+import ProductsCrud from "./pages/admin/ProductsCrud";
+import CategoryCrud from "./pages/admin/CategoryCrud.jsx";
 import CheckoutConfirmation from "./pages/CheckoutConfirmation.jsx";
+import UserList from "@/pages/admin/UserList.jsx";
+import OrderList from "@/pages/admin/OrderList.jsx";
 
 function App() {
     return (
@@ -47,8 +49,10 @@ function App() {
                     {/* Rutas para usuarios logueados con rol ADMIN */}
                     <Route element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]} />}>
                         <Route path="/admin" element={<Dashboard />} />
-                  {/*      <Route path="/admin/productos" element={<ProductosCrud />} />
-                        <Route path="/admin/categorias" element={<CategoriasCrud />} />*/}
+                        <Route path="/admin/productos" element={<ProductsCrud />} />
+                        <Route path="/admin/categorias" element={<CategoryCrud />} />
+                        <Route path={"/admin/usuarios"} element={<UserList />} />
+                        <Route path={"/admin/ordenes"} element={<OrderList />} />
                     </Route>
 
                     {/* Fallback */}

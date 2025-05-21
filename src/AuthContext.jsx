@@ -1,48 +1,25 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    // Restaura user de localStorage al iniciar
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem("user");
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
 
-    // Restaurar usuario desde localStorage
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        const roles = JSON.parse(localStorage.getItem("roles"));
-        const userId = localStorage.getItem("userId");
-        const name = localStorage.getItem("name");
-        const email = localStorage.getItem("email");
-
-        if (token && userId && name) {
-            setUser({
-                token,
-                roles,
-                id: userId,
-                name,
-                email
-            });
-        }
-    }, []);
-
-    // Login correcto
+    // Login guarda estado y en localStorage para persistencia
     const login = (token, roles, userId, name, email) => {
         const userData = { token, roles, id: userId, name, email };
         setUser(userData);
-
-        localStorage.setItem("token", token);
-        localStorage.setItem("roles", JSON.stringify(roles));
-        localStorage.setItem("userId", userId);
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
+        localStorage.setItem("user", JSON.stringify(userData)); //
     };
 
+    // Logout: limpia estado y storage
     const logout = () => {
         setUser(null);
-        localStorage.removeItem("token");
-        localStorage.removeItem("roles");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("name");
-        localStorage.removeItem("email");
+        localStorage.removeItem("user");
     };
 
     return (
@@ -52,4 +29,5 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
+// Hook personalizado para usar el contexto
 export const useAuth = () => useContext(AuthContext);

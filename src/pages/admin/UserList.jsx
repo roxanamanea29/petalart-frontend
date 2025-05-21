@@ -4,6 +4,9 @@ import Table from "react-bootstrap/Table";//importa el componente Table de react
 import Container from "react-bootstrap/Container";//importa el componente Container de react-bootstrap
 import Button from "react-bootstrap/Button";
 import UsersFormModal from "@/components_admin/UsersFormModal.jsx";
+import Footer from "@/components/Footer.jsx";
+import NavbarH from "@/components/NavbarH.jsx";
+import {Link, useNavigate} from "react-router-dom";
 //importa el componente Button de react-bootstrap
 
 
@@ -17,6 +20,10 @@ function UsersList() {
     const [showModal, setShowModal] = useState(false);
     //Declara el estado para almacenar el usuario seleccionado
     const [selectedUser, setSelectedUser] = useState(null);
+
+    const  navigate = useNavigate();
+
+
 
     //useEffect se ejecuta una sola vez al montar el componente
     useEffect(() => {
@@ -65,6 +72,7 @@ function UsersList() {
 
             const savedUser = await res.json();
 
+
             setUser(prev =>
                 isEdit
                     ? prev.map(u => u.id === savedUser.id ? savedUser : u)
@@ -79,8 +87,14 @@ function UsersList() {
     };
 //retorna un contenedor con una tabla que muestra los usuarios y el modal para agregar o editar los usuarios
     return (
+        <>
+            <NavbarH />
+            <Link to={"/admin/dashboard"} type="button" className="mt-5  ml-13 btn btn-primary">
+                Back
+            </Link>
+
         <Container className="mt-4">
-            <h2 className="text-center mb-4">Gestión Completa de usuarios: CRUD Eficiente.</h2>{/*titulo de la tabla*/}
+            <h2 className="text-center mb-4">Gestión Completa de usuarios</h2>{/*titulo de la tabla*/}
             <div className="d-flex justify-content-start mb-2">
                 <Button variant="success" onClick={() => {
                     {/*boton para agregar un usuario*/
@@ -141,6 +155,8 @@ function UsersList() {
 
 
         </Container>
+            <Footer />
+        </>
     );
 }
 
