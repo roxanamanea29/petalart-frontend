@@ -6,14 +6,14 @@ import Button from "react-bootstrap/Button";
 import UsersFormModal from "@/components_admin/UsersFormModal.jsx";
 import Footer from "@/components/Footer.jsx";
 import NavbarH from "@/components/NavbarH.jsx";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 //importa el componente Button de react-bootstrap
 
 
 
 
 //funcion que se encarga de mostrar la lista de usuarios
-function UsersList() {
+function UserView() {
     //Declara el estado para almacenar los usuarios
     const [user, setUser] = useState([]);
     //Declara el estado para mostrar el modal
@@ -21,24 +21,29 @@ function UsersList() {
     //Declara el estado para almacenar el usuario seleccionado
     const [selectedUser, setSelectedUser] = useState(null);
 
-    const  navigate = useNavigate();
-
 
 
     //useEffect se ejecuta una sola vez al montar el componente
     useEffect(() => {
-        fetch("http://localhost:8080/auth/users")
+        const token = localStorage.getItem("token");
+        fetch("http://127.0.0.1:8080/admin/users", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            }
+        })
             .then((response) => response.json())
             .then((data) => {
-                console.log("🧪 Usuarios del backend:", data); // ✅ aquí dentro
+                console.log("Usuarios del backend:", data);
                 setUser(data);
             })
             .catch((error) => console.error("❌ Error al obtener usuarios:", error));
     }, []);
-    //funcion que se encarga de eliminar un empleado
+    //funcion que se encarga de eliminar un usuario
     const handleDelete = (id) => {
         //hace una peticion delete a la api de usuarios
-        fetch(`http://127.0.0.1:8080/auth/user/${id}`, {method: "DELETE"})
+        fetch(`http://127.0.0.1:8080/admin/user/${id}`, {method: "DELETE"})
             //se ejecuta cuando se obtiene una respuesta
             .then(response => {
                 //si la respuesta es correcta
@@ -53,26 +58,30 @@ function UsersList() {
             //muestra un mensaje de error si no se pudo eliminar el usuario
             .catch(error => console.error("Error al eliminar el usuario:", error));
     };
-//funciñon que se encarga de guardar los datos de los empleados en db
+//función que se encarga de guardar los datos de los empleados en db
     const handleSave = async (userData) => {
         try {
             const isEdit = !!userData.id;
             const method = isEdit ? "PUT" : "POST";
             const url = isEdit
-                ? `http://localhost:8080/auth/user/${userData.id}`
-                : `http://localhost:8080/auth/register`;
+                ? `http://127.0.0.1:8080/admin/user/${userData.id}`
+                : `http://127.0.0.1:8080/auth/register`;
 
+            const token = localStorage.getItem("token");
+            const bodyToSend = { ...userData };
+            //evita que se envíe campo vacio como contraseña si no se ha modificado
+            if (!bodyToSend.password) delete bodyToSend.password;
             const res = await fetch(url, {
                 method,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(userData),
+                headers: { "Content-Type": "application/json" ,
+                    Authorization: `Bearer ${token}`},
+                body: JSON.stringify(bodyToSend),
             });
-            {console.log(res)}
+            /*{console.log(res)}*/
             if (!res.ok) throw new Error("Error al guardar el usuario");
 
             const savedUser = await res.json();
-
-
+            //
             setUser(prev =>
                 isEdit
                     ? prev.map(u => u.id === savedUser.id ? savedUser : u)
@@ -89,7 +98,7 @@ function UsersList() {
     return (
         <>
             <NavbarH />
-            <Link to={"/admin/dashboard"} type="button" className="mt-5  ml-13 btn btn-primary">
+            <Link to={"/admin"} type="button" className="mt-5 border-2 border-danger  ml-13 btn btn-light">
                 Back
             </Link>
 
@@ -117,8 +126,8 @@ function UsersList() {
                 </tr>
                 </thead>
                 <tbody>{/*cuerpo de la tabla*/}
-                {user.map(user => (//recorre los empleados
-                    //Muestra los datos de los empleados
+                {user.map(user => (//recorre los usuarios
+                    //Muestra los datos de los usuarios en la tabla
                     <tr key={user.id}>
                         <td>{user.id}</td>
                         <td>{user.firstName}</td>
@@ -160,4 +169,4 @@ function UsersList() {
     );
 }
 
-export default UsersList;//exporta el componente EmployeeList para que pueda ser utilizado en App.jsx
+export default UserView;//exporta el componente EmployeeList para que pueda ser utilizado en App.jsx

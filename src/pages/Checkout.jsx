@@ -129,6 +129,7 @@ const Checkout = () => {
 
 
                         <form
+                            //formulario para confirmar el pedido
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 handleConfirm();
@@ -136,7 +137,7 @@ const Checkout = () => {
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 border-2 border-gray-200 p-4 rounded"
                         >
                             <div className="col-span-full text-right text-lg font-semibold mt-4 border-t pt-4">
-                                <h4 className="m-6 my-5 py-5 font-bold">Total: {cart.totalPrice.toFixed(2)} €</h4>
+                                <h4 className="m-6 my-5 py-5 font-bold">Total: {cart.totalPrice.toFixed(2)} €</h4> {/*toFixed es un metodo que representa un número con decimales fijos. */}
                             </div>
 
                             <h3 className="text-xl font-bold col-span-full mt-6">Dirección</h3>

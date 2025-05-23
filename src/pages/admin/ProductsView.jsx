@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ProductsCrud() {
+export default function ProductsView() {
     return (
         <div className="p-6 max-w-5xl mx-auto">
             <h1 className="text-3xl font-bold mb-6">Gestión de Productos</h1>

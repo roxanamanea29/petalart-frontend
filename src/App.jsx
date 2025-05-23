@@ -12,11 +12,11 @@ import CartView from "@/pages/CartView.jsx";
 import ErrorBoundary from "@/components/ErrorBoundary.jsx";
 import Dashboard from "@/pages/admin/Dashboard.jsx";
 import Checkout from "./pages/Checkout.jsx";
-import ProductsCrud from "./pages/admin/ProductsCrud";
-import CategoryCrud from "./pages/admin/CategoryCrud.jsx";
+import ProductsView from "./pages/admin/ProductsView.jsx";
 import CheckoutConfirmation from "./pages/CheckoutConfirmation.jsx";
-import UserList from "@/pages/admin/UserList.jsx";
-import OrderList from "@/pages/admin/OrderList.jsx";
+import CategoryView from "@/pages/admin/CategoryView.jsx";
+import UserView from "@/pages/admin/UserView.jsx";
+import OrderView from "@/pages/admin/OrderView.jsx";
 
 function App() {
     return (
@@ -49,10 +49,10 @@ function App() {
                     {/* Rutas para usuarios logueados con rol ADMIN */}
                     <Route element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]} />}>
                         <Route path="/admin" element={<Dashboard />} />
-                        <Route path="/admin/productos" element={<ProductsCrud />} />
-                        <Route path="/admin/categorias" element={<CategoryCrud />} />
-                        <Route path={"/admin/usuarios"} element={<UserList />} />
-                        <Route path={"/admin/ordenes"} element={<OrderList />} />
+                        <Route path="/admin/productos" element={<ProductsView />} />
+                        <Route path="/admin/categorias" element={<CategoryView />} />
+                        <Route path={"/admin/usuarios"} element={<UserView />} />
+                        <Route path={"/admin/ordenes"} element={<OrderView />} />
                     </Route>
 
                     {/* Fallback */}

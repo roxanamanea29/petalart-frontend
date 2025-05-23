@@ -2,13 +2,14 @@ import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import CategoryView from "@/pages/admin/CategoryView.jsx";
+
 
 
 function CategoryModal({show, handleClose, category, onSave}) {
     const [formData, setFormData] = useState({
         id:null,
         categoryName: "",
+        description: "",
         imageUrl: "",
     });
 
@@ -19,6 +20,7 @@ function CategoryModal({show, handleClose, category, onSave}) {
             setFormData({
                 id:null,
                 categoryName: "",
+                description: "",
                 imageUrl: "",
             });
         }
@@ -43,11 +45,21 @@ function CategoryModal({show, handleClose, category, onSave}) {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formCategoryName" className="mb-3">
-                        <Form.Label>Nombre de la Categoria</Form.Label>
+                        <Form.Label>Nombre</Form.Label>
                         <Form.Control
                             type="text"
                             name="categoryName"
                             value={formData.categoryName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="description" className="mb-3">
+                        <Form.Label>Descripción</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="description"
+                            value={formData.description}
                             onChange={handleChange}
                             required
                         />
@@ -76,4 +88,4 @@ CategoryModal.propTypes = {
     category: PropTypes.object,
     onSave: PropTypes.func.isRequired,
 }
-export default CategoryView;
+export default CategoryModal;

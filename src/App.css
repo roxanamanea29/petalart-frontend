@@ -56,7 +56,7 @@
 /* Flechas de navegación */
 .swiper-button-next,
 .swiper-button-prev {
-  color: white; /* Cambia el color de las flechas */
+  color: white;
 }
 
 /* Puntos de paginación (bullets) */

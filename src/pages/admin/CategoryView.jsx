@@ -1,72 +1,81 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import CategoryModal from "@/components_admin/CategoryModal.jsx";
 
-
-function CategoryView(){
-    const [category, setCategory] = useState([]);
+function CategoryView() {
+    const [categories, setCategories] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
+    // Función para obtener siempre el token más reciente
+    const getAuthHeaders = () => ({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    });
+
+    // 1. Carga inicial de categorías (público GET)
     useEffect(() => {
-        fetch("http://localhost:8080/categories/with-products")
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("🧪 Categorías del backend:", data); // ✅ aquí dentro
-                setCategory(data);
+        fetch("http://localhost:8080/categories", {
+            method: "GET",
+            headers: getAuthHeaders(),
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error(`Error ${res.status}`);
+                return res.json();
             })
-            .catch((error) => console.error("Error al obtener categorías:", error));
+            .then(setCategories)
+            .catch((err) => console.error("Error al obtener categorías:", err));
     }, []);
 
-    //funcion que se encarga de eliminar una categoria
-    const handleDelete = (id) => {
-        fetch(`http://localhost:8080/categories/${id}, {method:DELETE}`)
-            .then(response => {
-                if (response.ok) {
-                    setCategory(category.filter(category => category.id !== id));
-                } else {
-                    console.error("Error al eliminar la categoría");
-                }
-            })
-            .catch(error => console.error("Error al eliminar la categoría:", error));
-    };
-
-    //funcion que se encarga de guardar los datos de las categorias en db
+    // 2. Crear / editar categoría
     const handleSave = async (categoryData) => {
         try {
-            const isEdit = !!categoryData.id;
-            const method = isEdit ? "PUT" : "POST";
+            const isEdit = Boolean(categoryData.id);
             const url = isEdit
                 ? `http://localhost:8080/categories/${categoryData.id}`
                 : `http://localhost:8080/categories`;
+
             const res = await fetch(url, {
-                method,
-                headers: { "Content-Type": "application/json" },
+                method: isEdit ? "PUT" : "POST",
+                headers: getAuthHeaders(),
                 body: JSON.stringify(categoryData),
             });
-            if (!res.ok) throw new Error("Error al guardar la categoría");
+            if (!res.ok) throw new Error(`Error ${res.status}: ${await res.text()}`);
 
-            const savedCategory = await res.json();
-
-            setCategory(prev =>
-                isEdit
-                    ? prev.map(c => c.id === savedCategory.id ? savedCategory : c)
-                    : [...prev, savedCategory]
-            );
-
+            // Refresca la lista
+            const updated = await fetch("http://localhost:8080/categories", {
+                headers: getAuthHeaders(),
+            }).then((r) => r.json());
+            setCategories(updated);
             setShowModal(false);
         } catch (error) {
-            console.error(" Error al guardar la categoría:", error);
+            console.error("Error en handleSave:", error);
+            alert("No se pudo guardar la categoría.");
+        }
+    };
+
+    // 3. Eliminar categoría
+    const handleDelete = async (id) => {
+        try {
+            const res = await fetch(`http://localhost:8080/categories/${id}`, {
+                method: "DELETE",
+                headers: getAuthHeaders(),
+            });
+            if (!res.ok) throw new Error(`Error ${res.status}`);
+            setCategories((prev) => prev.filter((c) => c.id !== id));
+        } catch (error) {
+            console.error("Error al eliminar categoría:", error);
+            alert("No se pudo eliminar la categoría.");
         }
     };
 
     return (
         <Container className="mt-4">
-            <h2 className="text-center" mb-4>Gestión Completa de Categorías: CRUD Eficiente.</h2>
+            <h2 className="text-center mb-4">Gestión de Categorías</h2>
 
-            <div className="d-flex justify-content-lg-start mb-2">
+            <div className="d-flex justify-content-start mb-2">
                 <Button
                     variant="primary"
                     onClick={() => {
@@ -80,48 +89,47 @@ function CategoryView(){
 
             <Table striped bordered hover responsive>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Acciones</th>
-                    </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>URL Imagen</th>
+                    <th>Acciones</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {category.map((cat) => (
-                        <tr key={cat.id}>
-                            <td>{cat.id}</td>
-                            <td>{cat.name}</td>
-                            <td>{cat.imageUrl}</td>
-                            <td>
-                                <Button
-                                    variant="warning"
-                                    onClick={() => {
-                                        setSelectedCategory(cat);
-                                        setShowModal(true);
-                                    }}
-                                >
-                                    Editar
-                                </Button>
-                                <Button
-                                    variant="danger"
-                                    onClick={() => handleDelete(cat.id)}
-                                >
-                                    Eliminar
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
+                {categories.map((cat) => (
+                    <tr key={cat.id}>
+                        <td>{cat.categoryName}</td>
+                        <td>{cat.description}</td>
+                        <td>{cat.imageUrl}</td>
+                        <td>
+                            <Button
+                                variant="warning"
+                                className="me-2"
+                                onClick={() => {
+                                    setSelectedCategory(cat);
+                                    setShowModal(true);
+                                }}
+                            >
+                                Editar
+                            </Button>
+                            <Button variant="danger" onClick={() => handleDelete(cat.id)}>
+                                Eliminar
+                            </Button>
+                        </td>
+                    </tr>
+                ))}
                 </tbody>
             </Table>
+
             <CategoryModal
                 show={showModal}
                 handleClose={() => setShowModal(false)}
                 category={selectedCategory}
                 onSave={handleSave}
             />
-
         </Container>
     );
 }
+
 export default CategoryView;

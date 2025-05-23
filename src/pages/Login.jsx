@@ -59,6 +59,7 @@ const Login = () => {
                 data.name,
                 data.email
             );
+            localStorage.setItem("token", data.accessToken);
             localStorage.setItem("user", JSON.stringify({
                 accessToken: data.accessToken,
                 roles: data.roles,
@@ -67,6 +68,9 @@ const Login = () => {
                 email: data.email,
             }
             ));
+
+
+
             console.log();
             console.log("Usuario autenticado: ", data.roles);
 
@@ -77,6 +81,7 @@ const Login = () => {
             // Redirect
             const redirect = localStorage.getItem("redirectAfterLogin");
             console.log("que tiene redirect ",redirect);
+
 
             if (redirect) {
                 localStorage.removeItem("redirectAfterLogin");
