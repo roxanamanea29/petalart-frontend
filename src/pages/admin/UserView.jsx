@@ -83,12 +83,13 @@ const authHeaders = () => ({
     return (
         <>
             <NavbarH />
-            <Link to={"/admin"} type="button" className="mt-25 border-2 border-danger  ml-33 btn btn-light">
-                Volver al Panel
-            </Link>
 
         <Container className="mt-4">
+        <div className="d-flex justify-content-between align-items-center mb-3">
             <h2 className="text-center mb-4">Gestión Completa de usuarios</h2>
+            <Link to="/admin" className="btn btn-outline-secondary">Volver al Panel</Link>
+        </div>
+
             <div className="d-flex justify-content-start mb-2">
                 <Button variant="success" onClick={() => {
                     {/*boton para agregar un usuario*/

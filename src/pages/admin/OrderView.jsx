@@ -54,13 +54,14 @@ export default function OrderView() {
     return (
         <>
             <NavbarH/>
-            <Link to={"/admin"} type="button" className="mt-15 border-2 border-danger  ml-96 btn btn-light">
-                Volver al Panel
-            </Link>
+
 
             <Container className="mt-4">
-                <h2 className="text-center mb-4">Gestión de Órdenes</h2>
 
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h2 className="text-center mb-4">Gestión de Órdenes</h2>
+                    <Link to="/admin" className="btn btn-outline-secondary">Volver al Panel</Link>
+                </div>
 
                 <div className="table-responsive">
                     <Table striped bordered hover responsive>
