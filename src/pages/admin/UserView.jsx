@@ -84,7 +84,7 @@ const authHeaders = () => ({
         <>
             <NavbarH />
             <Link to={"/admin"} type="button" className="mt-25 border-2 border-danger  ml-33 btn btn-light">
-                Back
+                Volver al Panel
             </Link>
 
         <Container className="mt-4">

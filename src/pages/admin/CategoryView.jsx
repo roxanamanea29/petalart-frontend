@@ -77,7 +77,7 @@ function CategoryView() {
         <>
             <NavbarH/>
             <Link to={"/admin"} type="button" className="mt-25 border-2 border-danger  ml-33 btn btn-light">
-                Back
+                Volver al Panel
             </Link>
             <Container className="mt-4">
                 <h2 className="text-center mb-4">Gestión de Categorías</h2>

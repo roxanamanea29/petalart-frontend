@@ -27,23 +27,29 @@ export default function OrderView() {
     }, []);
 
     // Eliminar orden
-    const handleDelete = async (id) => {
+   /* const handleDelete = async (orderId) => {
         if (!window.confirm("¿Estás seguro de que quieres eliminar esta orden?")) return;
 
         try {
-            const res = await fetch(`http://localhost:8080/order/${id}`, {
+            const res = await fetch(`http://localhost:8080/order/${orderId}`, {
                 method: "DELETE",
                 headers: authHeaders(),
             });
-            if (!res.ok) throw new Error(`Error ${res.status}`);
+            if (!res.ok) {
+                const errorData = await res.json();
+              const message = errorData.message || `Error al eliminar la orden: ${res.status}`;
+                throw new Error(message);
+            };
 
+            alert("Orden eliminada correctamente.");
             // Actualiza la lista
-            setOrders(prev => prev.filter(c => c.id !== id));
+            setOrders(prev => prev.filter(c => c.id !== orderId));
         } catch (error) {
             console.error("Error al eliminar la orden:", error);
-            alert("No se pudo eliminar la orden.");
+            alert(error.message);
+
         }
-    };
+    };*/
 
     return (
         <>
@@ -109,9 +115,9 @@ export default function OrderView() {
 
                                 <td>
 
-                                    <Button variant="danger" onClick={() => handleDelete(order.id)}>
+                                  {/*  <Button variant="danger" onClick={() => handleDelete(order.id)}>
                                         Eliminar
-                                    </Button>
+                                    </Button>*/}
                                 </td>
                             </tr>
                         ))}
