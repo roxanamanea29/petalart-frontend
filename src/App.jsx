@@ -17,6 +17,7 @@ import CheckoutConfirmation from "./pages/CheckoutConfirmation.jsx";
 import CategoryView from "@/pages/admin/CategoryView.jsx";
 import UserView from "@/pages/admin/UserView.jsx";
 import OrderView from "@/pages/admin/OrderView.jsx";
+import AddressesView from "@/pages/admin/AddressesView.jsx";
 
 function App() {
     return (
@@ -53,7 +54,7 @@ function App() {
                         <Route path="/admin/categorias" element={<CategoryView />} />
                         <Route path={"/admin/usuarios"} element={<UserView />} />
                         <Route path={"/admin/ordenes"} element={<ErrorBoundary><OrderView /></ErrorBoundary>} />
-                        <Route path={"/admin/addresses"} element={<h1>Addresses</h1>} />
+                        <Route path={"/admin/addresses"} element={<AddressesView />} />
                     </Route>
 
                     {/* Fallback */}
