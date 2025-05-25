@@ -1,7 +1,9 @@
 import NavbarH from "../components/NavbarH.jsx";
 import Footer from "../components/Footer.jsx";
-import Navbar from "@/components_admin/Navbar.jsx";
+
 import {FaBox} from "react-icons/fa";
+import React from "react";
+import {Link} from "react-router-dom";
 
 
 const DashboardUser = () => {
@@ -10,7 +12,7 @@ const DashboardUser = () => {
             title: "Productos",
             description: "Gestiona los productos de la tienda",
             icon: FaBox,
-            link: "/admin/productos",
+            link: "/user/productos",
         },
         {
             title: "Órdenes",
@@ -22,16 +24,21 @@ const DashboardUser = () => {
             title: "Direcciones",
             description: "Gestiona tus direcciones",
             icon: FaBox,
-            link: "/admin/addresses",
+            link: "/user/addresses",
         }
     ];
 
     return (
         <>
-            <Navbar/>
+            <NavbarH />
             <div className="p-6">
-                <h1 className="text-4xl  text-center ">Panel de Administración</h1>
+                <h1 className="text-4xl  text-center ">SU CUENTA</h1>
 
+                <header className="public-home-header">
+                    <p className="sub-heading">
+                        <Link to="/categorias" className="hover:underline text-blue-600">FLORISTERÍA</Link> / DASHBOARD
+                    </p>
+                </header>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                     {cards.map((card, index) => {
                         const Icon = card.icon;

@@ -48,7 +48,7 @@ const Dashboard = () => {
         <>
             <Navbar/>
             <div className="p-6">
-                <h1 className="text-4xl  text-center ">Panel de Administración</h1>
+                <h1 className="sub-heading mb-6">Panel de Administración</h1>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                     {cards.map((card, index) => {
