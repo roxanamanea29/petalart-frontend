@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import AddressModal from "@/components_admin/AddressModal.jsx";
+import AddressModal from "@/components/AddressModal.jsx";
 
 export default function AddressesView() {
     const [addresses, setAddresses] = useState([]);
@@ -82,12 +82,6 @@ export default function AddressesView() {
                     ))}
                     </tbody>
                 </Table>
-
-              {/*  <AddressModal
-                    show={showModal}
-                    handleClose={() => setShowModal(false)}
-                    address={selectedAddress}
-                />*/}
             </Container>
             <Footer />
         </>
