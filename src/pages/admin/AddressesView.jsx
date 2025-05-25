@@ -3,9 +3,8 @@ import NavbarH from "@/components/NavbarH.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import AddressModal from "@/components/AddressModal.jsx";
+
 
 export default function AddressesView() {
     const [addresses, setAddresses] = useState([]);

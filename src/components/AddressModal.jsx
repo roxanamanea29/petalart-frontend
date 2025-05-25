@@ -118,9 +118,9 @@ function AddressModal({show, handleClose, address, onSave}) {
                             required
                         >
                             <option value="">Seleccione un tipo</option>
-                            <option value="home">Casa</option>
-                            <option value="work">Trabajo</option>
-                            <option value="other">Otro</option>
+                            <option value="SHIPPING">Dirección de envío</option>
+                            <option value="BILLING">Dirección de facturación</option>
+                            <option value="BOTH">Ambas direcciones</option>
                         </Form.Control>
                     </Form.Group>
                     <div className="text-center mt-4">
@@ -130,11 +130,7 @@ function AddressModal({show, handleClose, address, onSave}) {
                     </div>
                 </Form>
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Cerrar
-                </Button>
-            </Modal.Footer>
+
         </Modal>
     );
 }

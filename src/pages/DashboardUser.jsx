@@ -24,7 +24,7 @@ const DashboardUser = () => {
             title: "Direcciones",
             description: "Gestiona tus direcciones",
             icon: FaBox,
-            link: "/user/addresses",
+            link: "/user/address",
         }
     ];
 

@@ -19,6 +19,7 @@ import UserView from "@/pages/admin/UserView.jsx";
 import OrderView from "@/pages/admin/OrderView.jsx";
 import AddressesView from "@/pages/admin/AddressesView.jsx";
 import DashboardUser from "@/pages/DashboardUser.jsx";
+import {AddressView} from "@/pages/user/AddressView.jsx";
 
 function App() {
     return (
@@ -35,12 +36,11 @@ function App() {
                         <Route path="/cart" element={<ErrorBoundary>
                             <CartView/>
                         </ErrorBoundary>}/>
-                        {/* Privadas USER y ADMIN */}
+                        {/* Rutas para usuarios logueados con rol USER */}
                         <Route path="/checkout" element={<Checkout/>}/>
                         <Route path="/checkout/confirmation" element={<CheckoutConfirmation/>}/>
-                        {/* Rutas para usuarios logueados con rol USER */}
-
                         <Route path="/dashboard" element={<ErrorBoundary><DashboardUser/></ErrorBoundary>}/>
+                        <Route path={"/user/address"} element={<AddressView />}/>
                         {/* Rutas para usuarios logueados con rol ADMIN */}
                         <Route element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]}/>}>
                             <Route path="/admin" element={<Dashboard/>}/>
