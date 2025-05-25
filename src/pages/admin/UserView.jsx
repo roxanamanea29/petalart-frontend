@@ -5,9 +5,9 @@ import Container from "react-bootstrap/Container";//importa el componente Contai
 import Button from "react-bootstrap/Button";
 import UsersFormModal from "@/components_admin/UsersFormModal.jsx";
 import Footer from "@/components/Footer.jsx";
-import NavbarH from "@/components/NavbarH.jsx";
 import {Link} from "react-router-dom";
-//importa el componente Button de react-bootstrap
+import {Navbar} from "react-bootstrap";
+
 
 
 
@@ -82,7 +82,7 @@ const authHeaders = () => ({
 //retorna un contenedor con una tabla que muestra los usuarios y el modal para agregar o editar los usuarios
     return (
         <>
-            <NavbarH />
+            <Navbar />
 
         <Container className="mt-4">
         <div className="d-flex justify-content-between align-items-center mb-3">

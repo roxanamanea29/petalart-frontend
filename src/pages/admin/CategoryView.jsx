@@ -3,8 +3,9 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import CategoryModal from "@/components_admin/CategoryModal.jsx";
-import NavbarH from "@/components/NavbarH.jsx";
+
 import {Link} from "react-router-dom";
+import {Navbar} from "react-bootstrap";
 
 function CategoryView() {
     const [categories, setCategories] = useState([]);
@@ -75,7 +76,7 @@ function CategoryView() {
 
     return (
         <>
-            <NavbarH/>
+            <Navbar/>
 
             <Container className="mt-14">
 

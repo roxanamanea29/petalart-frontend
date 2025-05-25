@@ -1,10 +1,10 @@
 import NavbarH from "@/components/NavbarH.jsx";
 import Footer from "@/components/Footer.jsx";
 import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {Navbar} from "react-bootstrap";
 
 export default function OrderView() {
     const [orders, setOrders] = useState([]);
@@ -53,7 +53,7 @@ export default function OrderView() {
 
     return (
         <>
-            <NavbarH/>
+            <Navbar />
 
 
             <Container className="mt-4">

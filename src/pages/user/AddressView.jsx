@@ -78,7 +78,7 @@ export const AddressView = () => {
             <Container className="mt-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h2 className="text-center mb-4">Mis direcciones guardadas</h2>
-                    <Link to="/admin" className="btn btn-outline-secondary">Volver al Panel</Link>
+                    <Link to="/dashboard" className="btn btn-outline-secondary">Volver al Panel</Link>
                 </div>
 
                 <div className="d-flex justify-content-start mb-2">

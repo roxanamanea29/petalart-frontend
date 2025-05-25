@@ -3,8 +3,8 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import ProductsModal from "@/components_admin/ProductsModal.jsx";
-import NavbarH from "@/components/NavbarH.jsx";
 import {Link} from "react-router-dom";
+import {Navbar} from "react-bootstrap";
 
 
 export default function ProductsView() {
@@ -84,7 +84,7 @@ export default function ProductsView() {
     };
     return (
         <>
-            <NavbarH />
+            <Navbar />
 
 
             <Container className="mt-4">

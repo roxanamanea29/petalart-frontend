@@ -41,6 +41,10 @@ function App() {
                         <Route path="/checkout/confirmation" element={<CheckoutConfirmation/>}/>
                         <Route path="/dashboard" element={<ErrorBoundary><DashboardUser/></ErrorBoundary>}/>
                         <Route path={"/user/address"} element={<AddressView />}/>
+
+
+
+
                         {/* Rutas para usuarios logueados con rol ADMIN */}
                         <Route element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]}/>}>
                             <Route path="/admin" element={<Dashboard/>}/>

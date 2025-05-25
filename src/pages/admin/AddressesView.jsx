@@ -1,9 +1,9 @@
 import Footer from "@/components/Footer.jsx";
-import NavbarH from "@/components/NavbarH.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import {Navbar} from "react-bootstrap";
 
 
 export default function AddressesView() {
@@ -31,7 +31,7 @@ export default function AddressesView() {
 
     return (
         <>
-            <NavbarH />
+            <Navbar />
             <Container className="mt-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h2 className="text-center">Listado de Direcciones</h2>
