@@ -52,7 +52,8 @@ function App() {
                         <Route path="/admin/productos" element={<ProductsView />} />
                         <Route path="/admin/categorias" element={<CategoryView />} />
                         <Route path={"/admin/usuarios"} element={<UserView />} />
-                        <Route path={"/admin/ordenes"} element={<OrderView />} />
+                        <Route path={"/admin/ordenes"} element={<ErrorBoundary><OrderView /></ErrorBoundary>} />
+                        <Route path={"/admin/addresses"} element={<h1>Addresses</h1>} />
                     </Route>
 
                     {/* Fallback */}
