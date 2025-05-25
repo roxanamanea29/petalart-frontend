@@ -9,20 +9,20 @@ import {Link} from "react-router-dom";
 const DashboardUser = () => {
     const cards = [
         {
-            title: "Productos",
-            description: "Gestiona los productos de la tienda",
+            title: "Mis datos",
+            description: "Mis datos personales y de contacto",
             icon: FaBox,
             link: "/user/productos",
         },
         {
-            title: "Órdenes",
-            description: "Gestiona tus órdenes",
+            title: "Mis pedidos",
+            description: "Historial y detalles de mis pedidos",
             icon: FaBox,
-            link: "/admin/ordenes",
+            link: "/user/orders",
         },
         {
             title: "Direcciones",
-            description: "Gestiona tus direcciones",
+            description: "Mis direcciones",
             icon: FaBox,
             link: "/user/address",
         }
@@ -48,8 +48,9 @@ const DashboardUser = () => {
                                 <Icon className={`${card.icon} text-4xl mb-2`}></Icon>
                                 <h2 className="text-xl font-bold">{card.title}</h2>
                                 <p className="text-gray-600">{card.description}</p>
-                                <a href={card.link} className="mt-5 border-2 border-danger  ml-13 btn btn-light">Entrar
-                                </a>
+                                <Link to={card.link} className="mt-5 border-2 border-danger ml-13 btn btn-light">
+                                    Entrar
+                                </Link>
                             </div>
                         );
                     })}

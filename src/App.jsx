@@ -20,6 +20,8 @@ import OrderView from "@/pages/admin/OrderView.jsx";
 import AddressesView from "@/pages/admin/AddressesView.jsx";
 import DashboardUser from "@/pages/DashboardUser.jsx";
 import {AddressView} from "@/pages/user/AddressView.jsx";
+import OrdersView from "@/pages/user/OrdersView.jsx";
+
 
 function App() {
     return (
@@ -41,6 +43,7 @@ function App() {
                         <Route path="/checkout/confirmation" element={<CheckoutConfirmation/>}/>
                         <Route path="/dashboard" element={<ErrorBoundary><DashboardUser/></ErrorBoundary>}/>
                         <Route path={"/user/address"} element={<AddressView />}/>
+                        <Route path={"/user/orders"} element={<ErrorBoundary><OrdersView /></ErrorBoundary>}/>
 
 
 
