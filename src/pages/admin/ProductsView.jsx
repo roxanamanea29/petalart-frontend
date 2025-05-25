@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import ProductsModal from "@/components_admin/ProductsModal.jsx";
+import NavbarH from "@/components/NavbarH.jsx";
+import {Link} from "react-router-dom";
 
 
 export default function ProductsView() {
@@ -81,69 +83,74 @@ export default function ProductsView() {
         }
     };
     return (
+        <>
+            <NavbarH/>
+            <Link to={"/admin"} type="button" className="mt-25 border-2 border-danger  ml-33 btn btn-light">
+                Back
+            </Link>
+            <Container className="mt-4">
+                <h2 className="text-center mb-4">Gestión de Productos</h2>
 
-        <Container className="mt-4">
-            <h2 className="text-center mb-4">Gestión de Productos</h2>
+                <div className="d-flex justify-content-start mb-2">
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                            setSelectedProduct(null);
+                            setShowModal(true);
+                        }}
+                    >
+                        Agregar Productos
+                    </Button>
+                </div>
+                <div className="table-responsive">
+                    <Table striped bordered hover responsive>
+                        <thead>
+                        <tr>
 
-            <div className="d-flex justify-content-start mb-2">
-                <Button
-                    variant="primary"
-                    onClick={() => {
-                        setSelectedProduct(null);
-                        setShowModal(true);
-                    }}
-                >
-                    Agregar Productos
-                </Button>
-            </div>
-
-            <Table striped bordered hover responsive>
-                <thead>
-                <tr>
-
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Imagen URL</th>
-                    <th>Precio</th>
-                    <th>Categoría</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                {products.map((product) => (
-                    <tr key={product.id}>
-                        <td>{product.name}</td>
-                        <td>{product.description}</td>
-                        <td>{product.imageUrl}</td>
-                        <td>{product.price} €</td>
-                        <td>{product.categoryName}</td>
-                        <td>
-                            <Button
-                                variant="warning"
-                                className="me-2"
-                                onClick={() => {
-                                    setSelectedProduct(product);
-                                    setShowModal(true);
-                                }}
-                            >
-                                Editar
-                            </Button>
-                            <Button variant="danger" onClick={() => handleDelete(product.id)}>
-                                Eliminar
-                            </Button>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </Table>
-
-            <ProductsModal
-                show={showModal}
-                handleClose={() => setShowModal(false)}
-                product={selectedProduct}
-                categories={categories}
-                onSave={handleSave}
-            />
-        </Container>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Imagen URL</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {products.map((product) => (
+                            <tr key={product.id}>
+                                <td>{product.name}</td>
+                                <td>{product.description}</td>
+                                <td>{product.imageUrl}</td>
+                                <td>{product.price} €</td>
+                                <td>{product.categoryName}</td>
+                                <td>
+                                    <Button
+                                        variant="warning"
+                                        className="me-2"
+                                        onClick={() => {
+                                            setSelectedProduct(product);
+                                            setShowModal(true);
+                                        }}
+                                    >
+                                        Editar
+                                    </Button>
+                                    <Button variant="danger" onClick={() => handleDelete(product.id)}>
+                                        Eliminar
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </Table>
+                </div>
+                <ProductsModal
+                    show={showModal}
+                    handleClose={() => setShowModal(false)}
+                    product={selectedProduct}
+                    categories={categories}
+                    onSave={handleSave}
+                />
+            </Container>
+        </>
     );
 }

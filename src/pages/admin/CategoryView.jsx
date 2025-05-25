@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import CategoryModal from "@/components_admin/CategoryModal.jsx";
+import NavbarH from "@/components/NavbarH.jsx";
+import {Link} from "react-router-dom";
 
 function CategoryView() {
     const [categories, setCategories] = useState([]);
@@ -72,63 +74,69 @@ function CategoryView() {
     };
 
     return (
-        <Container className="mt-4">
-            <h2 className="text-center mb-4">Gestión de Categorías</h2>
+        <>
+            <NavbarH/>
+            <Link to={"/admin"} type="button" className="mt-25 border-2 border-danger  ml-33 btn btn-light">
+                Back
+            </Link>
+            <Container className="mt-4">
+                <h2 className="text-center mb-4">Gestión de Categorías</h2>
 
-            <div className="d-flex justify-content-start mb-2">
-                <Button
-                    variant="primary"
-                    onClick={() => {
-                        setSelectedCategory(null);
-                        setShowModal(true);
-                    }}
-                >
-                    Agregar Categoría
-                </Button>
-            </div>
+                <div className="d-flex justify-content-start mb-2">
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                            setSelectedCategory(null);
+                            setShowModal(true);
+                        }}
+                    >
+                        Agregar Categoría
+                    </Button>
+                </div>
 
-            <Table striped bordered hover responsive>
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>URL Imagen</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                {categories.map((cat) => (
-                    <tr key={cat.id}>
-                        <td>{cat.categoryName}</td>
-                        <td>{cat.description}</td>
-                        <td>{cat.imageUrl}</td>
-                        <td>
-                            <Button
-                                variant="warning"
-                                className="me-2"
-                                onClick={() => {
-                                    setSelectedCategory(cat);
-                                    setShowModal(true);
-                                }}
-                            >
-                                Editar
-                            </Button>
-                            <Button variant="danger" onClick={() => handleDelete(cat.id)}>
-                                Eliminar
-                            </Button>
-                        </td>
+                <Table striped bordered hover responsive>
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>URL Imagen</th>
+                        <th>Acciones</th>
                     </tr>
-                ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                    {categories.map((cat) => (
+                        <tr key={cat.id}>
+                            <td>{cat.categoryName}</td>
+                            <td>{cat.description}</td>
+                            <td>{cat.imageUrl}</td>
+                            <td>
+                                <Button
+                                    variant="warning"
+                                    className="me-2"
+                                    onClick={() => {
+                                        setSelectedCategory(cat);
+                                        setShowModal(true);
+                                    }}
+                                >
+                                    Editar
+                                </Button>
+                                <Button variant="danger" onClick={() => handleDelete(cat.id)}>
+                                    Eliminar
+                                </Button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </Table>
 
-            <CategoryModal
-                show={showModal}
-                handleClose={() => setShowModal(false)}
-                category={selectedCategory}
-                onSave={handleSave}
-            />
-        </Container>
+                <CategoryModal
+                    show={showModal}
+                    handleClose={() => setShowModal(false)}
+                    category={selectedCategory}
+                    onSave={handleSave}
+                />
+            </Container>
+        </>
     );
 }
 

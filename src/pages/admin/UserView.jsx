@@ -20,77 +20,62 @@ function UserView() {
     const [showModal, setShowModal] = useState(false);
     //Declara el estado para almacenar el usuario seleccionado
     const [selectedUser, setSelectedUser] = useState(null);
-
+const authHeaders = () => ({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    });
 
 
     //useEffect se ejecuta una sola vez al montar el componente
     useEffect(() => {
-        const token = localStorage.getItem("token");
         fetch("http://127.0.0.1:8080/admin/users", {
             method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            }
+            headers: authHeaders(),
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Usuarios del backend:", data);
-                setUser(data);
+            .then(res => {
+                if (!res.ok) throw new Error(`Error ${res.status}`);
+                return res.json();
             })
-            .catch((error) => console.error("❌ Error al obtener usuarios:", error));
+            .then(setUser)
+            .catch((error) => console.error("Error al obtener usuarios:", error));
     }, []);
     //funcion que se encarga de eliminar un usuario
-    const handleDelete = (id) => {
-        //hace una peticion delete a la api de usuarios
-        fetch(`http://127.0.0.1:8080/admin/user/${id}`, {method: "DELETE"})
-            //se ejecuta cuando se obtiene una respuesta
-            .then(response => {
-                //si la respuesta es correcta
-                if (response.ok) {
-                    //actualiza el estado de empleados eliminando el empleado con el id especificado
-                    setUser(user.filter(user => user.id !== id));
-                } else {
-                    //si la respuesta no es correcta muestra un mensaje de error
-                    console.error("Error al eliminar el usuario");
-                }
-            })
-            //muestra un mensaje de error si no se pudo eliminar el usuario
-            .catch(error => console.error("Error al eliminar el usuario:", error));
+    const handleDelete = async (id) => {
+        try{
+            const res = await fetch(`http://127.0.0.1:8080/admin/user/${id}`, {
+                method: "DELETE",
+                headers: authHeaders(),
+        });
+        if (!res.ok) throw new Error(`Error ${res.status}`);
+        setUser((prev) => prev.filter((c) => c.id !== id));
+    } catch (error) {
+        console.error("Error al eliminar categoría:", error);
+        alert("No se pudo eliminar la categoría.");
+    }
     };
 //función que se encarga de guardar los datos de los empleados en db
     const handleSave = async (userData) => {
         try {
-            const isEdit = !!userData.id;
-            const method = isEdit ? "PUT" : "POST";
+            const isEdit = Boolean(userData.id);//verifica si el usuario ya existe
             const url = isEdit
                 ? `http://127.0.0.1:8080/admin/user/${userData.id}`
                 : `http://127.0.0.1:8080/auth/register`;
 
-            const token = localStorage.getItem("token");
-            const bodyToSend = { ...userData };
-            //evita que se envíe campo vacio como contraseña si no se ha modificado
-            if (!bodyToSend.password) delete bodyToSend.password;
             const res = await fetch(url, {
-                method,
-                headers: { "Content-Type": "application/json" ,
-                    Authorization: `Bearer ${token}`},
-                body: JSON.stringify(bodyToSend),
+                method: isEdit ? "PUT" : "POST",
+                headers: authHeaders(),
+                body: JSON.stringify(userData),
             });
-            /*{console.log(res)}*/
-            if (!res.ok) throw new Error("Error al guardar el usuario");
 
-            const savedUser = await res.json();
-            //
-            setUser(prev =>
-                isEdit
-                    ? prev.map(u => u.id === savedUser.id ? savedUser : u)
-                    : [...prev, savedUser]
-            );
-
+            if (!res.ok) throw new Error(`Error ${res.status}: ${await res.text()}`);
+            // Si es una edición, actualiza el usuario en la lista
+            const updated = await fetch("http://127.0.0.1:8080/admin/users",{
+                headers: authHeaders(),
+            }).then((r) => r.json());
+            setUser(updated);
             setShowModal(false);
         } catch (error) {
-            console.error("❌ Error al guardar el usuario:", error);
+            console.error("Error al guardar el usuario:", error);
             alert("Hubo un error al guardar el usuario. Revisa la consola.");
         }
     };
@@ -98,12 +83,12 @@ function UserView() {
     return (
         <>
             <NavbarH />
-            <Link to={"/admin"} type="button" className="mt-5 border-2 border-danger  ml-13 btn btn-light">
+            <Link to={"/admin"} type="button" className="mt-25 border-2 border-danger  ml-33 btn btn-light">
                 Back
             </Link>
 
         <Container className="mt-4">
-            <h2 className="text-center mb-4">Gestión Completa de usuarios</h2>{/*titulo de la tabla*/}
+            <h2 className="text-center mb-4">Gestión Completa de usuarios</h2>
             <div className="d-flex justify-content-start mb-2">
                 <Button variant="success" onClick={() => {
                     {/*boton para agregar un usuario*/
