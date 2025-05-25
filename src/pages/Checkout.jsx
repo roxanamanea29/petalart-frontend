@@ -12,6 +12,10 @@ const Checkout = () => {
     const {cart, clearCart} = useCart();
     const navigate = useNavigate();
 
+    const getAuthHeaders = () => ({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    });
     const [form, setForm] = useState({
         street: "",
         streetNumber: "",
@@ -31,7 +35,11 @@ const Checkout = () => {
                 return;
             }
 
-            // Validar los  campos obligatorios para enviar eñ formulario
+            if(!cart || cart.items.length === 0) {
+                throw new Error("El carrito está vacío");
+            }
+
+            // Validar los campos obligatorios para enviar eñ formulario
             if (!form.addressType) {
                 alert("Debes seleccionar un tipo de dirección.");
                 return;
@@ -45,10 +53,7 @@ const Checkout = () => {
             // 1. Guardar dirección
             const responseAddress = await fetch("http://localhost:8080/address/save", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.token}`,
-                },
+                headers:getAuthHeaders(),
                 body: JSON.stringify(form),
             });
 
@@ -61,10 +66,7 @@ const Checkout = () => {
             // 2. Crear orden
             const response = await fetch(`http://localhost:8080/order/create/${id}`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.token}`,
-                },
+                headers:getAuthHeaders(),
                 body: JSON.stringify({
                     addressIds: [addressId],
                     paymentMethod: form.paymentMethod,

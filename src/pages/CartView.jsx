@@ -75,7 +75,7 @@ export default function CartView() {
                                                        const nuevaCantidad = parseInt(e.target.value);
                                                        console.log("input cambiado : ",nuevaCantidad);
                                                        if (!isNaN(nuevaCantidad) && nuevaCantidad > 0) {
-                                                           removeFromCart(item.productId);
+                                                           updateQuantity(item.productId,nuevaCantidad);
                                                        }
                                                    }}
                                                    className="border w-16 text-center"
@@ -93,7 +93,7 @@ export default function CartView() {
                             ))}
                         </ul>
                         <h4 className=" m-6 font-bold">Total: {cart.totalPrice.toFixed(2)} €</h4>
-                        <button onClick={clearCart} className="bg-transparent border-2 border-gray-200 text-grey px-6  py-2 rounded hover:bg-gray-200">
+                        <button onClick={clearCart} disabled={cart.items.length === 0} className="bg-transparent border-2 border-gray-200 text-grey px-6  py-2 rounded hover:bg-gray-200">
                             Vaciar carrito
                         </button>
 

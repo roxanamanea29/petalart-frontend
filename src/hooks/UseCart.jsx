@@ -9,10 +9,11 @@ export const useCart = () => {
 
     const isLoggedIn = !!userId && !!token;
 
-    const authHeaders = {
+    // Función para obtener siempre el token más reciente
+    const getAuthHeaders = () => ({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-    };
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    });
 
     // Calcular el total del carrito
     const calcularTotal = (items) => {
@@ -23,42 +24,41 @@ export const useCart = () => {
 
     // Cargar carrito al montar el componente
     useEffect(() => {
-        if (userId) {
+        if (isLoggedIn) {
             console.log("Renderizado CartView");
 
-            fetch(`http://localhost:8080/cart/user/${userId}`)
-
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Error al cargar el carrito");
-                    }
-                    return response.json();
+            fetch(`http://localhost:8080/cart/my-cart`, {
+                method: "GET",
+                headers: getAuthHeaders(),
+            })
+                .then((res) => {
+                    if (!res.ok) throw new Error("Error al cargar el carrito");
+                    return res.json();
                 })
                 .then((data) => {
                     setCart(data);
                     setLoading(false);
                 })
                 .catch((error) => {
+                    console.error("Error al cargar el carrito autenticado:", error);
                     setError(error);
                     setLoading(false);
                 });
         } else {
-            {/* Si no hay userId, cargar carrito de localStorage */
-            }
+            console.log("cargar CartView del usuario noautenticado: de localStorage");
             const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-            console.log("📦 Carrito desde localStorage:", storedCart); // 👈 si es modo invitado
-            setCart({items: storedCart, totalPrice: calcularTotal(storedCart)});
+            console.log("📦 Carrito desde localStorage:", storedCart);
+            setCart({ items: storedCart, totalPrice: calcularTotal(storedCart) });
             setLoading(false);
         }
-    }, [userId]);
-
+    }, [isLoggedIn]);
     // Añadir producto al carrito
     const addToCart = async (product, quantity) => {
         try {
             if (isLoggedIn) {
                 const respuesta = await fetch(`http://localhost:8080/cart/add`, {
                     method: "POST",
-                    headers: authHeaders,
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({userId, productId: product.id, quantity}),
                 });
                 if (!respuesta.ok) {
@@ -110,12 +110,12 @@ export const useCart = () => {
             }
             // 🔐 Usuario autenticado - actualiza el servidor
             console.log(" Enviando a backend updateQuantity:", { productId, quantity });
-            console.log(" Con headers:", authHeaders);
+            console.log(" Con headers:", getAuthHeaders());
 
             const respuesta = await fetch(
                 `http://localhost:8080/cart/update`, {
                     method: "PUT",
-                    headers: authHeaders,
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({productId, quantity}),
                 });
             if (!respuesta.ok) {
@@ -148,7 +148,7 @@ export const useCart = () => {
                 `http://localhost:8080/cart/update`,
                 {
                     method: "PUT",
-                    headers: authHeaders,
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({productId, quantity: 0}),
                 });
             if (!respuesta.ok) {
@@ -181,7 +181,7 @@ export const useCart = () => {
                 `http://localhost:8080/cart/clear/${userId}`,
                 {
                     method: "DELETE",
-                    headers: authHeaders,
+                    headers: getAuthHeaders(),
                 }
             );
             if (!respuesta.ok) {
@@ -199,7 +199,7 @@ export const useCart = () => {
         loading,
         error,
         isLoggedIn,
-        authHeaders,
+        getAuthHeaders,
         addToCart,
         updateQuantity,
         removeFromCart,

@@ -15,7 +15,7 @@ export default function OrderView() {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
     });
 
-    //Carga  de órdenes (GET)
+    //Carga de ordenes (GET)
     useEffect(() => {
         fetch("http://localhost:8080/order/all", {
             method: "GET",
@@ -27,21 +27,18 @@ export default function OrderView() {
     }, []);
 
     // Eliminar orden
-    const handleDelete = async (orderId) => {
+    const handleDelete = async (id) => {
         if (!window.confirm("¿Estás seguro de que quieres eliminar esta orden?")) return;
 
         try {
-            const res = await fetch(`http://localhost:8080/orders/${orderId}`, {
+            const res = await fetch(`http://localhost:8080/order/${id}`, {
                 method: "DELETE",
                 headers: authHeaders(),
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
 
             // Actualiza la lista
-            const updatedOrders = await fetch("http://localhost:8080/orders", {
-                headers: authHeaders(),
-            }).then((r) => r.json());
-            setOrders(updatedOrders);
+            setOrders(prev => prev.filter(c => c.id !== id));
         } catch (error) {
             console.error("Error al eliminar la orden:", error);
             alert("No se pudo eliminar la orden.");
