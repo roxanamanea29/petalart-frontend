@@ -1,9 +1,10 @@
 import {Link} from "react-router-dom";
-import {Navbar} from "react-bootstrap";
+
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Footer from "@/components/Footer.jsx";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import NavbarH from "@/components/NavbarH.jsx";
 
 
 export default function OrdersView()  {
@@ -28,8 +29,12 @@ export default function OrdersView()  {
 
     return (
         <>
-            <Navbar />
-
+            <NavbarH />
+            <header className="public-home-header">
+                <p className="sub-heading">
+                    <Link to="/categorias" className="hover:underline text-blue-600">FLORISTERÍA</Link> / MIS PEDIDOS
+                </p>
+            </header>
 
             <Container className="mt-4">
 

@@ -21,6 +21,7 @@ import AddressesView from "@/pages/admin/AddressesView.jsx";
 import DashboardUser from "@/pages/DashboardUser.jsx";
 import {AddressView} from "@/pages/user/AddressView.jsx";
 import OrdersView from "@/pages/user/OrdersView.jsx";
+import PersonalView from "@/pages/user/PersonalView.jsx";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
                         <Route path="/dashboard" element={<ErrorBoundary><DashboardUser/></ErrorBoundary>}/>
                         <Route path={"/user/address"} element={<AddressView />}/>
                         <Route path={"/user/orders"} element={<ErrorBoundary><OrdersView /></ErrorBoundary>}/>
+                        <Route path={"/perfil"} element={<ErrorBoundary><PersonalView /></ErrorBoundary>}/>
 
 
 

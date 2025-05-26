@@ -75,6 +75,11 @@ export const AddressView = () => {
     return (
         <>
             <NavbarH />
+            <header className="public-home-header">
+                <p className="sub-heading">
+                    <Link to="/categorias" className="hover:underline text-blue-600">FLORISTERÍA</Link> / MIS DIRECCIONES
+                </p>
+            </header>
             <Container className="mt-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h2 className="text-center mb-4">Mis direcciones guardadas</h2>

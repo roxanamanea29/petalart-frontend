@@ -12,7 +12,7 @@ const DashboardUser = () => {
             title: "Mis datos",
             description: "Mis datos personales y de contacto",
             icon: FaBox,
-            link: "/user/productos",
+            link: "/perfil",
         },
         {
             title: "Mis pedidos",
