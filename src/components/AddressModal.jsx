@@ -102,7 +102,9 @@ function AddressModal({show, handleClose, address, onSave}) {
                         <Form.Label>Código Postal</Form.Label>
                         <Form.Control
                             type="text"
+                            pattern="\d*"
                             name="zipCode"
+                            title="Solo números"
                             value={formData.zipCode}
                             onChange={handleChange}
                             required

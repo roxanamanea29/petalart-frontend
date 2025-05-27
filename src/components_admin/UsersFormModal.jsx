@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";//manejo de estados y efeqtos secund
 import PropTypes from "prop-types";//importa PropTypes que ayuda a validar los tipos de datos y evitar errores
 import { Modal, Button, Form } from "react-bootstrap"; //  importación de componentes de react-bootstrap para el modal
 
-// funcion que se encarga de mostrar el formulario para agregar o editar un empleado
+// funcion que se encarga de mostrar el formulario para agregar o editar un usuario
 function UsersFormModal({ show, handleClose, user, onSave }) {//funcion que recibe los parametros show, handleClose, employee, onSave que son los props del componente, estan declarados abajo
     const [showPassword, setShowPassword] = useState(false);//estado para mostrar o ocultar la contraseña
 

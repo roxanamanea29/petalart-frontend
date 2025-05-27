@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import Footer from "@/components/Footer.jsx";
 import React, {useEffect, useState} from "react";
 import NavbarH from "@/components/NavbarH.jsx";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
 export default function OrdersView()  {
@@ -15,7 +16,7 @@ export default function OrdersView()  {
     });
     // Carga de órdenes (GET)
     useEffect(() => {
-        fetch("http://localhost:8080/order/my-orders", {
+        fetch(`${LOCALSERVERBASEURL}/order/my-orders`, {
             method: "GET",
             headers: authHeaders(),
         })

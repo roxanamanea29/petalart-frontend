@@ -7,6 +7,7 @@ import UsersFormModal from "@/components_admin/UsersFormModal.jsx";
 import Footer from "@/components/Footer.jsx";
 import {Link} from "react-router-dom";
 import {Navbar} from "react-bootstrap";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
 
@@ -28,7 +29,7 @@ const authHeaders = () => ({
 
     //useEffect se ejecuta una sola vez al montar el componente
     useEffect(() => {
-        fetch("http://127.0.0.1:8080/admin/users", {
+        fetch(`${LOCALSERVERBASEURL}/admin/users`, {
             method: "GET",
             headers: authHeaders(),
         })
@@ -42,7 +43,7 @@ const authHeaders = () => ({
     //funcion que se encarga de eliminar un usuario
     const handleDelete = async (id) => {
         try{
-            const res = await fetch(`http://127.0.0.1:8080/admin/user/${id}`, {
+            const res = await fetch(`${LOCALSERVERBASEURL}/admin/user/${id}`, {
                 method: "DELETE",
                 headers: authHeaders(),
         });
@@ -58,8 +59,8 @@ const authHeaders = () => ({
         try {
             const isEdit = Boolean(userData.id);//verifica si el usuario ya existe
             const url = isEdit
-                ? `http://127.0.0.1:8080/admin/user/${userData.id}`
-                : `http://127.0.0.1:8080/auth/register`;
+                ? `${LOCALSERVERBASEURL}/admin/user/${userData.id}`
+                : `${LOCALSERVERBASEURL}/auth/register`;
 
             const res = await fetch(url, {
                 method: isEdit ? "PUT" : "POST",
@@ -69,7 +70,7 @@ const authHeaders = () => ({
 
             if (!res.ok) throw new Error(`Error ${res.status}: ${await res.text()}`);
             // Si es una edición, actualiza el usuario en la lista
-            const updated = await fetch("http://127.0.0.1:8080/admin/users",{
+            const updated = await fetch(`${LOCALSERVERBASEURL}/admin/users`,{
                 headers: authHeaders(),
             }).then((r) => r.json());
             setUser(updated);

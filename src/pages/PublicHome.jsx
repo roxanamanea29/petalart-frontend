@@ -5,8 +5,8 @@ import Footer from "../components/Footer";
 import "../css/PublicHome.css";
 import NavbarH from "../components/NavbarH.jsx";
 import BlogFeed from "@/components/Blog.jsx";
-import Banner_gallery from "@/components/Banner_gallery.jsx";
 import WorkGallery from "@/components/WorkGallery.jsx";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
 const PublicHome = () => {
@@ -15,7 +15,7 @@ const PublicHome = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/categories")
+        axios.get( `${LOCALSERVERBASEURL}/categories`)
             .then(res => {
                 setCategories(res.data);
                 setLoading(false);

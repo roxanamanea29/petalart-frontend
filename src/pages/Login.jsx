@@ -4,6 +4,7 @@ import NavbarH from "@/components/NavbarH.jsx";
 import Footer from "@/components/Footer.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import { useAuth } from "@/AuthContext";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 const Login = () => {
     const { login } = useAuth();
@@ -27,8 +28,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const url = isLoginForm
-            ? "http://localhost:8080/auth/login"
-            : "http://localhost:8080/auth/register";
+            ? `${LOCALSERVERBASEURL}/auth/login`
+            : `${LOCALSERVERBASEURL}/auth/register`;
 
         const payload = isLoginForm
             ? { email: formData.email, password: formData.password }

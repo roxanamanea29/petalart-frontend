@@ -6,6 +6,7 @@ import CategoryModal from "@/components_admin/CategoryModal.jsx";
 
 import {Link} from "react-router-dom";
 import {Navbar} from "react-bootstrap";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 function CategoryView() {
     const [categories, setCategories] = useState([]);
@@ -20,7 +21,7 @@ function CategoryView() {
 
     // 1. Carga inicial de categorías (público GET)
     useEffect(() => {
-        fetch("http://localhost:8080/categories", {
+        fetch(`${LOCALSERVERBASEURL}categories`, {
             method: "GET",
             headers: getAuthHeaders(),
         })
@@ -37,8 +38,8 @@ function CategoryView() {
         try {
             const isEdit = Boolean(categoryData.id);
             const url = isEdit
-                ? `http://localhost:8080/categories/${categoryData.id}`
-                : `http://localhost:8080/categories`;
+                ? `${LOCALSERVERBASEURL}/categories/${categoryData.id}`
+                : `${LOCALSERVERBASEURL}/categories`;
 
             const res = await fetch(url, {
                 method: isEdit ? "PUT" : "POST",
@@ -48,7 +49,7 @@ function CategoryView() {
             if (!res.ok) throw new Error(`Error ${res.status}: ${await res.text()}`);
 
             // Refresca la lista
-            const updated = await fetch("http://localhost:8080/categories", {
+            const updated = await fetch(`${LOCALSERVERBASEURL}/categories`, {
                 headers: getAuthHeaders(),
             }).then((r) => r.json());
             setCategories(updated);
@@ -62,7 +63,7 @@ function CategoryView() {
     // 3. Eliminar categoría
     const handleDelete = async (id) => {
         try {
-            const res = await fetch(`http://localhost:8080/categories/${id}`, {
+            const res = await fetch(`${LOCALSERVERBASEURL}/categories/${id}`, {
                 method: "DELETE",
                 headers: getAuthHeaders(),
             });

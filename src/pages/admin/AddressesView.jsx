@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import {Navbar} from "react-bootstrap";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
 export default function AddressesView() {
@@ -17,7 +18,7 @@ export default function AddressesView() {
     });
 
     useEffect(() => {
-        fetch("http://localhost:8080/address/all", {
+        fetch(`${LOCALSERVERBASEURL}/address/all`, {
             method: "GET",
             headers: getAuthHeaders(),
         })
@@ -39,15 +40,6 @@ export default function AddressesView() {
                 </div>
 
                 <div className="d-flex justify-content-start mb-3">
-                 {/*   <Button
-                        variant="primary"
-                        onClick={() => {
-                            setSelectedAddress(null);
-                            setShowModal(true);
-                        }}
-                    >
-                        Agregar Dirección
-                    </Button>*/}
                 </div>
 
                 <Table striped bordered hover responsive>

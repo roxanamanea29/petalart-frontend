@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 export const useProfile = () => {
     const [profile, setProfile] = useState(null);
@@ -15,7 +16,7 @@ export const useProfile = () => {
             }
 
             try {
-                const response = await fetch("http://localhost:8080/auth/profile", {
+                const response = await fetch(`${LOCALSERVERBASEURL}auth/profile`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }

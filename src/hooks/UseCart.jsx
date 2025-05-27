@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 export const useCart = () => {
     const [cart, setCart] = useState({items: [], totalPrice: 0});
@@ -27,7 +28,7 @@ export const useCart = () => {
         if (isLoggedIn) {
             console.log("Renderizado CartView");
 
-            fetch(`http://localhost:8080/cart/my-cart`, {
+            fetch(`${LOCALSERVERBASEURL}/cart/my-cart`, {
                 method: "GET",
                 headers: getAuthHeaders(),
             })
@@ -56,7 +57,7 @@ export const useCart = () => {
     const addToCart = async (product, quantity) => {
         try {
             if (isLoggedIn) {
-                const respuesta = await fetch(`http://localhost:8080/cart/add`, {
+                const respuesta = await fetch(`${LOCALSERVERBASEURL}/cart/add`, {
                     method: "POST",
                     headers: getAuthHeaders(),
                     body: JSON.stringify({userId, productId: product.id, quantity}),
@@ -113,7 +114,7 @@ export const useCart = () => {
             console.log(" Con headers:", getAuthHeaders());
 
             const respuesta = await fetch(
-                `http://localhost:8080/cart/update`, {
+                `${LOCALSERVERBASEURL}/cart/update`, {
                     method: "PUT",
                     headers: getAuthHeaders(),
                     body: JSON.stringify({productId, quantity}),
@@ -145,7 +146,7 @@ export const useCart = () => {
             {/* Carrito en el servidor - usuario autenticado - borra del servidor*/
             }
             const respuesta = await fetch(
-                `http://localhost:8080/cart/update`,
+                `${LOCALSERVERBASEURL}/cart/update`,
                 {
                     method: "PUT",
                     headers: getAuthHeaders(),
@@ -178,7 +179,7 @@ export const useCart = () => {
             {/* Carrito en el servidor - usuario autenticado - borra del servidor*/
             }
             const respuesta = await fetch(
-                `http://localhost:8080/cart/clear/${userId}`,
+                `${LOCALSERVERBASEURL}/cart/clear/${userId}`,
                 {
                     method: "DELETE",
                     headers: getAuthHeaders(),

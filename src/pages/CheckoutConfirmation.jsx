@@ -1,6 +1,4 @@
 import {Link, useNavigate} from "react-router-dom";
-
-
 import React, {useState} from "react";
 import Footer from "@/components/Footer.jsx";
 import NavbarH from "@/components/NavbarH.jsx";

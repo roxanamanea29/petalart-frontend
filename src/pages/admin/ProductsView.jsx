@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import ProductsModal from "@/components_admin/ProductsModal.jsx";
 import {Link} from "react-router-dom";
 import {Navbar} from "react-bootstrap";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
 export default function ProductsView() {
@@ -21,7 +22,7 @@ export default function ProductsView() {
 
     // 1. Carga inicial de categorías (público GET)
     useEffect(() => {
-        fetch("http://localhost:8080/categories", {
+        fetch(`${LOCALSERVERBASEURL}/categories`, {
             method: "GET",
             headers: authHeaders(),
         })
@@ -33,7 +34,7 @@ export default function ProductsView() {
 
     // 1. Carga inicial de productos (GET)
     useEffect(() => {
-        fetch("http://localhost:8080/products", {
+        fetch(`${LOCALSERVERBASEURL}/products`, {
             method: "GET",
             headers: authHeaders(),
         })
@@ -47,8 +48,8 @@ export default function ProductsView() {
         try {
             const isEdit = Boolean(productData.id);
             const url = isEdit
-                ? `http://localhost:8080/products/${productData.id}`
-                : `http://localhost:8080/products`;
+                ? `${LOCALSERVERBASEURL}/products/${productData.id}`
+                : `${LOCALSERVERBASEURL}/products`;
 
             const res = await fetch(url, {
                 method: isEdit ? "PUT" : "POST",
@@ -58,7 +59,7 @@ export default function ProductsView() {
             if (!res.ok) throw new Error(`Error ${res.status}`);
 
             // actuliza la lista
-            const updated = await fetch("http://localhost:8080/products", {
+            const updated = await fetch(`${LOCALSERVERBASEURL}/products`, {
                 headers: authHeaders(),
             }).then((r) => r.json());
             setProducts(updated);
@@ -71,7 +72,7 @@ export default function ProductsView() {
     // 3. Eliminar categoría
     const handleDelete = async (id) => {
         try {
-            const res = await fetch(`http://localhost:8080/products/${id}`, {
+            const res = await fetch(`${LOCALSERVERBASEURL}/products/${id}`, {
                 method: "DELETE",
                 headers: authHeaders(),
             });

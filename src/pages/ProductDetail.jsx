@@ -6,6 +6,7 @@ import Footer from "@/components/Footer.jsx";
 import {useCart} from "@/hooks/UseCart.jsx";
 import {useParams} from "react-router-dom";
 import AddToCartModal from "@/components/AddToCartModal.jsx";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -17,7 +18,7 @@ const ProductDetail = () => {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:8080/products/${id}`)
+            axios.get(`${LOCALSERVERBASEURL}/products/${id}`)
                 .then(res => {
                     console.log("🧪 Detalle recibido del backend:", res.data);
                     setProduct(res.data)

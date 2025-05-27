@@ -6,6 +6,7 @@ import {useCart} from "@/hooks/UseCart.jsx";
 import {useAuth} from "@/AuthContext.jsx";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 const Checkout = () => {
     const { user } = useAuth();
     const id = user?.id;
@@ -51,7 +52,7 @@ const Checkout = () => {
             }
 
             // 1. Guardar dirección
-            const responseAddress = await fetch("http://localhost:8080/address/save", {
+            const responseAddress = await fetch(`${LOCALSERVERBASEURL}/address/save`, {
                 method: "POST",
                 headers:getAuthHeaders(),
                 body: JSON.stringify(form),
@@ -64,7 +65,7 @@ const Checkout = () => {
             const addressId = addressData.id;
 
             // 2. Crear orden
-            const response = await fetch(`http://localhost:8080/order/create/${id}`, {
+            const response = await fetch(`${LOCALSERVERBASEURL}/order/create/${id}`, {
                 method: "POST",
                 headers:getAuthHeaders(),
                 body: JSON.stringify({

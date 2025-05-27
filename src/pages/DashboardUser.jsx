@@ -2,11 +2,21 @@ import NavbarH from "../components/NavbarH.jsx";
 import Footer from "../components/Footer.jsx";
 
 import {FaBox} from "react-icons/fa";
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useProfile} from "@/hooks/useProfile.jsx";
 
 
 const DashboardUser = () => {
+    const { profile, loading, error} =useProfile();
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(!loading && (!profile || error)){
+            navigate("/login");
+        }
+    }, [loading, profile, error]);
+
+    if (loading) return <p className="text-center mt-8">Cargando...</p>
     const cards = [
         {
             title: "Mis datos",

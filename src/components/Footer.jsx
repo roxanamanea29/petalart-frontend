@@ -4,6 +4,7 @@ import { FaInstagram, FaFacebook } from "react-icons/fa";
 
 const Footer = () => {
     return (
+        <>
         <div className="footer h-[350px] bg-[#4B2C2C] flex flex-col items-center justify-center">
             <p className="text-3xl " style={{color:"white"}}>Síguenos</p>
             <div className="footer-socials">
@@ -17,6 +18,7 @@ const Footer = () => {
             </div>
             <p className="mt-20 mb-5 sub-heading">© 2025 PetalArt - Todos los derechos reservados</p>
         </div>
+        </>
     );
 };
 

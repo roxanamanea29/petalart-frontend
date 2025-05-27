@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Navbar} from "react-bootstrap";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 export default function OrderView() {
     const [orders, setOrders] = useState([]);
@@ -17,7 +18,7 @@ export default function OrderView() {
 
     //Carga de ordenes (GET)
     useEffect(() => {
-        fetch("http://localhost:8080/order/all", {
+        fetch(`${LOCALSERVERBASEURL}order/all`, {
             method: "GET",
             headers: authHeaders(),
         })
