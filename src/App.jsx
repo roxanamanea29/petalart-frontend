@@ -22,7 +22,7 @@ import DashboardUser from "@/pages/DashboardUser.jsx";
 import {AddressView} from "@/pages/user/AddressView.jsx";
 import OrdersView from "@/pages/user/OrdersView.jsx";
 import PersonalView from "@/pages/user/PersonalView.jsx";
-import About from "@/pages/About.jsx";
+import AboutView from "@/pages/AboutView.jsx";
 
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
                     <Routes>
                         {/* Públicas */}
                         <Route path="/" element={<PublicHome/>}/>
-                        <Route path="/about" element={<About />}/>
+                        <Route path="/about" element={<AboutView />}/>
                         <Route path="/categorias/:id" element={<CategoryProducts/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/contacto" element={<Contact/>}/>

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
 import { FaUser, FaShoppingBag, FaSearch } from "react-icons/fa";
 import { HiMenu } from "react-icons/hi";
 import logo from "@/assets/logo.png";
 import { useAuth } from "@/AuthContext";
+
 
 const NavbarH = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -56,11 +57,17 @@ const NavbarH = () => {
                 <Link className="sub-heading text-start" to="/categories" onClick={() => setMenuOpen(false)}>
                     Categorías
                 </Link>
+                <Link className="sub-heading text-start" to="/product:id" onClick={() => setMenuOpen(false)}>
+                    nombre de producto
+                </Link>
                 <Link className="sub-heading text-start" to="/cart" onClick={() => setMenuOpen(false)}>
                     Carrito
                 </Link>
                 <Link className="sub-heading text-start" to="/contacto" onClick={() => setMenuOpen(false)}>
                     Contacto
+                </Link>
+                <Link className="sub-heading text-start" to="/about" onClick={() => setMenuOpen(false)}>
+                    Sobre nosotros
                 </Link>
 
                 {!isAuthenticated ? (

@@ -1,8 +1,9 @@
-/*
 import {useEffect, useState} from "react";
-import {Modal} from "react-bootstrap";
+import {Form ,Modal} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
     // Estado para manejar los datos del formulario
     const [formData, setFormData] = useState({
@@ -27,7 +28,6 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
                 lastName: user.lastName || "",
                 email: user.email || "",
                 phone: user.phone || "",
-                address : user.address || "",
             });
         } else {
             // Si no hay usuario, resetea el formulario a valores por defecto
@@ -36,7 +36,6 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
                 lastName: "",
                 email: "",
                 phone: "",
-                address: "",
             });
         }
         //guardamos el usuario en el localStorage
@@ -50,8 +49,8 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
     };
 
     // Maneja el envío del formulario
-    const handleSubmit = (e) => {
-        // Evita el envio por defecto del formulario
+    const handleSubmit = async (e) => {
+        // Evita envio por defecto del formulario
         e.preventDefault();
         //valida los campos del formulario
             const isEdit = Boolean(user.id);
@@ -76,18 +75,12 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
             }
 
             // guarda los datos del usuario en el localStorage
-        }
         onSave(formData);
     };
 
     return (
-        <>
+
             <Modal show={show} onHide={handleClose} centered>
-                <Modal.Header closeButton className="justify-content-center">
-                    <Modal.Title className="w-100 text-center">
-                        {address ? "Editar Dirección" : "Agregar Dirección"}
-                    </Modal.Title>
-                </Modal.Header>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formFirstName" className="mb-3">
                         <Form.Label>Nombre</Form.Label>
@@ -136,8 +129,6 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
                     </Button>
                 </Form>
             </Modal>
-        </>
 
     );
-}
-*/
+};

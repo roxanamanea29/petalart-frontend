@@ -3,7 +3,7 @@ import NavbarH from "@/components/NavbarH.jsx";
 import Footer from "@/components/Footer.jsx";
 import {Link} from "react-router-dom";
 
-export default function About() {
+export default function AboutView() {
     return (
         <>
             <NavbarH />
