@@ -17,7 +17,7 @@ const CategoryProducts = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/products/by-category/${id}`)
+        axios.get(`${LOCALSERVERBASEURL}/products/by-category/${id}`)
             .then(res => {
                 setProducts(res.data);
                 setLoading(false);
