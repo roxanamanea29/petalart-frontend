@@ -18,7 +18,7 @@ export default function AddressesView() {
     });
 
     useEffect(() => {
-        fetch(`${LOCALSERVERBASEURL}/address/all`, {
+        fetch(`${LOCALSERVERBASEURL}/address/listado`, {
             method: "GET",
             headers: getAuthHeaders(),
         })
