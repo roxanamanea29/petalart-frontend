@@ -50,20 +50,6 @@ const Checkout = () => {
                 return;
             }
 
-            // Validar que el carrito esté actualizado en el backend
-            const latestCartResponse = await fetch(`${LOCALSERVERBASEURL}/cart/my-cart`, {
-                method: "GET",
-                headers: getAuthHeaders(),
-            });
-
-            if (!latestCartResponse.ok) throw new Error("Error al validar el carrito en servidor");
-            const latestCart = await latestCartResponse.json();
-
-            if (!latestCart.items || latestCart.items.length === 0) {
-                alert("Tu carrito ha sido vaciado o expiró. Por favor vuelve a añadir productos.");
-                navigate("/cart");
-                return;
-            }
             // 1. Guardar dirección
             const responseAddress = await fetch(`${LOCALSERVERBASEURL}/address/save`, {
                 method: "POST",
@@ -77,9 +63,6 @@ const Checkout = () => {
 
             const addressId = addressData.id;
 
-            console.log("shippingMethod:", form.shippingMethod);
-            console.log("paymentMethod:", form.paymentMethod);
-            console.log("addressType:", form.addressType);
             // 2. Crear orden
             const response = await fetch(`${LOCALSERVERBASEURL}/order/create`,  {
                 method: "POST",
