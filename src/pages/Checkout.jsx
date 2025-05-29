@@ -63,6 +63,9 @@ const Checkout = () => {
 
             const addressId = addressData.id;
 
+            console.log("shippingMethod:", form.shippingMethod);
+            console.log("paymentMethod:", form.paymentMethod);
+            console.log("addressType:", form.addressType);
             // 2. Crear orden
             const response = await fetch(`${LOCALSERVERBASEURL}/order/create`,  {
                 method: "POST",
