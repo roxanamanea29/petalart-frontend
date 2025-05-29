@@ -18,7 +18,7 @@ export default function OrderView() {
 
     //Carga de ordenes (GET)
     useEffect(() => {
-        fetch(`${LOCALSERVERBASEURL}order/all`, {
+        fetch(`${LOCALSERVERBASEURL}/order/all`, {
             method: "GET",
             headers: authHeaders(),
         })
