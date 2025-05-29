@@ -25,6 +25,7 @@ const Checkout = () => {
         zipCode: "",
         addressType: "",
         paymentMethod: "",
+        shippingMethod: "",
     });
 
 
@@ -69,6 +70,10 @@ const Checkout = () => {
                 headers:getAuthHeaders(),
                 body: JSON.stringify({
                     addressIds: [addressId],
+                    items: cart.items.map(item => ({
+                        productId: item.productId,
+                        quantity: item.quantity,
+                    })),
                     paymentMethod: form.paymentMethod,
                     shippingMethod: form.shippingMethod,
                     addressType: form.addressType, // SHIPPING, BILLING, BOTH
