@@ -4,11 +4,12 @@ import Footer from "@/components/Footer.jsx";
 import NavbarH from "@/components/NavbarH.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import  { useAuth} from "@/AuthContext.jsx";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 export default function CartView() {
     const { user }= useAuth();
     const navigate = useNavigate();
-    const handleCheckout = () => {
+    /*const handleCheckout = () => {
         if (!user) {
             console.log("Usuario no autenticado redirigie a login...");
             localStorage.setItem("redirectAfterLogin", "/checkout");
@@ -17,7 +18,38 @@ export default function CartView() {
             console.log("Usuario autenticado redirige a checkout...");
             navigate(`/checkout`);
         }
-    }
+    }*/
+    const handleCheckout = async () => {
+        if (!user) {
+            console.log("Usuario no autenticado redirige a login...");
+            localStorage.setItem("redirectAfterLogin", "/checkout");
+            navigate("/login");
+        } else {
+            try {
+                // Verifica el carrito más reciente en backend
+                const response = await fetch(`${LOCALSERVERBASEURL}/cart/my-cart`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+                if (!response.ok) throw new Error("Error al obtener el carrito");
+
+                const latestCart = await response.json();
+                if (!latestCart.items || latestCart.items.length === 0) {
+                    alert("Tu carrito está vacío. Agrega productos antes de continuar.");
+                    return;
+                }
+
+                console.log("Usuario autenticado y carrito válido. Redirigiendo a checkout...");
+                navigate("/checkout");
+            } catch (error) {
+                console.error("Error al validar el carrito:", error);
+                alert("Ocurrió un error al validar el carrito. Intenta de nuevo.");
+            }
+        }
+    };
  // Se utiliza el hook useCart para obtener el carrito, el estado de carga y el estado de error.
     const {cart,loading, error, updateQuantity, removeFromCart, clearCart} = useCart();
     if(loading) return <p>Cargar carrito...</p>
