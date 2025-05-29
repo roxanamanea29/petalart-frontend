@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 const Checkout = () => {
     const { user } = useAuth();
-    const id = user?.id;
     const {cart, clearCart} = useCart();
     const navigate = useNavigate();
 
@@ -65,7 +64,7 @@ const Checkout = () => {
             const addressId = addressData.id;
 
             // 2. Crear orden
-            const response = await fetch(`${LOCALSERVERBASEURL}/order/create/${id}`, {
+            const response = await fetch(`${LOCALSERVERBASEURL}/order/create`,  {
                 method: "POST",
                 headers:getAuthHeaders(),
                 body: JSON.stringify({
