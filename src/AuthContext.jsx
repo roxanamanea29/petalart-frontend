@@ -10,10 +10,37 @@ export const AuthProvider = ({ children }) => {
     });
 
     // Login guarda estado y en localStorage para persistencia
-    const login = (token, roles, userId, name, email) => {
+    // Login guarda estado y en localStorage para persistencia
+    const login = async (token, roles, userId, name, email) => {
         const userData = { token, roles, id: userId, name, email };
         setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData)); //
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        // 🔄 Sincronizar carrito local con backend
+        const localCart = JSON.parse(localStorage.getItem("cart") || "{}");
+
+        if (localCart.items && localCart.items.length > 0) {
+            for (let item of localCart.items) {
+                try {
+                    await fetch(`${import.meta.env.VITE_LOCALSERVERBASEURL || "http://localhost:8080"}/cart/add`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({
+                            productId: item.productId,
+                            quantity: item.quantity,
+                        }),
+                    });
+                } catch (e) {
+                    console.error(" Error al sincronizar producto:", item, e);
+                }
+            }
+
+            // ✅ (opcional) Limpia el carrito local si ya se migró
+            localStorage.removeItem("cart");
+        }
     };
 
     // Logout: limpia estado y storage
