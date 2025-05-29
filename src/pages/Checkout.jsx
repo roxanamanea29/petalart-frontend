@@ -70,7 +70,7 @@ const Checkout = () => {
                 body: JSON.stringify({
                     addressIds: [addressId],
                     paymentMethod: form.paymentMethod,
-                    shippingMethod: "STANDARD",
+                    shippingMethod: form.shippingMethod,
                     addressType: form.addressType, // SHIPPING, BILLING, BOTH
                 }),
             });
