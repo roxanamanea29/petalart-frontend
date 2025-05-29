@@ -4,7 +4,6 @@ import axios from "axios";
 import NavbarH from "@/components/NavbarH.jsx";
 import Footer from "@/components/Footer.jsx";
 import ProductCard from "@/components/ProductCard.jsx";
-import WorkGallery from "@/components/WorkGallery.jsx";
 import Banner_gallery from "@/components/Banner_gallery.jsx";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 

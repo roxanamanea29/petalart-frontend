@@ -21,7 +21,7 @@ function CategoryView() {
 
     // 1. Carga inicial de categorías (público GET)
     useEffect(() => {
-        fetch(`${LOCALSERVERBASEURL}categories`, {
+        fetch(`${LOCALSERVERBASEURL}/categories`, {
             method: "GET",
             headers: getAuthHeaders(),
         })

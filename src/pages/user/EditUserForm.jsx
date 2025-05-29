@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Form ,Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -56,8 +57,8 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
             const isEdit = Boolean(user.id);
             // Si es edición, usa PUT, si es creación, usa POST
             const url = isEdit
-                ? `http://localhost:8080/user/${user.id}`
-                : `http://localhost:8080/user`;
+                ? `${LOCALSERVERBASEURL}/user/${user.id}`
+                : `${LOCALSERVERBASEURL}/user`;
            // Prepara los datos del formulario para enviar
             const response = await fetch(url, {
                 // Define el método HTTP según si es edición o creación

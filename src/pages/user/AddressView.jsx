@@ -6,6 +6,7 @@ import Table from "react-bootstrap/Table";
 import Footer from "@/components/Footer.jsx";
 import Button from "react-bootstrap/Button";
 import AddressModal from "@/components/AddressModal.jsx";
+import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 export const AddressView = () => {
     const [addresses, setAddresses] = useState([]);
@@ -18,7 +19,7 @@ export const AddressView = () => {
     });
 
     useEffect(() => {
-        fetch("http://localhost:8080/address/my-addresses", {
+        fetch(`${LOCALSERVERBASEURL}/address/my-addresses`, {
             method: "GET",
             headers: getAuthHeaders(),
         })
@@ -34,8 +35,8 @@ export const AddressView = () => {
         try {
             const isEdit = Boolean(addressData.id);
             const url = isEdit
-                ? `http://localhost:8080/address/update/${addressData.id}`
-                : `http://localhost:8080/address/save`;
+                ? `${LOCALSERVERBASEURL}/address/update/${addressData.id}`
+                : `${LOCALSERVERBASEURL}/address/save`;
 
             const res = await fetch(url, {
                 method: isEdit ? "PUT" : "POST",
@@ -45,7 +46,7 @@ export const AddressView = () => {
             if (!res.ok) throw new Error(`Error ${res.status}: ${await res.text()}`);
 
             // Refresca la lista
-            const updated = await fetch("http://localhost:8080/address/my-addresses", {
+            const updated = await fetch(`${LOCALSERVERBASEURL}/address/my-addresses`, {
                 headers: getAuthHeaders(),
             }).then((r) => r.json());
             setAddresses(updated);
@@ -59,7 +60,7 @@ export const AddressView = () => {
         if (!window.confirm("¿Estás seguro de eliminar esta dirección?")) return;
 
         try {
-            const res = await fetch(`http://localhost:8080/address/delete/${id}`, {
+            const res = await fetch(`${LOCALSERVERBASEURL}/address/delete/${id}`, {
                 method: "DELETE",
                 headers: getAuthHeaders(),
             });
