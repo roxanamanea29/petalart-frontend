@@ -52,7 +52,7 @@ export default function CheckoutConfirmation() {
                 <h2 className="text-2xl font-semibold uppercase m-3">¡Gracias por tu compra!</h2>
                 <p className="sub-heading">
                     Tu pedido #{order.id} ha sido registrado y pagado con éxito.
-                    Hemos enviado un correo a <strong>{order.userEmail}</strong> con los detalles.
+                    Hemos enviado un correo a <strong>{order.email}</strong> con los detalles.
                 </p>
 
                 <button
@@ -82,7 +82,7 @@ export default function CheckoutConfirmation() {
             {/* ——— Formulario oculto para EmailJS ——— */}
             <form ref={formRef} style={{ display: "none" }}>
                 {/* Campos raíz */}
-                <input type="hidden" name="email"       value={order.userEmail} />
+                <input type="hidden" name="email"       value={order.email} />
                 <input type="hidden" name="order_id"    value={order.id} />
                 <input type="hidden" name="order_date"  value={new Date(order.date).toLocaleString()} />
 

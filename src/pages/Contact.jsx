@@ -3,7 +3,7 @@ import "../css/Contact.css";
 import NavbarH from "@/components/NavbarH.jsx";
 import Footer from "@/components/Footer.jsx";
 import {Link} from "react-router-dom";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
 
