@@ -27,30 +27,7 @@ export default function OrderView() {
             .catch((err) => console.error("Error al obtener órdenes:", err));
     }, []);
 
-    // Eliminar orden
-   /* const handleDelete = async (orderId) => {
-        if (!window.confirm("¿Estás seguro de que quieres eliminar esta orden?")) return;
 
-        try {
-            const res = await fetch(`http://localhost:8080/order/${orderId}`, {
-                method: "DELETE",
-                headers: authHeaders(),
-            });
-            if (!res.ok) {
-                const errorData = await res.json();
-              const message = errorData.message || `Error al eliminar la orden: ${res.status}`;
-                throw new Error(message);
-            };
-
-            alert("Orden eliminada correctamente.");
-            // Actualiza la lista
-            setOrders(prev => prev.filter(c => c.id !== orderId));
-        } catch (error) {
-            console.error("Error al eliminar la orden:", error);
-            alert(error.message);
-
-        }
-    };*/
 
     return (
         <>

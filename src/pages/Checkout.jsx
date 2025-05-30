@@ -65,7 +65,7 @@ const Checkout = () => {
             const addressId = addressData.id;
 
             // 2. Crear orden
-            const response = await fetch(`${LOCALSERVERBASEURL}/order/create`,  {
+            const responseCreate = await fetch(`${LOCALSERVERBASEURL}/order/create`,  {
                 method: "POST",
                 headers:getAuthHeaders(),
                 body: JSON.stringify({
@@ -76,16 +76,33 @@ const Checkout = () => {
                     })),
                     paymentMethod: form.paymentMethod,
                     shippingMethod: form.shippingMethod,
-                    addressType: form.addressType, // SHIPPING, BILLING, BOTH
+                    addressType: form.addressType,
                 }),
             });
 
-            if (!response.ok) throw new Error("Error al guardar el pedido");
+            if (!responseCreate.ok) throw new Error("Error al guardar el pedido");
 
-            // 3. Éxito
+            const createdOrder = await responseCreate.json();
+            console.log("Pedido realizado:", createdOrder);
+
+
+            // Confirmar pago
+            const resConfirm = await fetch(
+                `${LOCALSERVERBASEURL}/order/${createdOrder.id}/confirm-payment`,
+                {
+                    method: "POST",
+                    headers: getAuthHeaders(),
+                }
+            );
+            if (!resConfirm.ok) {
+                throw new Error("Error al confirmar el pago del pedido");
+            }
+            const confirmedOrder = await resConfirm.json();
+            console.log("Pago confirmado para el pedido:", confirmedOrder);
+
             clearCart();
-            alert("Dirección y pedido realizado correctamente");
-            navigate("/checkout/confirmation");
+            alert(`Dirección y pedido realizado correctamente #${createdOrder.id}#`);
+            navigate("/checkout/confirmation", { state: { order: createdOrder } });
 
         } catch (error) {
             console.error("Error al confirmar la dirección o el pedido:", error);
