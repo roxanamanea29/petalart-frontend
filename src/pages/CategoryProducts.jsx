@@ -86,9 +86,18 @@ const CategoryProducts = () => {
 
             <Banner_gallery />
 
-            <a href="/categorias" className="flex justify-center items-center h-screen">
-                <img src="/public/images/banner.png" alt="Banner flores" />
-            </a>
+            / Dentro de tu JSX:
+            <Link to="/categorias" className="flex justify-center items-center h-screen">
+                {/* Opción 1: template string */}
+                <img
+                    src={`${LOCALSERVERBASEURL}/images/banner.png`}
+                    alt="Banner flores"
+                />
+  <img
+    src={LOCALSERVERBASEURL + "/images/banner.png"}
+    alt="Banner flores"
+  />
+            </Link>
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm text-gray-600">
                 <div>🌱 Flores frescas de temporada</div>
                 <div>🎁 Entrega en 24h en tu ciudad</div>
