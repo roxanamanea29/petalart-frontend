@@ -87,11 +87,12 @@ export default function CheckoutConfirmation() {
                 {showTips && <div className="bg-white py-16 px-6">…tus tips…</div>}
             </div>
 
-            {/* Formulario oculto para EmailJS */}
             <form ref={formRef} style={{ display: "none" }}>
-                <input type="hidden" name="email"      value={order.userEmail} />
-                <input type="hidden" name="order_id"   value={order.id} />
-                <input type="hidden" name="order_date" value={new Date(order.date).toLocaleString()} />
+                {/* …resto de campos… */}
+                <input type="hidden" name="website_url"    value="https://petalart-frontend.onrender.com" />
+                <input type="hidden" name="email"          value={order.userEmail} />
+                <input type="hidden" name="order_id"       value={order.id} />
+                <input type="hidden" name="order_date"     value={new Date(order.date).toLocaleString()} />
                 {order.items.map((item, idx) => (
                     <React.Fragment key={idx}>
                         <input type="hidden" name={`orders[${idx}].name`}      value={item.productName} />
