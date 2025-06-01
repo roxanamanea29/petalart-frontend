@@ -5,7 +5,7 @@ import NavbarH from "@/components/NavbarH.jsx";
 import Footer from "@/components/Footer.jsx";
 
 const SERVICE_ID = "service_4ah0agj";
-const TEMPLATE_ID = "template_gwdtvwq";
+const TEMPLATE_ID = "template_w5reyu5";
 
 export default function CheckoutConfirmation() {
     const navigate = useNavigate();
