@@ -68,7 +68,7 @@ function BlogFeed() {
                                 />
                             </div>
                             <a
-                                href="https://petalart-blog.blogspot.com/feeds/posts/default?alt=json-in-script"
+                                href={post.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="mt-3 text-green-700 font-semibold transition-transform duration-200 hover:underline hover:translate-x-1"
