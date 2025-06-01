@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import fetchJsonp from "fetch-jsonp";
+import { Link } from "react-router-dom";
 
 function BlogFeed() {
     const [posts, setPosts] = useState([]);
