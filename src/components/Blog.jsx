@@ -15,6 +15,7 @@ function BlogFeed() {
         if (match && match[1]) {
             return match[1];
         }
+
         // Si no hay imagen, devuelve un placeholder
         return "/placeholder.svg";
     };
@@ -39,12 +40,6 @@ function BlogFeed() {
 
     return (
         <section className="mt-26">
-            <div className="max-w-3xl mx-auto mb-6 text-left">
-                <Link to="/" className="inline-block text-green-700 hover:underline">
-                    ← Volver a PetalArt
-                </Link>
-            </div>
-
             <h2 className="text-4xl text-green-900 font-bold text-center mb-16">Últimos artículos del blog</h2>
 
             <div className="flex flex-wrap justify-center gap-6 px-6">
