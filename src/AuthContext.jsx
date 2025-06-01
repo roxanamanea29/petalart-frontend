@@ -16,10 +16,10 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", token);
 
         // Sincronizar carrito local con backend
-        const localCart = JSON.parse(localStorage.getItem("cart") || "{}");
+        const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-        if (localCart.items && localCart.items.length > 0) {
-            for (let item of localCart.items) {
+        if (localCart.length  > 0) {
+            for (let item of localCart) {
                 try {
                     await fetch(`${LOCALSERVERBASEURL}/cart/add`, {
                         method: "POST",
@@ -36,8 +36,7 @@ export const AuthProvider = ({ children }) => {
                     console.error(" Error al sincronizar el producto:", item, e);
                 }
             }
-
-            // ✅ Limpiar carrito local tras sincronización
+            //  Limpiar carrito local despues de sincronización
             localStorage.removeItem("cart");
         }
 
@@ -54,12 +53,11 @@ export const AuthProvider = ({ children }) => {
 
             const backendCart = await response.json();
 
-            // ✅ Guarda el carrito sincronizado (nombre de clave limpio)
+            //  Guarda el carrito sincronizado (nombre de clave limpio)
             localStorage.setItem("syncedCart", JSON.stringify(backendCart));
-            console.log("✅ Carrito sincronizado y recargado:", backendCart);
+            console.log("Carrito sincronizado y recargado:", backendCart);
 
-
-            //notifica a otros componentes que el carrito ha sido actualizado
+            //notifica a otros componentes que el carrito ha sido actualizado en el useCart
             window.dispatchEvent(new Event("cart-updated"));
         } catch (error) {
             console.error(" Error al cargar el carrito del backend:", error);
