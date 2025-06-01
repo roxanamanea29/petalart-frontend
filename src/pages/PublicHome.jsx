@@ -65,7 +65,7 @@ const PublicHome = () => {
                 </div>
 
                 <a
-                    href="/categorias/52"
+                    href="/categorias/4"
                     className="my-16 flex justify-center items-center w-full max-w-[1350px] h-auto mx-auto px-4"
                 >
                     <img
