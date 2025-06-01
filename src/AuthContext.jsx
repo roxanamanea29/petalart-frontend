@@ -58,9 +58,9 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("syncedCart", JSON.stringify(backendCart));
             console.log("✅ Carrito sincronizado y recargado:", backendCart);
 
-            // ✅ (OPCIONAL) Si tienes un context de carrito, actualízalo también
-            // setCart(backendCart); ← si usas useCart o useContext
 
+            //notifica a otros componentes que el carrito ha sido actualizado
+            window.dispatchEvent(new Event("cart-updated"));
         } catch (error) {
             console.error(" Error al cargar el carrito del backend:", error);
             alert("Ocurrió un error al cargar tu carrito. Intenta de nuevo.");

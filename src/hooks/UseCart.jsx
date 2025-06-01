@@ -1,33 +1,25 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 export const useCart = () => {
-    const [cart, setCart] = useState({items: [], totalPrice: 0});
+    const [cart, setCart] = useState({ items: [], totalPrice: 0 });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
-
     const isLoggedIn = !!userId && !!token;
 
-    // Función para obtener siempre el token más reciente
     const getAuthHeaders = () => ({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
     });
 
-    // Calcular el total del carrito
-    const calcularTotal = (items) => {
-        return items.reduce((total, item) => {
-            return total + item.quantity * item.price;
-        }, 0);
-    };
+    const calcularTotal = (items) =>
+        items.reduce((total, item) => total + item.quantity * item.price, 0);
 
-    // Cargar carrito al montar el componente
-    useEffect(() => {
+    const loadCart = () => {
         if (isLoggedIn) {
-            console.log("Renderizado CartView");
-
+            console.log("♻️ Cargando carrito del backend");
             fetch(`${LOCALSERVERBASEURL}/cart/my-cart`, {
                 method: "GET",
                 headers: getAuthHeaders(),
@@ -40,39 +32,44 @@ export const useCart = () => {
                     setCart(data);
                     setLoading(false);
                 })
-                .catch((error) => {
-                    console.error("Error al cargar el carrito autenticado:", error);
-                    setError(error);
+                .catch((err) => {
+                    console.error("❌ Error al cargar carrito autenticado:", err);
+                    setError(err);
                     setLoading(false);
                 });
         } else {
-            console.log("cargar CartView del usuario noautenticado: de localStorage");
+            console.log("📦 Cargando carrito local");
             const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-            console.log("📦 Carrito desde localStorage:", storedCart);
             setCart({ items: storedCart, totalPrice: calcularTotal(storedCart) });
             setLoading(false);
         }
+    };
+
+    // 🔄 Cargar carrito al montar y al recibir el evento "cart-updated"
+    useEffect(() => {
+        loadCart();
+        const handleCartUpdate = () => {
+            setLoading(true);
+            loadCart();
+        };
+        window.addEventListener("cart-updated", handleCartUpdate);
+        return () => window.removeEventListener("cart-updated", handleCartUpdate);
     }, [isLoggedIn]);
-    // Añadir producto al carrito
+
     const addToCart = async (product, quantity) => {
         try {
             if (isLoggedIn) {
-                const respuesta = await fetch(`${LOCALSERVERBASEURL}/cart/add`, {
+                const res = await fetch(`${LOCALSERVERBASEURL}/cart/add`, {
                     method: "POST",
                     headers: getAuthHeaders(),
-                    body: JSON.stringify({userId, productId: product.id, quantity}),
+                    body: JSON.stringify({ userId, productId: product.id, quantity }),
                 });
-                if (!respuesta.ok) {
-                    throw new Error("Error al agregar al carrito");
-                }
-                const updatedCart = await respuesta.json();
-                setCart(updatedCart);
+                if (!res.ok) throw new Error("Error al agregar al carrito");
+                const updated = await res.json();
+                setCart(updated);
             } else {
-
-                // Carrito en localStorage
                 const stored = JSON.parse(localStorage.getItem("cart")) || [];
                 const existing = stored.find((item) => item.productId === product.id);
-
                 if (existing) {
                     existing.quantity += quantity;
                 } else {
@@ -82,116 +79,81 @@ export const useCart = () => {
                         description: product.description,
                         price: product.price,
                         quantity,
-                        imageUrl: product.imageUrl
+                        imageUrl: product.imageUrl,
                     });
                 }
                 localStorage.setItem("cart", JSON.stringify(stored));
-                console.log("Producto añadido al carrito.");
-                setCart({items: stored, totalPrice: calcularTotal(stored)});
+                setCart({ items: stored, totalPrice: calcularTotal(stored) });
             }
-        } catch (error) {
-            setError(error);
+        } catch (err) {
+            setError(err);
         }
     };
 
-    // Actualizar cantidad de un producto
     const updateQuantity = async (productId, quantity) => {
         try {
-            {/* Carrito en localStorage - usuario invitado - actualiza el localstorage*/
-            }
             if (!isLoggedIn) {
                 const stored = JSON.parse(localStorage.getItem("cart")) || [];
                 const existing = stored.find((item) => item.productId === productId);
-                if (existing) {
-                    existing.quantity = quantity;
-                }
+                if (existing) existing.quantity = quantity;
                 localStorage.setItem("cart", JSON.stringify(stored));
-                setCart({items: stored, totalPrice: calcularTotal(stored)});
+                setCart({ items: stored, totalPrice: calcularTotal(stored) });
                 return;
             }
-            // 🔐 Usuario autenticado - actualiza el servidor
-            console.log(" Enviando a backend updateQuantity:", { productId, quantity });
-            console.log(" Con headers:", getAuthHeaders());
 
-            const respuesta = await fetch(
-                `${LOCALSERVERBASEURL}/cart/update`, {
-                    method: "PUT",
-                    headers: getAuthHeaders(),
-                    body: JSON.stringify({productId, quantity}),
-                });
-            if (!respuesta.ok) {
-                throw new Error("Error al actualizar la cantidad");
-            }
-            const updatedCart = await respuesta.json();
-            setCart(updatedCart);
-            console.log("Cantidad actualizada en el servidor");
-        } catch (error) {
-            console.error("Error al actualizar la cantidad:", error);
-            setError(error);
+            const res = await fetch(`${LOCALSERVERBASEURL}/cart/update`, {
+                method: "PUT",
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ productId, quantity }),
+            });
+            if (!res.ok) throw new Error("Error al actualizar la cantidad");
+            const updated = await res.json();
+            setCart(updated);
+        } catch (err) {
+            setError(err);
         }
     };
 
-    // Eliminar producto
     const removeFromCart = async (productId) => {
         try {
             if (!isLoggedIn) {
-                {/* Carrito en localStorage - usuario no logueado -borra del localstorage*/
-                }
                 const stored = JSON.parse(localStorage.getItem("cart")) || [];
-                const updatedCart = stored.filter((item) => item.productId !== productId);
-                localStorage.setItem("cart", JSON.stringify(updatedCart));
-                setCart({items: updatedCart, totalPrice: calcularTotal(updatedCart)});
+                const updated = stored.filter((item) => item.productId !== productId);
+                localStorage.setItem("cart", JSON.stringify(updated));
+                setCart({ items: updated, totalPrice: calcularTotal(updated) });
                 return;
             }
-            {/* Carrito en el servidor - usuario autenticado - borra del servidor*/
-            }
-            const respuesta = await fetch(
-                `${LOCALSERVERBASEURL}/cart/update`,
-                {
-                    method: "PUT",
-                    headers: getAuthHeaders(),
-                    body: JSON.stringify({productId, quantity: 0}),
-                });
-            if (!respuesta.ok) {
 
-                throw new Error("Error al eliminar del carrito");
-            }
-            const updatedCart = await respuesta.json();
-            {
-                console.log("Producto eliminado del carrito", updatedCart);
-            }
-            setCart(updatedCart);
-        } catch (error) {
-            setError(error);
+            const res = await fetch(`${LOCALSERVERBASEURL}/cart/update`, {
+                method: "PUT",
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ productId, quantity: 0 }),
+            });
+            if (!res.ok) throw new Error("Error al eliminar del carrito");
+            const updated = await res.json();
+            setCart(updated);
+        } catch (err) {
+            setError(err);
         }
     };
 
-    // Vaciar carrito
     const clearCart = async () => {
         try {
             if (!isLoggedIn) {
-                {/* Carrito en localStorage - usuario invitado - borra del localstorage*/
-                }
                 localStorage.removeItem("cart");
-                setCart({items: [], totalPrice: 0});
+                setCart({ items: [], totalPrice: 0 });
                 return;
             }
-            {/* Carrito en el servidor - usuario autenticado - borra del servidor*/
-            }
-            const respuesta = await fetch(
-                `${LOCALSERVERBASEURL}/cart/clear/${userId}`,
-                {
-                    method: "DELETE",
-                    headers: getAuthHeaders(),
-                }
-            );
-            if (!respuesta.ok) {
-                throw new Error("Error al vaciar el carrito");
-            }
-            const updatedCart = await respuesta.json();
-            setCart(updatedCart);
-        } catch (error) {
-            setError(error);
+
+            const res = await fetch(`${LOCALSERVERBASEURL}/cart/clear/${userId}`, {
+                method: "DELETE",
+                headers: getAuthHeaders(),
+            });
+            if (!res.ok) throw new Error("Error al vaciar el carrito");
+            const updated = await res.json();
+            setCart(updated);
+        } catch (err) {
+            setError(err);
         }
     };
 
