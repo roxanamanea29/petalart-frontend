@@ -40,6 +40,12 @@ function BlogFeed() {
 
     return (
         <section className="mt-26">
+            <div className="max-w-3xl mx-auto mb-6 text-left">
+                <Link to="/" className="inline-block text-green-700 hover:underline">
+                    ← Volver a PetalArt
+                </Link>
+            </div>
+
             <h2 className="text-4xl text-green-900 font-bold text-center mb-16">Últimos artículos del blog</h2>
 
             <div className="flex flex-wrap justify-center gap-6 px-6">
@@ -62,7 +68,7 @@ function BlogFeed() {
                                 />
                             </div>
                             <a
-                                href={post.link}
+                                href="https://petalart-blog.blogspot.com/feeds/posts/default?alt=json-in-script"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="mt-3 text-green-700 font-semibold transition-transform duration-200 hover:underline hover:translate-x-1"
