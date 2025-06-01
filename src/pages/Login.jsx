@@ -51,19 +51,13 @@ export default function Login() {
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
 
-            // Guardar en contexto y en localStorage
+            // ——————————————————————————————
+            // Aquí solo llamamos a `login(...)`. No es necesario volver a hacer
+            // `localStorage.setItem("user", ...)` porque el Context lo persiste.
+            // login(token, roles, userId, name, email) guardará en localStorage:
+            //    { id: userId, name, email, roles, token }
             login(data.accessToken, data.roles, data.userId, data.name, data.email);
-            localStorage.setItem(
-                "user",
-                JSON.stringify({
-                    accessToken: data.accessToken,
-                    roles: data.roles,
-                    userId: data.userId,
-                    name: data.name,
-                    email: data.email,
-                })
-            );
-            localStorage.setItem("token", data.accessToken);
+            // ——————————————————————————————
 
             // Redirección
             const redirect = localStorage.getItem("redirectAfterLogin");

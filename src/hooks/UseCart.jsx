@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 export const useCart = () => {
+    // 1) Leemos “user” completo en lugar de un userId suelto
+    const storedUser = localStorage.getItem("user");
+    const userObj = storedUser ? JSON.parse(storedUser) : null;
+    const token = localStorage.getItem("token");
+    const isLoggedIn = !!userObj && !!token;
+
     const [cart, setCart] = useState({ items: [], totalPrice: 0 });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const userId = localStorage.getItem("userId");
-    const token = localStorage.getItem("token");
-    const isLoggedIn = !!userId && !!token;
 
     const getAuthHeaders = () => ({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`,
     });
 
     const calcularTotal = (items) =>
@@ -33,7 +36,7 @@ export const useCart = () => {
                     setLoading(false);
                 })
                 .catch((err) => {
-                    console.error("❌ Error al cargar carrito autenticado:", err);
+                    console.error(" Error al cargar carrito autenticado:", err);
                     setError(err);
                     setLoading(false);
                 });
@@ -45,7 +48,7 @@ export const useCart = () => {
         }
     };
 
-    // 🔄 Cargar carrito al montar y al recibir el evento "cart-updated"
+    // 🔄 Carga inicial + escucha de “cart-updated”
     useEffect(() => {
         loadCart();
         const handleCartUpdate = () => {
@@ -62,14 +65,18 @@ export const useCart = () => {
                 const res = await fetch(`${LOCALSERVERBASEURL}/cart/add`, {
                     method: "POST",
                     headers: getAuthHeaders(),
-                    body: JSON.stringify({ productId: product.id, quantity }),
+                    body: JSON.stringify({
+                        productId: product.id,
+                        quantity,
+                    }),
                 });
                 if (!res.ok) throw new Error("Error al agregar al carrito");
                 const updated = await res.json();
                 setCart(updated);
             } else {
+                // carrito local para invitado
                 const stored = JSON.parse(localStorage.getItem("cart")) || [];
-                const existing = stored.find((item) => item.productId === product.id);
+                const existing = stored.find((i) => i.productId === product.id);
                 if (existing) {
                     existing.quantity += quantity;
                 } else {
@@ -94,7 +101,7 @@ export const useCart = () => {
         try {
             if (!isLoggedIn) {
                 const stored = JSON.parse(localStorage.getItem("cart")) || [];
-                const existing = stored.find((item) => item.productId === productId);
+                const existing = stored.find((i) => i.productId === productId);
                 if (existing) existing.quantity = quantity;
                 localStorage.setItem("cart", JSON.stringify(stored));
                 setCart({ items: stored, totalPrice: calcularTotal(stored) });
@@ -118,9 +125,9 @@ export const useCart = () => {
         try {
             if (!isLoggedIn) {
                 const stored = JSON.parse(localStorage.getItem("cart")) || [];
-                const updated = stored.filter((item) => item.productId !== productId);
-                localStorage.setItem("cart", JSON.stringify(updated));
-                setCart({ items: updated, totalPrice: calcularTotal(updated) });
+                const updatedList = stored.filter((i) => i.productId !== productId);
+                localStorage.setItem("cart", JSON.stringify(updatedList));
+                setCart({ items: updatedList, totalPrice: calcularTotal(updatedList) });
                 return;
             }
 
@@ -145,7 +152,8 @@ export const useCart = () => {
                 return;
             }
 
-            const res = await fetch(`${LOCALSERVERBASEURL}/cart/clear/${userId}`, {
+            // Si el backend ya no necesita {userId} en la ruta, sólo:
+            const res = await fetch(`${LOCALSERVERBASEURL}/cart/clear`, {
                 method: "DELETE",
                 headers: getAuthHeaders(),
             });
@@ -162,7 +170,6 @@ export const useCart = () => {
         loading,
         error,
         isLoggedIn,
-        getAuthHeaders,
         addToCart,
         updateQuantity,
         removeFromCart,
