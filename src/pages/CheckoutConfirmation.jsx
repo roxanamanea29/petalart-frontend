@@ -14,30 +14,33 @@ export default function CheckoutConfirmation() {
     const formRef = useRef();
     const [showTips, setShowTips] = useState(false);
 
+    //  Recupera el email con fallback si no se envió correctamente desde Checkout.jsx
+    const fallbackEmail = localStorage.getItem("userEmail");
+
+    const userEmail = order?.userEmail || fallbackEmail || "petalartblog@gmail.com";
+
     useEffect(() => {
         if (!order) {
             navigate("/categorias");
             return;
         }
 
-        console.log("🏷️ useEffect de CheckoutConfirmation arrancado order =", order);
-
         const timeoutId = setTimeout(() => {
             const formData = new FormData(formRef.current);
-            console.log("📋 Contenido del formRef:", Object.fromEntries(formData.entries()));
+            console.log("📋 Formulario enviado:", Object.fromEntries(formData.entries()));
 
             emailjs
                 .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current)
                 .then((response) => {
-                    console.log("✅ Email enviado con sendForm:", response.status, response.text);
+                    console.log(" Email enviado con sendForm:", response.status, response.text);
                 })
                 .catch((err) => {
-                    console.warn("⚠️ sendForm falló, usando send():", err);
+                    console.warn("️ sendForm falló, intentando con send():", err);
                     const params = Object.fromEntries(formData.entries());
                     emailjs
                         .send(SERVICE_ID, TEMPLATE_ID, params)
                         .then((resp2) => {
-                            console.log("✅ Email enviado con send():", resp2.status, resp2.text);
+                            console.log(" Email enviado con send():", resp2.status, resp2.text);
                         })
                         .catch((err2) => {
                             console.error("❌ send() también falló:", err2);
@@ -64,7 +67,7 @@ export default function CheckoutConfirmation() {
                 <h2 className="text-2xl font-semibold uppercase m-3">¡Gracias por tu compra!</h2>
                 <p className="sub-heading">
                     Tu pedido #{order.id} ha sido registrado y pagado con éxito. Hemos enviado un correo a{" "}
-                    <strong>{order.userEmail}</strong> con los detalles.
+                    <strong>{userEmail}</strong> con los detalles.
                 </p>
                 <button
                     onClick={() => navigate("/categorias")}
@@ -75,9 +78,7 @@ export default function CheckoutConfirmation() {
             </div>
 
             <div className="relative text-center mt-10">
-                <button
-                    onClick={() => setShowTips(!showTips)}
-                >
+                <button onClick={() => setShowTips(!showTips)}>
                     <img
                         src="/images/BannerFlowerCareTips.png"
                         alt="Consejos para cuidar tus flores"
@@ -94,7 +95,6 @@ export default function CheckoutConfirmation() {
                     <p className="text-center text-gray-600 text-lg mb-10">
                         Aprende cómo mantener tus flores frescas y radiantes por más tiempo
                     </p>
-
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         <div className="bg-pink-50 rounded-2xl p-6 shadow-md">
                             <h3 className="text-xl font-semibold text-pink-700 mb-2">💧 Riego</h3>
@@ -124,11 +124,11 @@ export default function CheckoutConfirmation() {
                 </div>
             )}
 
-            {/* ✅ FORMULARIO OCULTO SIEMPRE EN EL DOM */}
+            {/* ✅ FORMULARIO OCULTO */}
             <form ref={formRef} style={{ display: "none" }}>
                 <input type="hidden" name="website_url" value="https://petalart-frontend.onrender.com" />
-                <input type="hidden" name="email" value={order.userEmail} />
-                <input type="hidden" name="to_email" value={`${order.userEmail},petalartblog@gmail.com`} />
+                <input type="hidden" name="email" value={userEmail} />
+                <input type="hidden" name="to_email" value={`${userEmail},petalartblog@gmail.com`} />
                 <input type="hidden" name="order_id" value={order.id} />
                 <input type="hidden" name="order_date" value={new Date(order.date).toLocaleString()} />
                 {order.items.map((item, idx) => (

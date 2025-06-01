@@ -100,9 +100,17 @@ const Checkout = () => {
             const confirmedOrder = await resConfirm.json();
             console.log("Pago confirmado para el pedido:", confirmedOrder);
 
+
             clearCart();
             alert(`Dirección y pedido realizado correctamente #${createdOrder.id}#`);
-            navigate("/checkout/confirmation", { state: { order: createdOrder } });
+            // antes de redirigir  a la página de confirmación del pedido incluimos el email del usuario
+            console.log("📧 Email del usuario:", user?.email);
+            // Redirigir a la página de confirmación del pedido
+            const createdOrderWithEmail = {
+                ...confirmedOrder,
+                userEmail: user.email || "",
+            }
+            navigate("/checkout/confirmation", { state: { order: createdOrderWithEmail } });
 
         } catch (error) {
             console.error("Error al confirmar la dirección o el pedido:", error);
