@@ -1,11 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import fetchJsonp from "fetch-jsonp";
 
 function BlogFeed() {
     const [posts, setPosts] = useState([]);
-    const extractImage = (html) => {
-        const match = html.match(/<img.*?src="(.*?)"/);
-        return match ? match[1] : null;
+
+    // funcion que extre la imagen
+    const extractImage = (entry) => {
+        if (entry.media$thumbnail && entry.media$thumbnail.url) {
+            return entry.media$thumbnail.url;
+        }
+        // Si no hay thumbnail, intenta extraer de content
+        const html = entry.content ? entry.content.$t : "";
+        const match = html.match(/<img[^>]+src="([^">]+)"/);
+        if (match && match[1]) {
+            return match[1];
+        }
+
+        // Si no hay imagen, devuelve un placeholder
+        return "/placeholder.svg";
     };
 
     useEffect(() => {
@@ -17,7 +29,7 @@ function BlogFeed() {
                     summary: entry.summary?.$t || "",
                     link: entry.link.find((l) => l.rel === "alternate").href,
                     published: entry.published.$t,
-                    image: extractImage(entry.content?.$t || "") || "/placeholder.svg"
+                    image: extractImage(entry),
                 }));
                 setPosts(entries);
             })
@@ -46,7 +58,7 @@ function BlogFeed() {
                                 <h3 className="text-sm font-semibold mb-1">{post.title}</h3>
                                 <p
                                     className="text-xs text-gray-600 line-clamp-3"
-                                    dangerouslySetInnerHTML={{ __html: post.summary }}
+                                    dangerouslySetInnerHTML={{__html: post.summary}}
                                 />
                             </div>
                             <a
