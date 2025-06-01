@@ -62,7 +62,7 @@ export const useCart = () => {
                 const res = await fetch(`${LOCALSERVERBASEURL}/cart/add`, {
                     method: "POST",
                     headers: getAuthHeaders(),
-                    body: JSON.stringify({ userId, productId: product.id, quantity }),
+                    body: JSON.stringify({ productId: product.id, quantity }),
                 });
                 if (!res.ok) throw new Error("Error al agregar al carrito");
                 const updated = await res.json();
