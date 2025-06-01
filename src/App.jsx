@@ -23,7 +23,7 @@ import {AddressView} from "@/pages/user/AddressView.jsx";
 import OrdersView from "@/pages/user/OrdersView.jsx";
 import PersonalView from "@/pages/user/PersonalView.jsx";
 import AboutView from "@/pages/AboutView.jsx";
-import Blog from "@/components/Blog.jsx";
+
 
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
                         <Route path="/categorias/:id" element={<CategoryProducts/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/contacto" element={<Contact/>}/>
-                        <Route path="/blog" element={<Blog />}/>
+
                         <Route path="/productos/:id" element={<ProductDetail/>}/>
                         <Route path="/cart" element={<ErrorBoundary>
                             <CartView/>
