@@ -133,15 +133,15 @@ export default function CheckoutConfirmation() {
                 <input type="hidden" name="order_date" value={new Date(order.date).toLocaleString()} />
                 {order.items.map((item, idx) => (
                     <React.Fragment key={idx}>
-                        <input type="hidden" name={`orders[${idx}].name`} value={item.productName} />
-                        <input type="hidden" name={`orders[${idx}].units`} value={item.quantity} />
-                        <input type="hidden" name={`orders[${idx}].price`} value={item.price.toFixed(2)} />
-                        <input type="hidden" name={`orders[${idx}].image_url`} value={item.imageUrl} />
+                        <input type="hidden" name={`orders_${idx}_name`} value={item.productName} />
+                        <input type="hidden" name={`orders_${idx}_units`} value={item.quantity} />
+                        <input type="hidden" name={`orders_${idx}_price`} value={item.price.toFixed(2)} />
+                        <input type="hidden" name={`orders_${idx}_image_url`} value={item.imageUrl} />
                     </React.Fragment>
                 ))}
-                <input type="hidden" name="cost.shipping" value="0.00" />
-                <input type="hidden" name="cost.tax" value="0.00" />
-                <input type="hidden" name="cost.total" value={order.total.toFixed(2)} />
+                <input type="hidden" name="cost_shipping" value="0.00" />
+                <input type="hidden" name="cost_tax" value="0.00" />
+                <input type="hidden" name="cost_total" value={order.total.toFixed(2)} />
             </form>
 
             <Footer />
