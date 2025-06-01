@@ -40,6 +40,31 @@ export const AuthProvider = ({ children }) => {
             // ✅ Limpiar carrito local tras sincronización
             localStorage.removeItem("cart");
         }
+
+        try {
+            // Verificar si el usuario tiene un carrito existente
+            const response = await fetch(`${LOCALSERVERBASEURL}/cart/my-cart`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) throw new Error("Error al obtener el carrito");
+
+            const backendCart = await response.json();
+
+            // ✅ Guarda el carrito sincronizado (nombre de clave limpio)
+            localStorage.setItem("syncedCart", JSON.stringify(backendCart));
+            console.log("✅ Carrito sincronizado y recargado:", backendCart);
+
+            // ✅ (OPCIONAL) Si tienes un context de carrito, actualízalo también
+            // setCart(backendCart); ← si usas useCart o useContext
+
+        } catch (error) {
+            console.error(" Error al cargar el carrito del backend:", error);
+            alert("Ocurrió un error al cargar tu carrito. Intenta de nuevo.");
+        }
     };
 
     const logout = () => {
