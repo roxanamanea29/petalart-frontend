@@ -22,7 +22,11 @@ export default function CheckoutConfirmation() {
             return;
         }
 
-        console.log("🏷️ useEffect de CheckoutConfirmation arrancado. order =", order);
+        console.log("🏷️ useEffect de CheckoutConfirmation arrancado order =", order);
+        //añadir timeout para dejar tiempo al usuario de que realize el pedido
+        const timeoutId = setTimeout(() => {
+
+
         // Antes de enviar, volcamos el contenido del form oculto:
         const formData = new FormData(formRef.current);
         console.log("📋 Contenido del formRef:", Object.fromEntries(formData.entries()));
@@ -31,21 +35,23 @@ export default function CheckoutConfirmation() {
         emailjs
             .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current)
             .then((response) => {
-                console.log(" sendForm OK:", response.status, response.text);
+                console.log(" Email enviado con sendForm OK:", response.status, response.text);
             })
             .catch((err) => {
-                console.warn("⚠ sendForm falló, probamos send():", err);
+                console.warn(" sendForm falló, probamos con send():", err);
                 // Fallback a send() con parámetros
                 const params = Object.fromEntries(formData.entries());
                 emailjs
                     .send(SERVICE_ID, TEMPLATE_ID, params)
                     .then((resp2) => {
-                        console.log(" send() OK:", resp2.status, resp2.text);
+                        console.log("Email enviado con send() OK:", resp2.status, resp2.text);
                     })
                     .catch((err2) => {
                         console.error(" send() también falló:", err2);
                     });
             });
+        }, 100);
+        return () => clearTimeout(timeoutId);
     }, [order, navigate]);
 
     if (!order) return null;
