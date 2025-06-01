@@ -95,7 +95,9 @@ const Checkout = () => {
                 }
             );
             if (!resConfirm.ok) {
-                throw new Error("Error al confirmar el pago del pedido");
+              const errorBody = await resConfirm.json();
+              alert(errorBody.detail || "Error al confirmar el pago");
+              return;
             }
             const confirmedOrder = await resConfirm.json();
             console.log("Pago confirmado para el pedido:", confirmedOrder);
@@ -103,7 +105,7 @@ const Checkout = () => {
 
             clearCart();
             alert(`Dirección y pedido realizado correctamente #${createdOrder.id}#`);
-            // antes de redirigir  a la página de confirmación del pedido incluimos el email del usuario
+            // antes de redirigir a la página de confirmación del pedido incluimos el email del usuario
             console.log("📧 Email del usuario:", user?.email);
             // Redirigir a la página de confirmación del pedido
             const createdOrderWithEmail = {
@@ -117,6 +119,7 @@ const Checkout = () => {
             alert("Ocurrió un error al confirmar el pedido");
         }
     };
+
     return (
         <>
             <NavbarH/>
