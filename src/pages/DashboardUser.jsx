@@ -58,7 +58,7 @@ const DashboardUser = () => {
                                 <Icon className={`${card.icon} text-4xl mb-2`}></Icon>
                                 <h2 className="text-xl font-bold">{card.title}</h2>
                                 <p className="text-gray-600">{card.description}</p>
-                                <Link to={card.link} className="mt-5 border-2 border-danger ml-13 btn btn-light">
+                                <Link to={card.link} className= "mt-5 px-4 py-2 border-2 border-red-600 rounded text-red-600 hover:bg-red-600 hover:text-white transition">
                                     Entrar
                                 </Link>
                             </div>

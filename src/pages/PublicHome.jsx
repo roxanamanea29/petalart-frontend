@@ -54,8 +54,6 @@ const PublicHome = () => {
                         />
                     ))}
                 </div>
-
-
                 <WorkGallery />
                 <BlogFeed />
                 <div className="m-12 text-center text-gray-900">

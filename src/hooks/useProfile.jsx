@@ -9,7 +9,7 @@ export const useProfile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch(`${LOCALSERVERBASEURL}/auth/profile`, {
+                const response = await fetch(`${LOCALSERVERBASEURL}/user/profile`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("token")}`
                     }

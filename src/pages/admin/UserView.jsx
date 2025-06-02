@@ -11,8 +11,6 @@ import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
 
-
-
 //funcion que se encarga de mostrar la lista de usuarios
 function UserView() {
     //Declara el estado para almacenar los usuarios
