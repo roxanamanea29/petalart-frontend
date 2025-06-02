@@ -13,6 +13,10 @@ const RegisterForm = () => {
         phone: ''
     });
 
+    const authHeaders = () => ({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,7 +29,7 @@ const RegisterForm = () => {
         try {
             const res = await fetch(`${LOCALSERVERBASEURL}/auth/register`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: authHeaders(),
                 body: JSON.stringify(formData)
             });
 
