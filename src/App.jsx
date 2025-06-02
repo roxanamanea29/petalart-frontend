@@ -25,6 +25,7 @@ import PersonalView from "@/pages/user/PersonalView.jsx";
 import AboutView from "@/pages/AboutView.jsx";
 import RegisterForm from "@/pages/RegisterForm.jsx";
 import SearchResults from "@/components/SearchResults.jsx";
+import NavbarH from "@/components/NavbarH.jsx";
 
 
 
@@ -35,6 +36,7 @@ function App() {
                 <Router>
                     <Routes>
                         {/* Públicas */}
+                        <Route path="/navbar" element={<NavbarH />}/>
                         <Route path="/" element={<PublicHome/>}/>
                         <Route path="/about" element={<AboutView />}/>
                         <Route path="/categorias/:id" element={<CategoryProducts/>}/>

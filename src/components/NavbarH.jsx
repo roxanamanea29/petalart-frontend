@@ -68,7 +68,7 @@ const NavbarH = () => {
                             }}
                         />
 
-                        {/* Icono Lupa (abre/oculta campo de búsqueda) */}
+                        {/* Icono Lupa */}
                         <FaSearch
                             className="cursor-pointer hover:text-black"
                             title="Buscar"

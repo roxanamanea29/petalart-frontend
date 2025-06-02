@@ -8,12 +8,12 @@
   top: 0;
   right: 0;
   height: 100% !important;
-  z-index: 9999 !important;
+  z-index: 100;
 }
 
 .bm-overlay {
   background: rgba(0, 0, 0, 0.4) !important;
-  z-index: 999 !important;
+  z-index:50;
 }
 /*
 
