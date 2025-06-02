@@ -57,9 +57,6 @@ const NavbarH = () => {
                 <Link className="sub-heading text-start" to="/categories" onClick={() => setMenuOpen(false)}>
                     Categorías
                 </Link>
-                <Link className="sub-heading text-start" to="/product:id" onClick={() => setMenuOpen(false)}>
-                    nombre de producto
-                </Link>
                 <Link className="sub-heading text-start" to="/cart" onClick={() => setMenuOpen(false)}>
                     Carrito
                 </Link>
@@ -68,6 +65,10 @@ const NavbarH = () => {
                 </Link>
                 <Link className="sub-heading text-start" to="/about" onClick={() => setMenuOpen(false)}>
                     Sobre nosotros
+                </Link>
+
+                <Link className="sub-heading text-start" to="/register" onClick={() => setMenuOpen(false)}>
+                    Registrarse
                 </Link>
 
                 {!isAuthenticated ? (
