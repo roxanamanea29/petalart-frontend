@@ -8,7 +8,7 @@ import UsersFormModal from "@/components_admin/UsersFormModal.jsx";
 
 export default function PersonalView() {
     const [showEditUserForm, setEditUserForm] = React.useState(false);
-    const [userData, setUserData] = useState(null)[0];
+    const [userData, setUserData] = useState(null);
 
     const authHeaders = () => ({
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export default function PersonalView() {
             })
             .then((data) => {
                 console.log("Perfil cargado:", data);
-                setUserData(data); // ✅ Guarda los datos en el estado
+                setUserData(data); //  Guarda los datos en el estado
             })
             .catch((err) => console.error("Error al obtener perfil:", err));
     }, [setUserData]);
@@ -54,9 +54,9 @@ export default function PersonalView() {
                             <div className="card mb-4">
                                 <div className="card-body">
                                     <h5 className="card-title">Datos del Usuario</h5>
-                                    <p><strong>Nombre:</strong> {userData.name}</p>
+                                    <p><strong>Nombre:</strong> {userData.fullName}</p>
                                     <p><strong>Email:</strong> {userData.email}</p>
-                                    <p><strong>Roles:</strong> {userData.roles.join(", ")}</p>
+                                    <p><strong>Roles:</strong> {userData.role.join(", ")}</p>
                                     <button
                                         className="btn btn-primary"
                                         onClick={() => setEditUserForm(true)}

@@ -51,14 +51,17 @@ function UsersFormModal({ show, handleClose, user, onSave }) {//funcion que reci
         setFormData({ ...formData, [name]: value });//actualiza el estado del formulario con nuevos valores
     };
     //funcion que se encarga de guardar los datos del usuario en la base de datos
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();//evita que la página se recargue al enviar el formulario
-        const bodyToSend = { ...formData };
-        if (!bodyToSend.password) delete bodyToSend.password;
-        //llama a la función onSave y le pasa los datos del formulario
-        onSave(bodyToSend);
-        handleClose();
-
+        setIsSubmitting(true);
+        try {
+            await onSave(formData);
+            handleClose();
+        } catch (error) {
+            console.log(error);
+        }finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -75,7 +78,7 @@ function UsersFormModal({ show, handleClose, user, onSave }) {//funcion que reci
                 {/*Cuerpo del modal con los siguentes campos a modificar */}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formFirstName" className="mb-3">
-                        <Form.Label>Nombre</Form.Label>
+                        <Form.Label >Nombre</Form.Label>
                         {/*Campo de texto para el nombre del usuario */}
                         <Form.Control
                             type="text"
