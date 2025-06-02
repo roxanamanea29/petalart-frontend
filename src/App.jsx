@@ -41,7 +41,6 @@ function App() {
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/register" element={<RegisterForm />}/>
                         <Route path="/contacto" element={<Contact/>}/>
-
                         <Route path="/search" element={<SearchResults />}/>
                         <Route path="/productos/:id" element={<ProductDetail/>}/>
                         <Route path="/cart" element={<ErrorBoundary>
