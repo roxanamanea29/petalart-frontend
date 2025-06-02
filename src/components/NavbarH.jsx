@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { slide as Menu } from "react-burger-menu";
-import { HiMenu } from "react-icons/hi";
+import React, {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {slide as Menu} from "react-burger-menu";
+import {HiMenu} from "react-icons/hi";
 import logo from "@/assets/logo.png";
-import { useAuth } from "@/AuthContext";
+import {useAuth} from "@/AuthContext";
 
 const NavbarH = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const {user, logout} = useAuth();
     const isAuthenticated = !!user;
 
     const handleLogout = () => {
@@ -25,18 +25,18 @@ const NavbarH = () => {
                     onClick={() => setMenuOpen(true)}
                     className="text-black text-7xl bg-transparent border-none shadow-none outline-none"
                 >
-                    <HiMenu className="text-5xl" />
+                    <HiMenu className="text-5xl"/>
                 </button>
 
                 {/* Logo a la derecha */}
-                <img src={logo} alt="Logo" className="h-20 w-auto" />
+                <img src={logo} alt="Logo" className="h-20 w-auto"/>
             </nav>
 
             {/* Menú lateral */}
             <Menu
                 left
                 isOpen={menuOpen}
-                onStateChange={({ isOpen }) => setMenuOpen(isOpen)}
+                onStateChange={({isOpen}) => setMenuOpen(isOpen)}
                 width={270}
                 className="!bg-white text-lg p-6"
                 overlayClassName="!z-40"
@@ -94,8 +94,13 @@ const NavbarH = () => {
                             </Link>
                         ) : (
                             <div className="flex flex-col gap-2 mb-4">
+                                {/* Mostramos el nombre del usuario */}
+                                <span className="sub-heading text-start">
+                                    {user.fullName || user.name}
+                                </span>
+
                                 <Link
-                                    className="sub-heading"
+                                    className="sub-heading text-start mb-4 block"
                                     to="/dashboard"
                                     onClick={() => setMenuOpen(false)}
                                 >
@@ -113,7 +118,7 @@ const NavbarH = () => {
 
                     {/* Logo abajo en el menu */}
                     <div className="mt-auto flex justify-center pb-6">
-                        <img src={logo} alt="Logo" className="h-20 w-auto" />
+                        <img src={logo} alt="Logo" className="h-20 w-auto"/>
                     </div>
                 </div>
             </Menu>
