@@ -72,7 +72,7 @@ const NavbarH = () => {
                 </Link>
 
                 {!isAuthenticated ? (
-                    <Link className="sub-heading" to="/login" onClick={() => setMenuOpen(false)}>
+                    <Link className="sub-heading text-start" to="/login" onClick={() => setMenuOpen(false)}>
                         Iniciar sesión
                     </Link>
                 ) : (
@@ -84,7 +84,7 @@ const NavbarH = () => {
                             <span className="text-gray-700 font-medium">{user.name}</span>
                             <button
                                 onClick={handleLogout}
-                                className="text-red-600 hover:text-red-800"
+                                className="text-red-600 hover:text-red-800 block mt-2"
                             >
                                 Cerrar sesión
                             </button>
