@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 import NavbarH from "@/components/NavbarH.jsx";
@@ -32,23 +32,32 @@ const SearchResults = () => {
 
     return (
         <>
-            <NavbarH />
-            <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {results.map((product) => (
-                    <div key={product.id} className="border rounded shadow p-4">
-                        <img
-                            src={product.imageUrl}
-                            alt={product.name}
-                            className="w-full h-48 object-cover mb-2"
-                        />
-                        <h3 className="text-lg font-bold">{product.name}</h3>
-                        <p className="text-gray-600">{product.price} €</p>
-                        <p className="text-sm">{product.description}</p>
-                    </div>
-                ))}
+
+            <NavbarH/>
+            <div className="main-content">
+                <header className="public-home-header">
+                    <p className="sub-heading mb-6">VENTA ONLINE DE FLORES - EVENTOS</p>
+                    <p className=" text-5xl con font-semibold">PetalArt</p>
+                    <h1 className="text-3xl mt-2">Arte en cada petalo</h1>
+
+                </header>
+                <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {results.map((product) => (
+                        <div key={product.id} className="border rounded shadow p-4">
+                            <img
+                                src={product.imageUrl}
+                                alt={product.name}
+                                className="w-full h-48 object-cover mb-2"
+                            />
+                            <h3 className="text-lg font-bold">{product.name}</h3>
+                            <p className="text-gray-600">{product.price} €</p>
+                            <p className="text-sm">{product.description}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
 
-            <Footer />
+            <Footer/>
         </>
     );
 };
