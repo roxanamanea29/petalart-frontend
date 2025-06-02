@@ -80,7 +80,7 @@ const NavbarH = () => {
                         <Link className="sub-heading" to="/dashboard" onClick={() => setMenuOpen(false)}>
                             Mi cuenta
                         </Link>
-                        <div className="flex flex-col items-start gap-2 mt-4">
+                        <div className="sub-heading text-start">
                             <span className="text-gray-700 font-medium">{user.name}</span>
                             <button
                                 onClick={handleLogout}
