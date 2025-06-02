@@ -12,6 +12,8 @@ const NavbarH = () => {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
     const isAuthenticated = !!user;
+    const [searchOpen, setSearchOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleLogout = () => {
         localStorage.removeItem("cart");
@@ -42,9 +44,34 @@ const NavbarH = () => {
                         className="cursor-pointer text-xl hover:text-black"
                         title="Ir al carrito"
                     />
-                    <FaSearch className="cursor-pointer hover:text-black" />
+                    <FaSearch className="cursor-pointer hover:text-black"
+                    onClick={() => setSearchTerm(!searchOpen)}
+                    title="Buscar" />
                 </div>
             </nav>
+
+            {searchOpen && (
+                <div className="absolute top-16 left-0 w-full bg-white shadow-lg p-4 z-50">
+                    <input
+                        type="text"
+                        placeholder="Buscar productos..."
+                        aria-label="Buscar productos"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                const query = encodeURIComponent(searchTerm.trim());
+                                if (query) {
+                                    navigate(`/search?query=${query}`);
+                                    setSearchOpen(false);
+                                    setSearchTerm("");
+                                }
+                            }
+                        }}
+                        className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
+                    />
+                </div>
+            )}
 
             <Menu
                 left
