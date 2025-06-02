@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './css/login_styles.css';
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 import {useNavigate} from "react-router-dom";
 
@@ -31,7 +30,7 @@ const RegisterForm = () => {
             });
 
             if (res.ok) {
-                //dirige al logindespues de regisrtrar
+                //dirige al login despues de regisrtrar
                 navigate('/login');
             } else {
                 const errorData = await res.json();
