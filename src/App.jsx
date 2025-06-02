@@ -24,6 +24,7 @@ import OrdersView from "@/pages/user/OrdersView.jsx";
 import PersonalView from "@/pages/user/PersonalView.jsx";
 import AboutView from "@/pages/AboutView.jsx";
 import RegisterForm from "@/pages/RegisterForm.jsx";
+import SearchResults from "@/components/SearchResults.jsx";
 
 
 
@@ -41,6 +42,7 @@ function App() {
                         <Route path="/register" element={<RegisterForm />}/>
                         <Route path="/contacto" element={<Contact/>}/>
 
+                        <Route path="/search" element={<SearchResults />}/>
                         <Route path="/productos/:id" element={<ProductDetail/>}/>
                         <Route path="/cart" element={<ErrorBoundary>
                             <CartView/>
