@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useSearchParams} from "react-router-dom";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
+import NavbarH from "@/components/NavbarH.jsx";
+import Footer from "@/components/Footer.jsx";
 
 const SearchResults = () => {
     const [searchParams] = useSearchParams();
@@ -29,20 +31,25 @@ const SearchResults = () => {
     if (results.length === 0) return <p className="p-4">No se encontraron resultados para "{query}"</p>;
 
     return (
-        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {results.map((product) => (
-                <div key={product.id} className="border rounded shadow p-4">
-                    <img
-                        src={product.imageUrl}
-                        alt={product.name}
-                        className="w-full h-48 object-cover mb-2"
-                    />
-                    <h3 className="text-lg font-bold">{product.name}</h3>
-                    <p className="text-gray-600">{product.price} €</p>
-                    <p className="text-sm">{product.description}</p>
-                </div>
-            ))}
-        </div>
+        <>
+            <NavbarH />
+            <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {results.map((product) => (
+                    <div key={product.id} className="border rounded shadow p-4">
+                        <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            className="w-full h-48 object-cover mb-2"
+                        />
+                        <h3 className="text-lg font-bold">{product.name}</h3>
+                        <p className="text-gray-600">{product.price} €</p>
+                        <p className="text-sm">{product.description}</p>
+                    </div>
+                ))}
+            </div>
+
+            <Footer />
+        </>
     );
 };
 
