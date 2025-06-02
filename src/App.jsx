@@ -23,6 +23,7 @@ import {AddressView} from "@/pages/user/AddressView.jsx";
 import OrdersView from "@/pages/user/OrdersView.jsx";
 import PersonalView from "@/pages/user/PersonalView.jsx";
 import AboutView from "@/pages/AboutView.jsx";
+import RegisterForm from "@/pages/RegisterForm.jsx";
 
 
 
@@ -37,6 +38,7 @@ function App() {
                         <Route path="/about" element={<AboutView />}/>
                         <Route path="/categorias/:id" element={<CategoryProducts/>}/>
                         <Route path="/login" element={<Login/>}/>
+                        <Route path="/register" element={<RegisterForm />}/>
                         <Route path="/contacto" element={<Contact/>}/>
 
                         <Route path="/productos/:id" element={<ProductDetail/>}/>

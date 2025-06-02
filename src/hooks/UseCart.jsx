@@ -172,11 +172,8 @@ export const useCart = () => {
             if (!isLoggedIn) {
                 localStorage.removeItem("cart");
                 setCart({ items: [], totalPrice: 0 });
-
-                window.dispatchEvent(new Event("cart-updated"));
                 return;
             }
-
             // Ahora la ruta es sólo /cart/clear (sin path param)
             const res = await fetch(`${LOCALSERVERBASEURL}/cart/clear`, {
                 method: "DELETE",
@@ -185,8 +182,6 @@ export const useCart = () => {
             if (!res.ok) throw new Error("Error al vaciar el carrito");
             const updated = await res.json();
             setCart(updated);
-
-            window.dispatchEvent(new Event("cart-updated"));
         } catch (err) {
             setError(err);
         }
