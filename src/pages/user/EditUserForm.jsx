@@ -15,7 +15,7 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
         address: "",
     });
 
-    // Headers de autenticación  del token para las peticiones
+    // Headers de autenticación del token para las peticiones
     const authHeaders = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -122,6 +122,7 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
+
                     <Button variant="primary" type="submit" className="me-2">
                         Guardar
                     </Button>
@@ -133,3 +134,4 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
 
     );
 };
+export default EditUserForm;
