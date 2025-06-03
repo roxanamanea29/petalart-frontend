@@ -3,7 +3,8 @@ import Footer from "@/components/Footer.jsx";
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
-import UsersFormModal from "@/components_admin/UsersFormModal.jsx";
+import EditUserForm from "@/components/user/EditUserForm.jsx";
+
 
 
 export default function PersonalView() {
@@ -54,9 +55,9 @@ export default function PersonalView() {
                             <div className="card mb-4">
                                 <div className="card-body">
                                     <h5 className="card-title">Datos del Usuario</h5>
-                                    <p><strong>Nombre:</strong> {userData.fullName}</p>
+                                    <p><strong>Nombre:</strong> {userData.name}</p>
                                     <p><strong>Email:</strong> {userData.email}</p>
-                                    <p><strong>Roles:</strong> {userData.role}</p>
+                                    <p><strong>Role:</strong> {userData.role}</p>
                                     <button
                                         className="btn btn-primary"
                                         onClick={() => setEditUserForm(true)}
@@ -69,7 +70,7 @@ export default function PersonalView() {
                     </div>
 
                     {showEditUserForm && (
-                        <UsersFormModal
+                        <EditUserForm
                             user={userData}
                             onClose={() => setEditUserForm(false)}
                             onSave={(updatedUser) => {
