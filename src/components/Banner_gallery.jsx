@@ -19,7 +19,7 @@ export default function Banner_gallery() {
                     className="w-full h-full border-none"
                     style={{ border: "none" }}
                 />
-                {/* Overlay encima del iframe */}
+                {/*  overlay semi-transparente para ver la zona cliqueable*/}
                 <div
                     className="absolute inset-0 z-10 cursor-pointer"
                     onClick={handleClick}

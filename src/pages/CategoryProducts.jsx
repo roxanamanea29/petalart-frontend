@@ -79,7 +79,7 @@ const CategoryProducts = () => {
                 )}
             </section>
 
-            <div className="mt-12 text-center text-gray-600 ">
+            <div className="mt-12 text-center text-3xl text-gray-600 ">
                 Regalar flores es regalar emoción.
                 Cultivar flores es cuidar del alma.
             </div>

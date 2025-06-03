@@ -56,7 +56,7 @@ export default function PersonalView() {
                                     <h5 className="card-title">Datos del Usuario</h5>
                                     <p><strong>Nombre:</strong> {userData.fullName}</p>
                                     <p><strong>Email:</strong> {userData.email}</p>
-                                    <p><strong>Roles:</strong> {userData.role.join(", ")}</p>
+                                    <p><strong>Roles:</strong> {userData.role}</p>
                                     <button
                                         className="btn btn-primary"
                                         onClick={() => setEditUserForm(true)}
