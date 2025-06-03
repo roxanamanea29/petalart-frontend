@@ -43,8 +43,8 @@ export default function PersonalView() {
             </header>
             <Container className="mt-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h1 className="text-center mb-4">Información Personal</h1>
-                    <Link to="/dashboard" className="btn btn-outline-secondary">Volver al Dashboard</Link>
+                    <h3 className="text-center mb-4">Información Personal</h3>
+                    <Link to="/dashboard" className="btn btn-outline-secondary">Volver</Link>
                 </div>
 
                 <div className="table-responsive">
