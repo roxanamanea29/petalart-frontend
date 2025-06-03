@@ -25,7 +25,7 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
         if (user) {
             // Si el usuario tiene datos, los asigna al estado del formulario
             setFormData({
-                id: user.id || '',
+                id: user.userId || '',
                 firstName: user.firstName || "",
                 lastName: user.lastName || "",
                 email: user.email || "",
@@ -45,10 +45,10 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
 
     // Maneja el envío del formulario
     const handleSubmit = async (e) => {
-        /*if(!formData.id) {
+        if(!formData.id) {
             alert("Falta el id del usuario.");
             return;
-            }*/
+            }
         // Evita envio por defecto del formulario
         e.preventDefault();
         try {
@@ -81,7 +81,7 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
     return (
 
         <Modal show={show} onHide={handleClose} centered>
-            <Form className="form" onSubmit={handleSubmit}>
+            <Form className="form m-3.5" onSubmit={handleSubmit}>
                 <Modal.Header closeButton>
                     <Modal.Title className="w-100 text-center">Actualizar datos</Modal.Title>
                 </Modal.Header>
