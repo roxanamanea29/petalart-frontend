@@ -3,7 +3,7 @@ import Footer from "@/components/Footer.jsx";
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
-import EditUserForm from "@/components/user/EditUserForm.jsx";
+import EditUserForm from "@/pages/user/EditUserForm.jsx";
 
 
 
