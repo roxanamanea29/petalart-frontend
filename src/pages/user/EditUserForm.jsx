@@ -25,7 +25,7 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
         if (user) {
             // Si el usuario tiene datos, los asigna al estado del formulario
             setFormData({
-                id: user.userId || '',
+                id: user.id || '',
                 firstName: user.firstName || "",
                 lastName: user.lastName || "",
                 email: user.email || "",
@@ -45,10 +45,10 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
 
     // Maneja el envío del formulario
     const handleSubmit = async (e) => {
-        if(!formData.id) {
+        /*if(!formData.id) {
             alert("Falta el id del usuario.");
             return;
-            }
+            }*/
         // Evita envio por defecto del formulario
         e.preventDefault();
         try {
@@ -72,7 +72,7 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
                 alert(errorData.message || 'Error al actualizar usuario');
             }
             // guarda los datos del usuario en el localStorage
-        }catch (error) {
+        } catch (error) {
             console.error("Error al actualizar usuario:", error);
             alert("Error al actualizar usuario: " + error.message);
         }
@@ -81,56 +81,60 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
     return (
 
         <Modal show={show} onHide={handleClose} centered>
-            <Form  className="form" onSubmit={handleSubmit}>
+            <Form className="form" onSubmit={handleSubmit}>
                 <Modal.Header closeButton>
                     <Modal.Title className="w-100 text-center">Actualizar datos</Modal.Title>
                 </Modal.Header>
-                <Form.Group controlId="formFirstName" className="mb-3">
-                    <Form.Label>Nombre</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group controlId="formLastName" className="mb-3">
-                    <Form.Label>Apellido</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group controlId="formEmail" className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group controlId="formPhone" className="mb-3">
-                    <Form.Label>Teléfono</Form.Label>
-                    <Form.Control
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
+                <Modal.Body className="p-4 ">
+                    <Form.Group controlId="formFirstName" className="mb-3">
+                        <Form.Label>Nombre</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formLastName" className="mb-3">
+                        <Form.Label>Apellido</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formEmail" className="mb-3">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formPhone" className="mb-3">
+                        <Form.Label>Teléfono</Form.Label>
+                        <Form.Control
+                            type="tel"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer className="px-4 pb-4">
 
-                <Button variant="primary" type="submit" className="me-2">
-                    Guardar
-                </Button>
-                <Button variant="secondary" onClick={handleClose}>
-                    Cancelar
-                </Button>
+                    <Button variant="primary" type="submit" className="me-2">
+                        Guardar
+                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Cancelar
+                    </Button>
+                </Modal.Footer>
             </Form>
         </Modal>
 
