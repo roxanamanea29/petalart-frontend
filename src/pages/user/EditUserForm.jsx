@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from "react";
-import { Modal} from "react-bootstrap";
+import {useEffect, useState} from "react";
+import {Form, Modal} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
@@ -47,7 +48,7 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
         if(!formData.id) {
             alert("Falta el id del usuario.");
             return;
-        }
+            }
         // Evita envio por defecto del formulario
         e.preventDefault();
         try {
@@ -80,85 +81,57 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
     return (
 
         <Modal show={show} onHide={handleClose} centered>
-            <form className="form" onSubmit={handleSubmit}>
-                <p className="title">Register</p>
-                <p className="message">Signup now and get full access to our app.</p>
-
-                {/* Campo Firstname */}
-                <label className="lab">
-                    <input
-                        required
-                        placeholder="Enter your First Name"
+            <Form  className="form" onSubmit={handleSubmit}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="w-100 text-center">Actualizar datos</Modal.Title>
+                </Modal.Header>
+                <Form.Group controlId="formFirstName" className="mb-3">
+                    <Form.Label>Nombre</Form.Label>
+                    <Form.Control
                         type="text"
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
-                    />
-                    <span>Firstname</span>
-                </label>
-
-                {/* Campo Lastname */}
-                <label className="lab">
-                    <input
                         required
-                        placeholder="Enter your Last Name"
+                    />
+                </Form.Group>
+                <Form.Group controlId="formLastName" className="mb-3">
+                    <Form.Label>Apellido</Form.Label>
+                    <Form.Control
                         type="text"
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleChange}
-                    />
-                    <span>Lastname</span>
-                </label>
-
-                {/* Campo Email */}
-                <label className="lab">
-                    <input
                         required
-                        placeholder="Enter your Email"
+                    />
+                </Form.Group>
+                <Form.Group controlId="formEmail" className="mb-3">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
                         type="email"
-                        className="input"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                    />
-                    <span>Email</span>
-                </label>
-
-        {/*         Campo Password
-                <label className="lab">
-                    <input
                         required
-                        placeholder="Enter your Password"
-                        type="password"
-                        className="input"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
                     />
-                    <span>Password</span>
-                </label>*/}
-
-
-
-                {/* Campo Phone */}
-                <label className="lab">
-                    <input
-                        required
-                        placeholder="Enter your Phone"
-                        type="text"
+                </Form.Group>
+                <Form.Group controlId="formPhone" className="mb-3">
+                    <Form.Label>Teléfono</Form.Label>
+                    <Form.Control
+                        type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
                     />
-                    <span>Phone</span>
-                </label>
+                </Form.Group>
 
-                {/* Botón Submit */}
-                <button className="submit" type="submit">Submit</button>
-
-                {/* Enlace a la página de login */}
-                <p className="signin">Already have an account? <a href="#" className="register_link">Sign In</a></p>
-            </form>
+                <Button variant="primary" type="submit" className="me-2">
+                    Guardar
+                </Button>
+                <Button variant="secondary" onClick={handleClose}>
+                    Cancelar
+                </Button>
+            </Form>
         </Modal>
 
     );
