@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
+// Hook para manejar el carrito de compras
 export const useCart = () => {
-    // 1) Sólo leemos el objeto “user” y el token (no necesitamos userId explícito)
+    // 1) Solo leemos el objeto “user” y el token (no necesitamos userId explícito)
     const storedUser = localStorage.getItem("user");
     const userObj = storedUser ? JSON.parse(storedUser) : null;
     const token = localStorage.getItem("token");

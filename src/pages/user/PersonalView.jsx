@@ -1,14 +1,15 @@
-import NavbarH from "@/components_admin/Navbar.jsx";
+
 import Footer from "@/components/Footer.jsx";
 import {Link} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 import EditUserForm from "@/pages/user/EditUserForm.jsx";
+import NavbarH from "@/components/NavbarH.jsx";
 
 
 
 export default function PersonalView() {
-    const [showEditUserForm, setEditUserForm] = React.useState(false);
+    const [showEditUserForm, setEditUserForm] = useState(false);
     const [userData, setUserData] = useState(null);
 
     const authHeaders = () => ({
@@ -30,18 +31,17 @@ export default function PersonalView() {
                 setUserData(data); //  Guarda los datos en el estado
             })
             .catch((err) => console.error("Error al obtener perfil:", err));
-    }, [setUserData]);
+    }, []);
 
     return (
         <>
-            <NavbarH/>
+            <NavbarH />
             <header className="public-home-header">
                 <p className="sub-heading">
                     <Link to="/categorias" className="hover:underline text-blue-600">FLORISTERÍA</Link> / MIS DATOS
                     PERSONALES
                 </p>
             </header>
-
 
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h1 className="text-center mb-4">Información Personal</h1>
@@ -54,15 +54,16 @@ export default function PersonalView() {
                         <div className="col-md-6 offset-md-3">
                             <div className="card mb-4">
                                 <div className="card-body">
-                                    <h5 className="card-title">Datos del Usuario</h5>
-                                    <p><strong>Nombre:</strong> {userData.name}</p>
+                                    <h5 className="card-title">Mis datos</h5>
+                                    <p><strong>Nombre:</strong> {userData.firstName}</p>
+                                    <p><strong>Apellido:</strong> {userData.lastName}</p>
                                     <p><strong>Email:</strong> {userData.email}</p>
-                                    <p><strong>Role:</strong> {userData.role}</p>
+                                    <p><strong>Phone:</strong> {userData.phone}</p>
                                     <button
                                         className="btn btn-primary"
                                         onClick={() => setEditUserForm(true)}
                                     >
-                                        Editar Información
+                                        Actualizar mis datos
                                     </button>
                                 </div>
                             </div>

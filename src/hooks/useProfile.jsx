@@ -6,6 +6,7 @@ export const useProfile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    //Hook que se encarga de obtener el perfil del usuario autenticado del backend
     useEffect(() => {
         const fetchProfile = async () => {
             try {
