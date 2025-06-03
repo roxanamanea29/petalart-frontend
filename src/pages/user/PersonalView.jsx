@@ -1,11 +1,10 @@
-
 import Footer from "@/components/Footer.jsx";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 import EditUserForm from "@/pages/user/EditUserForm.jsx";
 import NavbarH from "@/components/NavbarH.jsx";
-
+import Container from "react-bootstrap/Container";
 
 
 export default function PersonalView() {
@@ -35,55 +34,59 @@ export default function PersonalView() {
 
     return (
         <>
-            <NavbarH />
+            <NavbarH/>
             <header className="public-home-header">
                 <p className="sub-heading">
                     <Link to="/categorias" className="hover:underline text-blue-600">FLORISTERÍA</Link> / MIS DATOS
                     PERSONALES
                 </p>
             </header>
+            <Container className="mt-4">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h1 className="text-center mb-4">Información Personal</h1>
+                    <Link to="/dashboard" className="btn btn-outline-secondary">Volver al Dashboard</Link>
+                </div>
 
-            <div className="d-flex justify-content-between align-items-center mb-3">
-                <h1 className="text-center mb-4">Información Personal</h1>
-                <Link to="/dashboard" className="btn btn-outline-secondary">Volver al Panel</Link>
-            </div>
-
-            {userData && (
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-6 offset-md-3">
-                            <div className="card mb-4">
-                                <div className="card-body">
-                                    <h5 className="card-title">Mis datos</h5>
-                                    <p><strong>Nombre:</strong> {userData.firstName}</p>
-                                    <p><strong>Apellido:</strong> {userData.lastName}</p>
-                                    <p><strong>Email:</strong> {userData.email}</p>
-                                    <p><strong>Phone:</strong> {userData.phone}</p>
-                                    <button
-                                        className="btn btn-primary"
-                                        onClick={() => setEditUserForm(true)}
-                                    >
-                                        Actualizar mis datos
-                                    </button>
+                {userData && (
+                    <>
+                        <div className="row">
+                            <div className="col-md-6 offset-md-3">
+                                <div className="card mb-4">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Mis datos</h5>
+                                        <p><strong>Nombre:</strong> {userData.firstName}</p>
+                                        <p><strong>Apellido:</strong> {userData.lastName}</p>
+                                        <p><strong>Email:</strong> {userData.email}</p>
+                                        <p><strong>Teléfono:</strong> {userData.phone}</p>
+                                        <button
+                                            className="mt-5 border-2 border-danger  ml-13 btn btn-light"
+                                            onClick={() => setEditUserForm(true)}
+                                        >
+                                            Actualizar mis datos
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    {showEditUserForm && (
-                        <EditUserForm
-                            user={userData}
-                            onClose={() => setEditUserForm(false)}
-                            onSave={(updatedUser) => {
-                                setUserData(updatedUser);
-                                setEditUserForm(false);
-                            }}
-                        />
-                    )}
-                </div>
-            )}
-
+                        {showEditUserForm && (
+                            <EditUserForm
+                                user={userData}
+                                show={showEditUserForm}
+                                handleClose={() => setEditUserForm(false)}
+                                onClose={() => setEditUserForm(false)}
+                                onSave={(updatedUser) => {
+                                    setUserData(updatedUser);
+                                    setEditUserForm(false);
+                                }}
+                                onCancel={() => setEditUserForm(false)}
+                            />
+                        )}
+                    </>
+                )}
+            </Container>
             <Footer/>
         </>
-    );
+    )
+        ;
 }

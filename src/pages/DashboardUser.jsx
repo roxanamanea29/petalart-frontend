@@ -10,6 +10,15 @@ import {useProfile} from "@/hooks/useProfile.jsx";
 const DashboardUser = () => {
     const { profile, loading, error} =useProfile();
     const navigate = useNavigate();
+
+    // Array de imágenes de los Frames
+    const frames = [
+        "/images/Frame1.png",
+        "/images/Frame2.png",
+        "/images/Frame3.png",
+        "/images/Frame4.png"
+    ];
+
     useEffect(() => {
         if(!loading && (!profile || error)){
             navigate("/login");
@@ -58,13 +67,29 @@ const DashboardUser = () => {
                                 <Icon className={`${card.icon} text-4xl mb-2`}></Icon>
                                 <h2 className="text-xl font-bold">{card.title}</h2>
                                 <p className="text-gray-600">{card.description}</p>
-                                <Link to={card.link} className= "mt-5 px-4 py-2 border-2 border-red-600 rounded text-red-600 hover:bg-red-600 hover:text-white transition">
+                                <Link to={card.link} className="mt-5 border-2 border-danger  ml-13 btn btn-light">
                                     Entrar
                                 </Link>
                             </div>
                         );
                     })}
                 </div>
+            </div>
+
+            {/* Las imágenes de frame las de Figma */}
+            <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 gap-2 px-4">
+                {frames.map((src, index) => (
+                    <div
+                        key={index}
+                        className="w-full aspect-[5/5] rounded-xl overflow-hidden shadow-lg"
+                    >
+                        <img
+                            src={src}
+                            alt={`Frame ${index + 1}`}
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                ))}
             </div>
             <Footer/>
         </>

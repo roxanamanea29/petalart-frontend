@@ -5,9 +5,10 @@ import LOCALSERVERBASEURL from "@/Configuration/ConectionConfig.js";
 
 
 // eslint-disable-next-line react-refresh/only-export-components
-const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
+const EditUserForm = ({show, handleClose, user, onSave}) => {
     // Estado para manejar los datos del formulario
     const [formData, setFormData] = useState({
+        id: user ? user.id : null,
         firstName: "",
         lastName: "",
         email: "",
@@ -25,6 +26,7 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
         if (user) {
             // Si el usuario tiene datos, los asigna al estado del formulario
             setFormData({
+                id: user.userId || null,
                 firstName: user.firstName || "",
                 lastName: user.lastName || "",
                 email: user.email || "",
@@ -33,6 +35,7 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
         } else {
             // Si no hay usuario, resetea el formulario a valores por defecto
             setFormData({
+                id: user.userId || null,
                 firstName: "",
                 lastName: "",
                 email: "",
@@ -54,10 +57,10 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
         // Evita envio por defecto del formulario
         e.preventDefault();
         //valida los campos del formulario
-            const isEdit = Boolean(user.id);
+            const isEdit = Boolean(formData.id);
             // Si es edición, usa PUT, si es creación, usa POST
             const url = isEdit
-                ? `${LOCALSERVERBASEURL}/user/${user.id}`
+                ? `${LOCALSERVERBASEURL}/user/${formData.id}`
                 : `${LOCALSERVERBASEURL}/user`;
            // Prepara los datos del formulario para enviar
             const response = await fetch(url, {
@@ -74,7 +77,6 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
                 const errorData = await response.json();
                 throw new Error(errorData.message || `Error ${response.status}`);
             }
-
             // guarda los datos del usuario en el localStorage
         onSave(formData);
     };
@@ -126,7 +128,7 @@ const EditUserForm = ({show, handleClose, user, onSave, onCancel}) => {
                     <Button variant="primary" type="submit" className="me-2">
                         Guardar
                     </Button>
-                    <Button variant="secondary" onClick={onCancel}>
+                    <Button variant="secondary" onClick={handleClose}>
                         Cancelar
                     </Button>
                 </Form>
