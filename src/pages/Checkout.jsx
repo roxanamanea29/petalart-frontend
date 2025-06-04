@@ -36,7 +36,7 @@ const Checkout = () => {
                 return;
             }
             if (!cart || cart.items.length === 0) {
-                throw new Error("El carrito está vacío");
+              alert("El carrito está vacío");
             }
             if (!form.addressType) {
                 alert("Debes seleccionar un tipo de dirección.");
@@ -57,7 +57,7 @@ const Checkout = () => {
                 }
             );
             if (!responseAddress.ok) {
-                throw new Error("Error al guardar la dirección");
+                alert("Error al guardar la dirección");
             }
             const addressData = await responseAddress.json();
             console.log("Dirección guardada:", addressData);
@@ -83,7 +83,7 @@ const Checkout = () => {
                 }
             );
             if (!responseCreate.ok) {
-                throw new Error("Error al guardar el pedido");
+                alert("Error al guardar el pedido");
             }
             const createdOrder = await responseCreate.json();
             console.log("Pedido realizado:", createdOrder);
@@ -184,7 +184,7 @@ const Checkout = () => {
                                 e.preventDefault();
                                 handleConfirm();
                             }}
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 border-2 border-gray-200 p-4 rounded"
+                            className="flex flex-col gap-4 border-2 border-gray-200 p-4 rounded"
                         >
                             <div className="col-span-full text-right text-lg font-semibold mt-4 border-t pt-4">
                                 <h4 className="m-6 my-5 py-5 font-bold">
@@ -254,13 +254,16 @@ const Checkout = () => {
                                 required
                             />
 
+                            <h3 className="text-xl font-bold col-span-full mt-6">
+                                Método de pago
+                            </h3>
                             <select
                                 name="addressType"
                                 value={form.addressType}
                                 onChange={(e) =>
                                     setForm({ ...form, addressType: e.target.value })
                                 }
-                                className="col-span-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300 transition"
+                                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             >
                                 <option value="">Tipo de dirección</option>
@@ -278,7 +281,7 @@ const Checkout = () => {
                                 onChange={(e) =>
                                     setForm({ ...form, paymentMethod: e.target.value })
                                 }
-                                className="col-span-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300 transition"
+                                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             >
                                 <option value="">Selecciona método de pago</option>
@@ -296,7 +299,7 @@ const Checkout = () => {
                                 onChange={(e) =>
                                     setForm({ ...form, shippingMethod: e.target.value })
                                 }
-                                className="col-span-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300 transition"
+                                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             >
                                 <option value="">Selecciona método de envío</option>
