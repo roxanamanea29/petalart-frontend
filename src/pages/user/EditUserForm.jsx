@@ -12,7 +12,6 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
         lastName: "",
         email: "",
         phone: "",
-        address: "",
     });
 
     // Headers de autenticación del token para las peticiones
@@ -42,15 +41,15 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
         setFormData({...formData, [name]: value});
     };
 
-
+console.log("Enviando datos...",formData);
     // Maneja el envío del formulario
     const handleSubmit = async (e) => {
+        // Evita envio por defecto del formulario
+        e.preventDefault();
         if(!formData.id) {
             alert("Falta el id del usuario.");
             return;
-            }
-        // Evita envio por defecto del formulario
-        e.preventDefault();
+        }
         try {
             // Se realiza actualizar  datos del usuario
             const res = await fetch(`${LOCALSERVERBASEURL}/user/${formData.id}`, {
@@ -81,7 +80,7 @@ const EditUserForm = ({show, handleClose, user, onSave}) => {
     return (
 
         <Modal show={show} onHide={handleClose} centered>
-            <Form className="form m-3.5" onSubmit={handleSubmit}>
+            <Form className="form m-3" onSubmit={handleSubmit}>
                 <Modal.Header closeButton>
                     <Modal.Title className="w-100 text-center">Actualizar datos</Modal.Title>
                 </Modal.Header>
