@@ -155,14 +155,14 @@ const Checkout = () => {
                             {cart.items.map((item, index) => (
                                 <li
                                     key={item.productId || index}
-                                    className="mb-4 border-2 border-gray-200 p-4 rounded flex gap-4"
+                                    className="mb-4 border-2 border-gray-200 p-4 rounded flex flex-col sm:flex-row gap-4"
                                 >
                                     <img
                                         src={item.imageUrl || "/placeholder.svg"}
                                         alt={item.productName}
                                         className="w-40 h-40 object-cover rounded"
                                     />
-                                    <div className="flex flex-col justify-between">
+                                    <div className="flex-1">
                                         <h3 className="text-xl font-bold">
                                             {item.productName}
                                         </h3>
@@ -184,15 +184,19 @@ const Checkout = () => {
                                 e.preventDefault();
                                 handleConfirm();
                             }}
-                            className="flex flex-col gap-4 border-2 border-gray-200 p-4 rounded"
+                            className="grid grid-cols-1 md:grid-cols-2 gap-4 border-2 border-gray-200 p-4 rounded"
                         >
-                            <div className="col-span-full text-right text-lg font-semibold mt-4 border-t pt-4">
-                                <h4 className="m-6 my-5 py-5 font-bold">
+                            {/*total*/}
+                            <div className="col-span-1 md:col-span-2 text-right text-lg font-semibold border-t pt-4">
+                                <h4 className="font-bold">
                                     Total: {cart.totalPrice.toFixed(2)} €
                                 </h4>
                             </div>
 
+                            {/* Dirección */}
+                            <div className="col-span-1 md:col-span-2">
                             <h3 className="text-xl font-bold col-span-full mt-6">Dirección</h3>
+                            </div>
                             <input
                                 name="street"
                                 value={form.street}
@@ -200,7 +204,7 @@ const Checkout = () => {
                                     setForm({ ...form, street: e.target.value })
                                 }
                                 placeholder="Calle"
-                                className="border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             />
                             <input
@@ -210,7 +214,7 @@ const Checkout = () => {
                                     setForm({ ...form, streetNumber: e.target.value })
                                 }
                                 placeholder="Número"
-                                className="border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             />
                             <input
@@ -220,7 +224,7 @@ const Checkout = () => {
                                     setForm({ ...form, city: e.target.value })
                                 }
                                 placeholder="Ciudad"
-                                className="border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             />
                             <input
@@ -230,7 +234,7 @@ const Checkout = () => {
                                     setForm({ ...form, state: e.target.value })
                                 }
                                 placeholder="Comunidad"
-                                className="border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             />
                             <input
@@ -240,7 +244,7 @@ const Checkout = () => {
                                     setForm({ ...form, country: e.target.value })
                                 }
                                 placeholder="País"
-                                className="border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             />
                             <input
@@ -250,12 +254,14 @@ const Checkout = () => {
                                     setForm({ ...form, zipCode: e.target.value })
                                 }
                                 placeholder="Código Postal"
-                                className="border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             />
 
+                            {/*Tipo de direccion*/}
+                            <div className="col-span-1 md:col-span-2">
                             <h3 className="text-xl font-bold col-span-full mt-6">
-                                Método de pago
+                                Tipo de dirección
                             </h3>
                             <select
                                 name="addressType"
@@ -263,7 +269,7 @@ const Checkout = () => {
                                 onChange={(e) =>
                                     setForm({ ...form, addressType: e.target.value })
                                 }
-                                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             >
                                 <option value="">Tipo de dirección</option>
@@ -271,7 +277,10 @@ const Checkout = () => {
                                 <option value="BILLING">Dirección de facturación</option>
                                 <option value="BOTH">Ambas direcciones</option>
                             </select>
+                            </div>
 
+                            {/*Método de pago*/}
+                            <div className="col-span-1 md:col-span-2">
                             <h3 className="text-xl font-bold col-span-full mt-6">
                                 Método de pago
                             </h3>
@@ -281,7 +290,7 @@ const Checkout = () => {
                                 onChange={(e) =>
                                     setForm({ ...form, paymentMethod: e.target.value })
                                 }
-                                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             >
                                 <option value="">Selecciona método de pago</option>
@@ -289,7 +298,10 @@ const Checkout = () => {
                                 <option value="PAYPAL">PayPal</option>
                                 <option value="CASH_ON_DELIVERY">Pago a la entrega</option>
                             </select>
+                            </div>
 
+                            {/*Método de envío*/}
+                            <div className="col-span-1 md:col-span-2">
                             <h3 className="text-xl font-bold col-span-full mt-6">
                                 Método de envío
                             </h3>
@@ -299,7 +311,7 @@ const Checkout = () => {
                                 onChange={(e) =>
                                     setForm({ ...form, shippingMethod: e.target.value })
                                 }
-                                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-300"
                                 required
                             >
                                 <option value="">Selecciona método de envío</option>
@@ -307,7 +319,7 @@ const Checkout = () => {
                                 <option value="EXPRESS">Express</option>
                                 <option value="PICKUP">Recoger en tienda</option>
                             </select>
-
+                            </div>
                             <button
                                 type="submit"
                                 className="col-span-full mt-4 bg-transparent border-2 border-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-200"
