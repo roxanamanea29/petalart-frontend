@@ -34,7 +34,10 @@ export default function CartView() {
                     },
                 });
 
-                if (!response.ok) throw new Error("Error al obtener el carrito");
+                if (!response.ok) {
+                    console.error("Error al obtener el carrito");
+                    alert("Ocurrió un error al obtener el carrito. Intenta de nuevo.");
+                }
 
                 const latestCart = await response.json();
                 if (!latestCart.items || latestCart.items.length === 0) {
@@ -76,7 +79,7 @@ export default function CartView() {
 
                             {cart.items.map((item , index) => (
 
-                                <li key={item.productId || index} className="mb-4 border-2 border-gray-200 p-4 rounded flex flel sm:flex-row gap-4">
+                                <li key={item.productId || index}  className="mb-4 border-2 border-gray-200 p-4 rounded flex flex-col sm:flex-row gap-4">
                                    {/* {console.log(" item completo:", item.productId, item.productName, item.imageUrl, item.price, item.quantity)}*/}
 
 
@@ -85,12 +88,12 @@ export default function CartView() {
                                         alt={item.productName}
                                         className="w-40 h-40 object-cover rounded"
                                     />
-                                    <div className="flex-1 overflow-hidden">
+                                    <div className="flex-1">
                                     <h3 className="heading text-xl font-bold" >{item.productName}</h3>
                                         <p className="sub-heading text-gray-600">{item.description}</p>
                                         <p className="font-bold">Precio: {item.price} €</p>
                                         {/* cantidad-> añadir o restar*/ }
-                                        <div className="flex items-center gap-2">{/* Se muestra un input para modificar la cantidad del producto */ }
+                                        <div className="flex flex-wrap items-center gap-2 mt-2">{/* Se muestra un input para modificar la cantidad del producto */ }
                                             <label htmlFor={`cantidad-${item.productId}`} className="text-sm font-medium">{/* Se muestra un label para la cantidad */ }
                                                 Cantidad:
                                             </label>
