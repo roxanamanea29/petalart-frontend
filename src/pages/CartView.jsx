@@ -76,7 +76,7 @@ export default function CartView() {
 
                             {cart.items.map((item , index) => (
 
-                                <li key={item.productId || index} className="mb-4 border-2 border-gray-200 p-4 rounded flex gap-4">
+                                <li key={item.productId || index} className="mb-4 border-2 border-gray-200 p-4 rounded flex flex-col sm:flex-row gap-4">
                                    {/* {console.log(" item completo:", item.productId, item.productName, item.imageUrl, item.price, item.quantity)}*/}
 
 
@@ -85,7 +85,7 @@ export default function CartView() {
                                         alt={item.productName}
                                         className="w-40 h-40 object-cover rounded"
                                     />
-                                    <div>
+                                    <div className="flex-1 overflow-hidden">
                                     <h3 className="heading text-xl font-bold" >{item.productName}</h3>
                                         <p className="sub-heading text-gray-600">{item.description}</p>
                                         <p className="font-bold">Precio: {item.price} €</p>
