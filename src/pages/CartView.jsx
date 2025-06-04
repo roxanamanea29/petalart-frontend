@@ -76,7 +76,7 @@ export default function CartView() {
 
                             {cart.items.map((item , index) => (
 
-                                <li key={item.productId || index} className="mb-4 border-2 border-gray-200 p-4 rounded flex flex-col sm:flex-row gap-4">
+                                <li key={item.productId || index} className="mb-4 border-2 border-gray-200 p-4 rounded flex flel sm:flex-row gap-4">
                                    {/* {console.log(" item completo:", item.productId, item.productName, item.imageUrl, item.price, item.quantity)}*/}
 
 
