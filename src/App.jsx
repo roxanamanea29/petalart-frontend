@@ -41,7 +41,6 @@ function App() {
                         <Route path="/about" element={<AboutView />}/>
                         <Route path="/categorias/:id" element={<CategoryProducts/>}/>
                         <Route path="/login" element={<Login/>}/>
-                        <Route path="/register" element={<RegisterForm />}/>
                         <Route path="/contacto" element={<Contact/>}/>
                         <Route path="/search" element={<SearchResults />}/>
                         <Route path="/productos/:id" element={<ProductDetail/>}/>

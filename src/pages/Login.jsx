@@ -52,7 +52,7 @@ export default function Login() {
             if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
 
             // ——————————————————————————————
-            // Aquí solo llamamos a `login(...)`. No es necesario volver a hacer
+            // Aquí solo llamo a `login(...)`. No es necesario  a hacer otra vez
             // `localStorage.setItem("user", ...)` porque el Context lo persiste.
             // login(token, roles, userId, name, email) guardará en localStorage:
             //    { id: userId, name, email, roles, token }

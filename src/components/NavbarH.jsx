@@ -76,14 +76,6 @@ const NavbarH = () => {
                             Sobre nosotros
                         </Link>
 
-                        <Link
-                            className="sub-heading text-start mb-4 block"
-                            to="/register"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            Registrarse
-                        </Link>
-
                         {!isAuthenticated ? (
                             <Link
                                 className="sub-heading text-start mb-4 block"
