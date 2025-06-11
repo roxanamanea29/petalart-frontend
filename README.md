@@ -4,43 +4,18 @@ Este repositorio contiene la interfaz de usuario de **PetalArt**, una aplicació
 
 ---
 
-## 🧩 Tecnologías utilizadas
+## 🧰 Tecnologías utilizadas
 
 - React 18
-- Vite
-- React Router DOM
-- Axios
-- Tailwind CSS + CSS propio
-- Context API
-- LocalStorage (para carrito sin login)
+- Vite como bundler ultrarrápido
+- React Router DOM para navegación SPA
+- Fetch API para llamadas HTTP
+- Tailwind CSS + CSS personalizado
+- Context API para gestión de estado
 
 ---
 
-## 📁 Estructura del proyecto
-
-petalart-frontend/
-├── public/
-│ ├── images/
-│ ├── gallery/
-│ └── banner_html/
-├── src/
-│ ├── assets/ # Imágenes, íconos
-│ ├── css/ # Archivos de estilos
-│ ├── Configuration/ # Configs de rutas o API
-│ ├── components/ # Componentes reutilizables
-│ ├── components_admin/ # Componentes del panel admin
-│ ├── hooks/ # Custom hooks (useCart, useAuth…)
-│ ├── pages/ # Vistas principales
-│ │ ├── admin/ # Páginas para administrador
-│ │ └── user/ # Páginas para usuarios
-│ └── routes/ # Definición de rutas
-├── package.json
-├── vite.config.js
-└── README.md
-
----
-
-## 🚀 Funcionalidades clave
+## 🚀 Funcionalidades
 
 - Catálogo de productos con filtros por categoría
 - Registro / Login con JWT
@@ -53,6 +28,32 @@ petalart-frontend/
 
 ---
 
+## 📁 Estructura del proyecto
+
+```
+petalart-frontend/
+├── public/
+│   ├── images/
+│   ├── gallery/
+│   └── banner_html/
+├── src/
+│   ├── assets/                # Imágenes, íconos
+│   ├── css/                   # Archivos de estilos
+│   ├── Configuration/         # Configs de rutas o API
+│   ├── components/            # Componentes reutilizables
+│   ├── components_admin/      # Componentes del panel admin
+│   ├── hooks/                 # Custom hooks (useCart, useAuth…)
+│   ├── pages/
+│   │   ├── admin/             # Páginas para administrador
+│   │   └── user/              # Páginas para usuarios
+│   └── routes/                # Definición de rutas
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
 ## 🛠️ Instalación y ejecución
 
 ### 1. Clonar el repositorio
@@ -60,18 +61,32 @@ petalart-frontend/
 ```bash
 git clone https://github.com/roxanamanea29/petalart-frontend.git
 cd petalart-frontend
+```
 
-2. Instalar dependencias
+### 2. Instalar dependencias
+
+```bash
 npm install
+```
 
-3. Crear archivo .env con la URL del backend
+### 3. Crear archivo `.env` con la URL del backend
+
+```env
 VITE_API_URL=http://localhost:8080
+```
 
-4. Ejecutar la aplicación
+### 4. Ejecutar la aplicación
+
+```bash
 npm run dev
-La app estará disponible en: http://localhost:5173
+```
 
-🌐 Rutas principales
+App disponible en: [http://localhost:5173](http://localhost:5173)
+
+---
+
+## 🌐 Rutas principales
+
 | Ruta              | Descripción                              |
 | ----------------- | ---------------------------------------- |
 | `/`               | Página de inicio                         |
@@ -84,20 +99,28 @@ La app estará disponible en: http://localhost:5173
 | `/cuenta`         | Panel del usuario                        |
 | `/admin`          | Panel de administración (requiere admin) |
 
+---
 
-🔐 Seguridad y control de acceso
-Acceso condicional a rutas según rol (User/Admin)
+## 🔐 Seguridad y control de acceso
 
-JWT almacenado en localStorage
+- Acceso condicional a rutas según rol (User/Admin)
+- JWT almacenado en localStorage
+- Fetch con headers personalizados para autenticación
 
-Interceptor Axios para enviar el token en cada request
+---
 
-🧑‍💻 Autora
-Roxana Manea
-📧 manea.roxanaa@gmail.com
-🔗 GitHub: roxanamanea29
+## 👥 Autora
 
-📜 Licencia
-Este proyecto está licenciado bajo los términos de la Licencia MIT.
-Consulta el archivo LICENSE en el repositorio principal.
+**Roxana Manea**\
+📧 [manea.roxanaa@gmail.com](mailto\:manea.roxanaa@gmail.com)\
+👤 [GitHub: roxanamanea29](https://github.com/roxanamanea29)
+
+Proyecto desarrollado como Trabajo de Fin de Grado en DAW.
+
+---
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo los términos de la **Licencia MIT**.\
+Consulta el archivo [LICENSE](./LICENSE) para más detalles.
 
